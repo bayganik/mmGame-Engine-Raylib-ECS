@@ -7,6 +7,8 @@ https://github.com/rocwood/Entitas-Lite        (I've included Entitas here, sinc
 
 Entity Component System (ECS) is used to allow for separation of concern when coding. 
 
+Below examples have "Debug" flag on.  F9 will flip "Debug" off/on.  The tank will move using arrow keys.  The red boxes are BoxColliders drawn as debug guide.
+
 ## Main Menu Screen
 
 ![game image](MenuSrn.png)
