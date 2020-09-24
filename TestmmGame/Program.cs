@@ -13,17 +13,6 @@ namespace TestmmGame
         {
 
             TestGame game = new TestGame();
-            //game.Run();
-            
-            //Raylib.InitWindow(1024, 800, "Kamran is here");
-            //while (!Raylib.WindowShouldClose())
-            //{
-            //    BeginDrawing();
-            //    ClearBackground(Color.BLUE);
-            //    DrawText("hello, ..", 100, 200, 20, Color.WHITE);
-            //    EndDrawing();
-            //}
-            //CloseWindow();
         }
     }
 }
