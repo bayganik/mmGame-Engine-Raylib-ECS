@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="mmGameNOTUSED.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="AssetsEngine\Cards\CardDeck_72x100.png" />
+    <None Remove="AssetsEngine\Cards\EmptyHolder.png" />
+    <None Remove="AssetsEngine\Fonts\arial.ttf" />
+    <None Remove="AssetsEngine\Fonts\toon.ttf" />
+    <None Remove="AssetsEngine\Fonts\Volkhov-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="AssetsEngine\Cards\CardDeck_72x100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetsEngine\Cards\EmptyHolder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetsEngine\Fonts\arial.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetsEngine\Fonts\toon.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetsEngine\Fonts\Volkhov-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Raylib-cs" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Entitas.Lite\Entitas.Lite.csproj" />
+  </ItemGroup>
+
+</Project>
