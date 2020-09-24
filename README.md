@@ -1,4 +1,4 @@
-Simple Game Engine using Raylib as the core, Entitas lite as the ECS engine.  The combination works !!
+A Game Engine using Raylib as the core, Entitas lite as the ECS engine.  The combination works !!
 
 The engine and a sample Menu + few other scenes with sprites, animated sprites, compound sprites + simple card game, 
 
