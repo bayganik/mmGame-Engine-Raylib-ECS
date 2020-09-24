@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Numerics;
 using Raylib_cs;
 
-//using static Raylib_cs.Raylib;
-//using static Raylib_cs.KeyboardKey;
-//using static Raylib_cs.Color;
-
 using mmGameEngine;
 using Transform = mmGameEngine.Transform;
 
@@ -56,7 +52,7 @@ namespace TestmmGame
             Global.DebugRenderEnabled = true;
 
             //znznznznznznznznznznznznznznznznzn
-            // All game logic goes at this point
+            // All game Setup goes at this point
             //znznznznznznznznznznznznznznznznzn
             /*
              * 
@@ -238,8 +234,6 @@ namespace TestmmGame
             // Create bullet placement
             //--------------------------
             Entity bullPlace = CreateGameEntity("bullet");
-            //Text bulletText = new Text("B", TextFontTypes.Default);
-            //tcc.BulletPlaceHolder.Add(bulletText);
             bullPlace.Modify<Transform>().Parent = turret.Get<Transform>();
             bullPlace.Modify<Transform>().LocalPosition = new Vector2(0, -500);
 
@@ -310,10 +304,9 @@ namespace TestmmGame
             entFire.Add(bx);
             entFire.Add<FireComponent>();
 
-            //Entitas.Systems AllPlaySystems = new Systems();
-            //AllPlaySystems.Add(new CrossHairMoveSystem());
             //
-            // Let the Scene Start
+            // Now, scene will cycle thru all componenets and systems to do
+            // All display & move & other logic
             //
 
 
@@ -326,34 +319,8 @@ namespace TestmmGame
             bullet.Get<Transform>().Position = moveFrom;
             BoxCollider bx = new BoxCollider((int)moveFrom.X, (int)moveFrom.Y, 9, 29);
             bullet.Add(bx);
-            //rocket.RenderLayer = 0;
-            //rocket.Tag = "rocket";
-            //rocket.Transform.Scale = new Vector2(1f, 1f);
-            //rocket.Visible = false;
-            //rocket.Enabled = false;
+
             bullet.Add(rocketAnimation);
-            //AnimatedSprite rocketAnime = new AnimatedSprite(Renderer, rocket, RocketImg, 9, 26);
-            //rocketAnime.AddAnimation("fly", "all");
-            //rocketAnime.Play("fly");
-            //rocketAnime.Enabled = true;
-            //rocket.AddComponent(rocketAnime);
-
-            //ProjectileMover projtileComp = new ProjectileMover();
-            ////projComp.ExclusionCollider = tank.GetComponent<BoxCollider>();     //exclude collision with tank itself
-            //projtileComp.Speed = 250;
-            //projtileComp.IsMoving = true;
-            //projtileComp.MoveFrom = moveFrom;
-            //projtileComp.MoveTo = moveTo;
-            //rocket.AddComponent(projtileComp);                  //auto mover
-
-            //rocket.AddComponent<BulletComponent>();             //allows moving system to act on it
-            //rocket.AddComponent<BoxCollider>();                 //allows it to hit other objects
-
-            //rocket.Rotation = rotation;                         //same as turret
-            //rocket.Position = moveFrom;                         //same as tip of turret
-            //rocket.Enabled = true;                              //rocket will fly & hit things
-            //rocket.Visible = true;                              //may not be visible
-
         }
         public void CardsButton(object btn)
         {
@@ -398,15 +365,7 @@ namespace TestmmGame
             spr.Texture = textureImage;
 
         }
-        //public override void OnStart()
-        //{
-        //    base.OnStart();
-        //    //Raylib.CloseAudioDevice();
-        //    //Raylib.CloseWindow();
 
-        //    //SetWindowResolution(1024, 800, "I changed Scene Title");
-        //    Global.DebugRenderEnabled = true;
-        //}
     }
 
 }
