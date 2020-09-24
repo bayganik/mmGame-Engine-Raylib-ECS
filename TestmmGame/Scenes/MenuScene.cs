@@ -4,10 +4,6 @@ using System.Numerics;
 using Raylib_cs;
 using System.Reflection;
 
-//using static Raylib_cs.Raylib;
-//using static Raylib_cs.KeyboardKey;
-//using static Raylib_cs.Color;
-
 using mmGameEngine;
 using Transform = mmGameEngine.Transform;
 
