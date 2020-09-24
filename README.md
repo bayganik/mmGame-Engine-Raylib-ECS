@@ -12,6 +12,8 @@ Scene is the base of the game.  Inside the Scene you add Entities that have Comp
 
 The are components that have special meaning.  
 
+    Transform component gets added to all entities.
+    
     Sprite adds an image
     
     SpriteAnimation adds an animated sprite using sprite sheet
@@ -37,3 +39,7 @@ Below examples have "Debug" flag on.  F9 will flip "Debug" off/on.  The tank wil
 ## Card Game Screen
 
 ![game image](CardSrn.png)
+
+Would like to thank Prime31 with his wonderful Nez ECS framework.  https://github.com/prime31/Nez  (although this framework no longer uses ECS)
+
+
