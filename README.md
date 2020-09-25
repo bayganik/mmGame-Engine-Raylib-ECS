@@ -29,9 +29,9 @@ Systems do the guts of the logic of the game.  They are executed once every fram
 
 Below examples have "Debug" flag on.  F9 will flip "Debug" off/on.  The tank will move using arrow keys.  The red boxes are BoxColliders drawn as debug guide.
 
-## Main Menu Screen
+## Main Menu Scene
 
-<img align="right" src="./MenuSrn.png" width="256">
+<img align="right" src="./MenuSrn.png" >
 
 The Menu scene uses the engine GUI component called Panel which has other components in it (buttons & label).
 Panel is a Scene Entity (meaning it will be drawn on top of everything) and has Color.BLANK so you can see thru it.
@@ -41,11 +41,11 @@ The background image is a Game Entity with a Sprite component.
 
 
 
-## Play Screen
+## Play Scene
 
 ![game image](PlaySrn.png)
 
-## Card Game Screen
+## Card Game Scene
 
 ![game image](CardSrn.png)
 
