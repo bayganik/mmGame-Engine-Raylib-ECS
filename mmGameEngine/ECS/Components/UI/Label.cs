@@ -7,7 +7,7 @@ using Raylib_cs;
 namespace mmGameEngine
 {
     /*
-     * UI element that is attached to an entity
+     * Label UI element.  Used for display of messages
      */
     public class Label : RenderComponent
     {
@@ -21,9 +21,6 @@ namespace mmGameEngine
         Color CurrentTextColor;
         public TextInfo TextData;
 
-        //Vector2 textPosition;
-        //int width;
-        //int height;
         string content;
         
         public Label(Vector2 _position, string _content)

@@ -13,24 +13,26 @@ namespace mmGameEngine
      *{
      *   public TestGame() : base()
      *   {
-     *       Scene = new PlayScene();
+     *       Scene = new SplashScene();
      *   }
      *}
      */
     public class mmGame
     {
-        public Color WindowClearColor;
-        public KeyboardKey ExitKey = KeyboardKey.KEY_ESCAPE;
+        public Color WindowClearColor;                                  //Can be changed
+        public KeyboardKey ExitKey = KeyboardKey.KEY_ESCAPE;            //Can be changed by user
         public bool ForceEndScene = false;
         /// <summary>
-        /// provides access to the single Core/Game instance
+        /// provides access to the singlton mmGame/Scene instance
         /// </summary>
         public static mmGame Instance => _instance;
-
         /// <summary>
         /// facilitates easy access to the global Content instance for internal classes
         /// </summary>
         internal static mmGame _instance;
+        //
+        // Scene variables for internal use
+        //
         Scene _scene;
         Scene _nextScene;
         /// <summary>
@@ -61,6 +63,11 @@ namespace mmGameEngine
                 }
             }
         }
+
+        protected mmGame()
+        {
+            _instance = this;
+        }
         internal void RunGameLoop()
         {
             /*
@@ -69,8 +76,8 @@ namespace mmGameEngine
              * or
              * In case of RPG games, the scene may change frequently
              */
-            
-            while(true)
+
+            while (true)
             {
                 Run();                                              //update and render loop
                 //
@@ -103,14 +110,6 @@ namespace mmGameEngine
         {
             GC.Collect();
         }
-        protected mmGame()
-        {
-            _instance = this;
-
-            //WindowClearColor = winClearColor;
-            //SetSceneWindow(winWidth, winHeight, winTitle);
-        }
-        //public void SetSceneWindow(int winWidth, int winHeight, string winTitle)
         public void SetSceneWindow()
         {
             //
@@ -127,8 +126,6 @@ namespace mmGameEngine
             if (!Raylib.IsAudioDeviceReady())
                 Raylib.InitAudioDevice();
 
-            //Global.ViewPortWidth = winWidth;
-            //Global.ViewPortHeight = winHeight;
             Global.WindowCenter = new Vector2(Global.SceneWidth / 2, Global.SceneHeight / 2);
 
             Raylib.SetExitKey(ExitKey);
@@ -152,9 +149,6 @@ namespace mmGameEngine
 
                 Render();
 
-                //if (Raylib.IsKeyPressed(KeyboardKey.KEY_ESCAPE))
-                //    ForceEndScene = true;
-
                 //------------------------------------
                 // New scene is given this frame
                 //------------------------------------
@@ -163,9 +157,6 @@ namespace mmGameEngine
             }
             //
             // Exit key or Scene change
-            //
-            // if (Raylib.IsAudioDeviceReady())
-            //     Raylib.CloseAudioDevice();
             //
             Raylib.CloseWindow();
 

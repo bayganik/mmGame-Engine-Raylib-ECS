@@ -21,24 +21,20 @@ namespace mmGameEngine
 		//
 		public mmGame Game;
 		//
-		// ECS used for Entitis (Game objects & components)
+		// ECS used for Entitis (Game entities & components)
 		//
 		Entitas.Context EntityContext;
 		Entitas.Systems EntitySystems;
 		List<Entity> GameEntities;
 		//
-		// ECS used for this Scene (Game UI & components)
+		// ECS used for this Scene (Scene UI entities & components)
 		//
 		Entitas.Context SceneContext;
 		Entitas.Systems SceneSystems;
 		List<Entity> SceneEntities;
 
-		//public int WindowWidth = 800;
-		//public int WindowHeight = 640;
-		//public string WindowTitle = "Game Scene";
-
-		public Color WindowClearColor;
-		public KeyboardKey ExitKey = KeyboardKey.KEY_ESCAPE;
+		//public Color WindowClearColor;
+		//public KeyboardKey ExitKey = KeyboardKey.KEY_ESCAPE;
 		public bool ForceEndScene = false;
 		//
 		// Camera 2D
@@ -61,7 +57,7 @@ namespace mmGameEngine
             Initialize();
 			//
 			// mmGame will call Begin() method
-			// mmGame will call Play() method
+			// mmGame will call Play() method this is an override in your scene
 			//
         }
 		/// <summary>
@@ -109,11 +105,12 @@ namespace mmGameEngine
 		public virtual void OnStart()
 		{
 			/*
-			 * Each scene will set the size of the screen override this method
+			 * Each scene will set the size of the screen override in its construct.
+			 * This is left as a compatibility.  You can still use it for initializations etc.
 			 */
 		}
 		/// <summary>
-		/// Create an Entity, Add a Transform component
+		/// Create a Game Entity, using a name and scale
 		/// </summary>
 		/// <returns></returns>
 		public Entity CreateGameEntity(string name = "", float initScale = 1.0f)
@@ -135,18 +132,15 @@ namespace mmGameEngine
 			return ent;
         }
 		/// <summary>
-		/// Game Entity is used to create objects/sprites/images/etc.  as part of the game
+		/// Create a Game Entity using initial position and scale
 		/// </summary>
 		/// <param name="initPosition"></param>
 		/// <param name="initScale"></param>
 		/// <returns></returns>
 		public Entity CreateGameEntity(Vector2 initPosition, float initScale = 1.0f)
 		{
-			//
-			// reate the entity at initPosition, Scale initScale
-			//
 			Entity ent = EntityContext.CreateEntity();
-			ent.EntityType = 0;			//game entity
+			ent.EntityType = 0;			//game entity type
 			//
 			// fix the Transform
 			//
@@ -159,7 +153,7 @@ namespace mmGameEngine
 			return ent;
 		}
 		/// <summary>
-		/// Scene Entity is typically a UI element drawn on top of game scene
+		/// Create a Scene Entity (drawn on top of game scene e.g. UI entity)
 		/// </summary>
 		/// <returns></returns>
 		public Entity CreateSceneEntity(string name = "", float initScale = 1.0f)
@@ -168,7 +162,7 @@ namespace mmGameEngine
 			// Create the entity at Vector2(0,0), Scale 1.0f
 			//
 			Entity ent = SceneContext.CreateEntity();
-			ent.EntityType = 1;     //scene entity
+			ent.EntityType = 1;     //scene entity type
 			ent.name = name;
 			//
 			// fix the Transform
@@ -181,7 +175,7 @@ namespace mmGameEngine
 			return ent;
 		}
 		/// <summary>
-		/// Scene Entity is typically a UI element drawn on top of game scene
+		/// Create a Scene Entity (drawn on top of game scene e.g. UI entity)
 		/// </summary>
 		/// <param name="initPosition"></param>
 		/// <param name="initScale"></param>
@@ -192,7 +186,7 @@ namespace mmGameEngine
 			// reate the entity at initPosition, Scale initScale
 			//
 			Entity ent = SceneContext.CreateEntity();
-			ent.EntityType = 1;        //scene entity
+			ent.EntityType = 1;        //scene entity type
 			//
 			// fix the Transform
 			//
@@ -208,14 +202,14 @@ namespace mmGameEngine
 		internal void Begin()
         {
 			//
-			// mmGame calls Begin() when a new scene starts
+			// mmGame calls Begin() before a new scene window is created
 			//
 			SceneColliders.Initialize();
 
 			//
 			// Allow Entitas to init systems, auto collect matched systems, no manual Systems.Add(ISystem) required
 			//
-			EntitySystems = new Entitas.Feature(null);          //game entities
+			EntitySystems = new Entitas.Feature(null);               //game entities
 			EntitySystems.Initialize();
 
 			SceneSystems = new Entitas.Feature(null);               //scene UI entities
@@ -224,6 +218,9 @@ namespace mmGameEngine
 		}
 		internal void End()
 		{
+			//
+			// mmGame calls End() when scene changes, before new scene is created
+			//
 			EntitySystems.TearDown();
 			EntitySystems.ClearReactiveSystems();
 			EntityContext.DestroyAllEntities();
@@ -233,8 +230,7 @@ namespace mmGameEngine
 		}
 		/// <summary>
 		/// You MUST override this in Scene classes and do your loading & other logic. 
-		/// This is called from the contructor after the scene sets itself up but
-		/// before begin is ever called.
+		/// This is called from mmGame after the scene construct, Begin(), then here
 		/// </summary>
 		public virtual void Play()
 		{
@@ -243,12 +239,8 @@ namespace mmGameEngine
 			 * Components & Systems should be setup separately
 			 */
 		}
-		//public void SetWindowResolution(int _width, int _height, string _windowTitle)
-		//{
-			//Game.SetSceneWindow(_width, _height, _windowTitle);
-		//}
 		/// <summary>
-		/// Every scene MUST call DispScene() to start the logic.  Do this after all initializations are done
+		/// mmGame calls this Update() method every frame 
 		/// </summary>
 		public virtual void Update()
 		{
@@ -280,20 +272,21 @@ namespace mmGameEngine
 			//
 			foreach (Entity ent in GameEntities)
 			{
-
+				
 				if (!ent.Get<Transform>().Enabled)
 					continue;
 
-				Entitas.IComponent[] allComp = ent.GetComponents();         //this entity's component
+				Entitas.IComponent[] allComp = ent.GetComponents();         //all entity components
 				foreach (Entitas.IComponent comp in allComp)
 				{
 					if (comp is IRenderable)
 					{
 						//
-						// Renderable components need to know what happened to Entity Transform
+						// Renderable components get the transform component of the Entity
 						//
 						RenderComponent myComp = (RenderComponent)comp;
 						myComp.CompEntity = ent;
+
 						myComp.Update(deltaTime);
 					}
 					else

@@ -7,17 +7,20 @@ using Raylib_cs;
 
 namespace mmGameEngine
 {
+	/*
+	 * Scrolling background image with speed control
+	 */
     public class ScrollingImage : RenderComponent
     {
 		/// <summary>
 		/// x speed of automatic scrolling in pixels/s
 		/// </summary>
-		public float ScrollSpeedX = 15;
+		public float ScrollSpeedX = 15;					//default is horizontal move
 
 		/// <summary>
 		/// y speed of automatic scrolling in pixels/s
 		/// </summary>
-		public float ScrollSpeedY = 0;
+		public float ScrollSpeedY = 0;					//vertial move
 		/// <summary>
 		/// x value of the texture scroll
 		/// </summary>
@@ -52,10 +55,6 @@ namespace mmGameEngine
 				_inverseTexScale = new Vector2(1f / _textureScale.X, 1f / _textureScale.Y);
 			}
 		}
-		/// <summary>
-		/// overridden width value so that the TiledSprite can have an independent width than its texture
-		/// </summary>
-		/// <value>The width.</value>
 		public int Width
 		{
 			get => (int)_sourceRect.width;
@@ -65,10 +64,6 @@ namespace mmGameEngine
 				_sourceRect.width = value;
 			}
 		}
-		/// <summary>
-		/// overridden height value so that the TiledSprite can have an independent height than its texture
-		/// </summary>
-		/// <value>The height.</value>
 		public int Height
 		{
 			get => (int)_sourceRect.height;
@@ -85,7 +80,6 @@ namespace mmGameEngine
 
 		protected Vector2 _textureScale = Vector2.One;
 		protected Vector2 _inverseTexScale = Vector2.One;
-		//Texture2D Texture;
 		protected Vector2 _localOffset;
 		protected bool _areBoundsDirty = true;
 
@@ -114,8 +108,9 @@ namespace mmGameEngine
         public override void Render()
         {
             base.Render();
-			
-			//Vector2 Origin = new Vector2((float)Texture.width / 2, (float)Texture.height / 2);
+			//
+			// Origin is always 0,0
+			//
 			var topLeft = Transform.Position + _localOffset;
 
 			Rectangle _destRect = new Rectangle(topLeft.X, topLeft.Y,

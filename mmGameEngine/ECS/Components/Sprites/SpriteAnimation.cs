@@ -8,7 +8,10 @@ using System.Numerics;
 
 namespace mmGameEngine
 {
-	public class SpriteAnimation : RenderComponent           //RenderComponent
+	/*
+	 * Sprite animation using a sprite sheet with eaqually spaced frames
+	 */
+	public class SpriteAnimation : RenderComponent 
     {
 		/// <summary>
 		/// rectangle in the Texture2D for this element
@@ -19,7 +22,6 @@ namespace mmGameEngine
 		/// </summary>
 		//public Rectangle DestRect;
 		public Rectangle[] SourceFrames;
-		//public BoxCollider BoxCollider;
 
 		/// <summary>
 		/// the current state of the animation
@@ -53,7 +55,8 @@ namespace mmGameEngine
 			var rows = sheetTexture.height / cellHeight;
 			SourceFrames = new Rectangle[cols * rows];
 			//
-			// Find source rectangles for each frame
+			// Find source rectangles for each frame on this spritesheet
+			// I assume they are uniformly done
 			//
 			int i = 0;
 			for (var y = 0; y < rows; y++)
@@ -64,8 +67,6 @@ namespace mmGameEngine
 					i++;
 				}
 			}
-
-
 		}
 		public void AddAnimation(string name = "", string frameNumbers = "", float fps = 3 )
         {
@@ -73,17 +74,20 @@ namespace mmGameEngine
 			// default is 3 fps or frames/second (3/60 = 0.05 seconds)
 			//
 			int numOfAnimFrames;
-			//framesSpeed = fps;
+
 			//
 			// frameNumbers  = "all" or "1,2,3,4"
 			//
-			if (string.IsNullOrEmpty(name))
+			if (string.IsNullOrEmpty(name))				//name assumed to be "all"
 				name = "all";
-			if (string.IsNullOrEmpty(frameNumbers))
+
+			if (string.IsNullOrEmpty(frameNumbers))		//no frame numbers, then "all"
 				frameNumbers = "all";
+
 			string[] nums;
 			if (frameNumbers.ToLower() == "all")
             {
+				// if "all" then fine all frames
 				numOfAnimFrames = SourceFrames.Count();
 				nums = new string[numOfAnimFrames];
 				for (int i = 0; i < numOfAnimFrames; i++)
@@ -91,26 +95,27 @@ namespace mmGameEngine
 			}
 			else
             {
+				// if numbers supplied for frames "11,12,13,11"
 				nums = Regex.Split(frameNumbers, ",");
 				numOfAnimFrames = nums.Count();
             }
 
-			SpriteAnimationSet sas = new SpriteAnimationSet();
-			sas.FrameRate = fps;
-			sas.SpriteFrames = new Rectangle[numOfAnimFrames]; 
+			SpriteAnimationSet saSet = new SpriteAnimationSet();
+			saSet.FrameRate = fps;
+			saSet.SpriteFrames = new Rectangle[numOfAnimFrames]; 
 			for (int i = 0; i < nums.Count(); i++)
             {
 				int framNum = Convert.ToInt32(nums[i]);
-				sas.SpriteFrames[i] = SourceFrames[i];
+				saSet.SpriteFrames[i] = SourceFrames[i];
             }
-			Animations.Add(name, sas);
+			Animations.Add(name, saSet);
 
         }
 		public override void Update(float deltaTime)
         {
 			base.Update(deltaTime);
 			//
-			// This component is not attached to Entity yet, cycle thru
+			// This component is not attached to Entity yet, cycle out
 			//
 			if (CompEntity == null)
 				return;
@@ -142,7 +147,6 @@ namespace mmGameEngine
 			if (currentFrame >= CurrentAnimation.SpriteFrames.Count())
 			{
 				currentFrame = 0;
-				//framesCounter = 0;
 				//
 				// If its ONCE only, then stop
 				//
@@ -152,14 +156,13 @@ namespace mmGameEngine
                 }				
 					
 			}
-
-
-
+			//
+			// Set the origin of the frame one time only
+			//
             if (OriginDirty)
             {
                 TextureCenter = new Vector2(FrameWidth * 0.5f * Transform.Scale.X, FrameHeight * 0.5f * Transform.Scale.Y);
 				Origin = TextureCenter;
-				//Origin = new Vector2(BoxCollider.width * 0.5f, BoxCollider.height * 0.5f);
 				OriginDirty = false;
 			}
 		}
@@ -167,9 +170,6 @@ namespace mmGameEngine
 		{
 			if (CurrentState != AnimationState.Running)
 				return;
-
-			//if (HasBoxCollider && Global.DebugRenderEnabled)
-			//	RenderDebug();
 
 			DestRect = new Rectangle(Transform.Position.X, Transform.Position.Y, 
 									 FrameWidth * Transform.Scale.X, 

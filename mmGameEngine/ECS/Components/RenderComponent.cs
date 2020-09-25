@@ -7,12 +7,12 @@ using Entitas;
 
 namespace mmGameEngine
 {
-    public delegate void ClickEventHandler(object obj);
+
     /*
-	 * Every Renderable component inherits from this to give us the ability
-	 * to ask Entitas for a collection of components that need to render that we can iterate and
-	 * invoke Update() and Render() methods in our Scene class
+	 * Same as component, with additional fields, a single delegate (used for buttons)
+	 * and ability to invoke Render() method in our Scene class
 	 */
+    public delegate void ClickEventHandler(object obj);
     public class RenderComponent : Component, IRenderable 
 	{
         public event ClickEventHandler Click;

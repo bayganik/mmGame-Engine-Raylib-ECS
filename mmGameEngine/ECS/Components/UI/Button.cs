@@ -7,7 +7,8 @@ using Raylib_cs;
 namespace mmGameEngine
 {
     /*
-     * UI element that is attached to an entity
+     * Button UI element.  Mouse movements don't take camera into account.
+     * Assumption is all UI elements are drawn AFTER camera draw is done
      */
     public class Button : RenderComponent
     {
@@ -129,7 +130,6 @@ namespace mmGameEngine
             if (!Enabled)
                 return;
 
-            //if (HitTest(new Vector2(Raylib.GetMouseX(), Raylib.GetMouseY())))
             if (HitTest(new Vector2(Raylib.GetMouseX(), Raylib.GetMouseY())))
             {
                 CurrentBackgroundColor = Color.LIGHTGRAY;

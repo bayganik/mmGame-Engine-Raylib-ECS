@@ -7,6 +7,9 @@ using Raylib_cs;
 
 namespace mmGameEngine
 {
+	/*
+	 * Main component to display a texture for an entity
+	 */
     public class Sprite : RenderComponent
     {
 		public bool FitWindow = false;
@@ -18,7 +21,6 @@ namespace mmGameEngine
 		/// rectangle in the Texture2D for this element
 		/// </summary>
 		public Rectangle DestRect;
-		//public BoxCollider BoxCollider;
 
 		public Vector2 OriginLocal ;
 		public bool OriginDirty = true;					//force the first update to get correct Origin
@@ -36,13 +38,6 @@ namespace mmGameEngine
 
 			Initialize();
 		}
-		//public Sprite(Texture2D initTexture, Vector2 initPosition)
-		//{
-		//	Texture = initTexture;
-		//	//Position = initPosition;
-
-		//	Initialize();
-		//}
 		private void Initialize()
         {
 			SourceRect = new Rectangle(0, 0, Texture.width, Texture.height);
@@ -53,7 +48,7 @@ namespace mmGameEngine
         {
 			base.Update(deltaTime);
 			//
-			// If Entity has not been attached, then cycle thru
+			// If Entity has not been attached, then leave
 			//
 			if (CompEntity == null)
 				return;

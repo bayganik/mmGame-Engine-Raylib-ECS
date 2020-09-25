@@ -8,7 +8,8 @@ using System.Linq;
 namespace mmGameEngine
 {
     /*
-     * UI element that is attached to an entity
+     * Panel UI element is a container that holds other UI elements within it.  Moving
+     * the Panel will move all of its elements with it.
      */
     public class Panel : RenderComponent
     {
@@ -17,11 +18,8 @@ namespace mmGameEngine
         public int BorderThickness = 4;
         public List<RenderComponent> PanelComponents = new List<RenderComponent>();
 
-        //Color CurrentBackgroundColor;
-        //Color CurrentTextColor;
         public TextInfo TextData;
 
-        //Vector2 textPosition;
         int width;
         int height;
         //string content;
@@ -37,12 +35,11 @@ namespace mmGameEngine
         {
             base.Update(deltaTime);
             //
-            // If component is attached to an Entity, the obey his position
+            // If component is attached to an Entity, the obey its position
             //
             if (CompEntity != null)
             {
                 CompPosition = Transform.Position;
-
             }
             //
             // Panel will call component Update method
@@ -77,12 +74,11 @@ namespace mmGameEngine
             }
 
         }
-        public void AddComponent(RenderComponent component)
+        public void AddComponent(RenderComponent _uiElement)
         {
             // convert relative position to absolute
-            component.CompPosition = new Vector2(component.CompPosition.X + CompPosition.X, component.CompPosition.Y + CompPosition.Y);
-            //component.RecalculateLayout();
-            PanelComponents.Add(component);
+            _uiElement.CompPosition = new Vector2(_uiElement.CompPosition.X + CompPosition.X, _uiElement.CompPosition.Y + CompPosition.Y);
+            PanelComponents.Add(_uiElement);
         }
 
     }

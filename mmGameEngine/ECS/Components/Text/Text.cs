@@ -6,6 +6,10 @@ using Raylib_cs;
 
 namespace mmGameEngine
 {
+    /*
+     * Text content to be displayed on game scene (attached to an entity)
+     * if entity moves, then text will move with it (e.g. labeling your opponents)
+     */
     public class Text : RenderComponent
     {
         public Color FontColor = Color.BLACK;

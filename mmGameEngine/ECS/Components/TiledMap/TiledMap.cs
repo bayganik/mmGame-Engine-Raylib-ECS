@@ -6,16 +6,17 @@ using Raylib_cs;
 
 namespace mmGameEngine
 {
+    /*
+     * Tiled map component allows acess to all the layers & objects of the map
+     * TiledTmx folder has all the update/render code
+     */
     public class TiledMap : RenderComponent
     {
         public TmxMap Map;
         public string MapPath;
-        public string[] TileSetImagePath;
-        //public CanvasBitmap[] TileSetImage;
+        public string[] TileSetImagePath;               //all the image png files used (sprite sheets)
         public TmxTileset MyTileSet;
 
-        //int tilesetTilesWide;
-        //int tilesetTilesHigh;
         public TiledMap(string _mapFilePath)
         {
             MapPath = _mapFilePath;
@@ -27,10 +28,7 @@ namespace mmGameEngine
             Global.WorldWidth = Map.WorldWidth;
             Global.WorldHeight = Map.WorldHeight;
         }
-        public override void Update(float deltaTime)
-        {
-            base.Update(deltaTime);
-        }
+
         public override void Render()
         {
             base.Render();

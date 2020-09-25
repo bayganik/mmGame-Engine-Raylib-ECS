@@ -8,7 +8,7 @@ using System.Linq;
 namespace mmGameEngine
 {
     /*
-     * UI element that is attached to an entity
+     * Message Box (like a Panel) is a special UI element.  Used to give info to user and wait until "OK" button is pushed.
      */
     public class MsgBox : RenderComponent
     {
@@ -17,11 +17,6 @@ namespace mmGameEngine
         public int BorderThickness = 4;
         public List<RenderComponent> PanelComponents = new List<RenderComponent>();
 
-        //Color CurrentBackgroundColor;
-        //Color CurrentTextColor;
-        //public TextInfo TextData;
-
-        //Vector2 textPosition;
         public int Width;
         public int Height;
         //string content;
@@ -86,8 +81,6 @@ namespace mmGameEngine
         public void AddButton(Button ok)
         {
             Vector2 pos = new Vector2((Width / 2) - 20, Height - 45);
-            //Button ok = new Button(pos, 35, 35, "OK", -5, 7);
-            //ok.TextData.FontSize = 20;
             ok.CompPosition = new Vector2(ok.CompPosition.X + CompPosition.X, ok.CompPosition.Y + CompPosition.Y);
 
             PanelComponents.Add(ok);

@@ -5,6 +5,13 @@ using System.Runtime.CompilerServices;
 
 namespace mmGameEngine
 {
+	/*
+	 * The heart and soul of all entities.  This component is automatically attached to all entities.
+	 * This component allows for multiple entity Parent/Child relations.  So, when you move the Parent
+	 * then all its children will move with it.
+	 * 
+	 * All you do is set child entity's Parent transform
+	 */
 	public class Transform : Component
 	{
 		Transform _parent;

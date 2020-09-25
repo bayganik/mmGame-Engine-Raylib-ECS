@@ -7,9 +7,11 @@ using Entitas;
 namespace mmGameEngine
 {
     /*
-	 * Every component inherits from this to give us the ability
-	 * to ask Entitas for a collection that we can iterate and
-	 * invoke Update() and Render() methods in our Entity class
+     * The basic data structure attached to an Entity.  Using Entitas.IComponent
+	 * allows us to ask Entitas for a collection of components that we can iterate and
+	 * invoke Update() method in our Scene class.
+	 * 
+	 * if you need to draw anything, then use RendereComponent
 	 */
     public abstract class Component : Entitas.IComponent
     {
