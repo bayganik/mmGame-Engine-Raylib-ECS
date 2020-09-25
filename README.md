@@ -33,7 +33,9 @@ Below examples have "Debug" flag on.  F9 will flip "Debug" off/on.  The tank wil
 
 <img align="right" src="./MenuSrn.png" width="256">
 
-The Menu scene uses the engine GUI component called Panel which has other components in it (buttons & label)
+The Menu scene uses the engine GUI component called Panel which has other components in it (buttons & label).
+Panel is a Scene Entity (meaning it will be drawn on top of everything) and has Color.BLANK so you can see thru it.
+The back ground image is a Game Entity with a Sprite component.
 
 
 ## Play Screen
