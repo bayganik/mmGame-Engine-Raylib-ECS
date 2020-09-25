@@ -11,18 +11,12 @@ namespace mmGameEngine
     /*
 	 * Every Renderable component inherits from this to give us the ability
 	 * to ask Entitas for a collection of components that need to render that we can iterate and
-	 * invoke Update() and Render() methods in our Entity class
+	 * invoke Update() and Render() methods in our Scene class
 	 */
     public class RenderComponent : Component, IRenderable 
 	{
         public event ClickEventHandler Click;
-        //public int Tag;
 
-        //public bool Enabled = true;                 //is the component enabled (default true)
-        //public Vector2 CompPosition;                //This is used by UI components
-        //public Entity CompEntity;					//This is updated in Scene loop
-        //public Transform Transform;                 //Transform component of entity
-        //public bool HasBoxCollider = false;         //if this is suppose to collide with anything
         public int RenderLayer;                     //render from low to high
         /// <summary>
         /// sprite image
@@ -42,15 +36,7 @@ namespace mmGameEngine
         {
             Tag = 0;
             Enabled = true;
-            //HasBoxCollider = false;
         }
-        //public override void Update(float deltaTime)
-        //{
-        //    if (CompEntity != null)
-        //        Transform = CompEntity.Get<Transform>();
-        //    else
-        //        Transform = new Transform();
-        //}
         public virtual void Render()
         { }
 
