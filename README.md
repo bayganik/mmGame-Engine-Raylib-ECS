@@ -43,7 +43,7 @@ The background image is a Game Entity with a Sprite component.
 
 ## Play Scene
 
-![game image](PlaySrn.png)
+<img align="right" src="./PlaySrn.png" >
 
 ## Card Game Scene
 
