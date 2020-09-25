@@ -47,7 +47,7 @@ The background image is a Game Entity with a Sprite component.
 
 ## Play Scene
 
-<img align="right" src="./PlaySrn.png" >
+<img align="left" src="./PlaySrn.png" >
 
 
 
