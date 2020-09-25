@@ -26,7 +26,7 @@ namespace TestmmGame
             string assName = (string)System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
 
             assmbly = Assembly.Load(assName);
-            Global.NextScene = assName + ".MenuScene";
+            Global.NextScene = assName + ".MenuScene";              //make sure it has a dot TestmmGame.MenuScene
         }
         public override void Play()
         {
@@ -49,14 +49,13 @@ namespace TestmmGame
                 ConstructorInfo sceneInfo = scene2play.GetConstructor(Type.EmptyTypes);
                 object sceneObj = sceneInfo.Invoke(new object[]{ });
                 mmGame.Scene = (Scene)sceneObj;
+                // or
                 //Scene otherScene = new MenuScene();
                 //mmGame.Scene = otherScene;
             }
         }
         public override void Render()
         {
-            //Raylib.BeginDrawing();
-            //Raylib.ClearBackground(Color.BLUE);
             //
             // show the mmGame image
             //
@@ -65,7 +64,6 @@ namespace TestmmGame
                                   new Rectangle(0,0,800,600), 
                                   new Vector2(0,0), 0, Color.WHITE);
 
-            //Raylib.EndDrawing();
         }
     }
 }
