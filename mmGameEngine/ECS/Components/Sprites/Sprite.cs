@@ -12,6 +12,14 @@ namespace mmGameEngine
 	 */
     public class Sprite : RenderComponent
     {
+		//
+		// Draw line data (from init pos to current pos)
+		//
+		public bool EnableTracer = false;   
+		public Vector2 InitialPosition;
+		public Color TracerColor = Color.RED;
+		public float TracerThick = 1.0f;
+
 		public bool FitWindow = false;
 		/// <summary>
 		/// rectangle in the Texture2D for this element
@@ -63,6 +71,7 @@ namespace mmGameEngine
 				Origin = new Vector2(OriginLocal.X * Transform.Scale.X, 
 									 OriginLocal.Y * Transform.Scale.Y);
                 OriginDirty = false;
+				InitialPosition = Transform.Position;
             }
         }
         public override void Render()
@@ -85,13 +94,23 @@ namespace mmGameEngine
 										 Texture.width * Transform.Scale.X,
 										 Texture.height * Transform.Scale.Y);
 			}
-            Raylib.DrawTexturePro(Texture,
+			if (EnableTracer)
+			{
+				//
+				// line ends at the Origin of the sprite
+				//
+				Raylib.DrawLineEx(InitialPosition, Transform.Position, TracerThick, TracerColor);
+			}
+			//
+			// Draw actual texture image
+			//
+			Raylib.DrawTexturePro(Texture,
                                   SourceRect,
                                   DestRect,
                                   Origin,
                                   Transform.Rotation,
                                   Color.WHITE);
-		
-        }
+
+		}
     }
 }

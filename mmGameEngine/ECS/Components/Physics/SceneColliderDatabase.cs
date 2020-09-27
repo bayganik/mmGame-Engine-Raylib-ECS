@@ -13,7 +13,7 @@ namespace mmGameEngine
      * Database of BoxColliders in this scene.  The colliders must get updated when entity position
      * changes.
      */
-    public static class SceneColliders
+    public static class SceneColliderDatabase
     {
         /// <summary>
         /// collection is just a database of entities that have colliders
@@ -52,12 +52,66 @@ namespace mmGameEngine
                 ColliderCollection.Remove(entity);
             }
         }
+        public static bool CollidedWith(Entity entity,  out CollisionResult _collisionResult)
+        {
+            //
+            // currently not used
+            //
+            _collisionResult = new CollisionResult();
+            //
+            // Find the Entity in question, if not in database then no collision
+            //
+            if (!ColliderCollection.ContainsKey(entity))
+                return false;
+            //
+            // Find out what kind of collider entity has?
+            //
+            BoxCollider bx = entity.Get<BoxCollider>();
+            //CircleCollider cx = entity.Get<CircleCollider>();
+
+            BoxAABB boxA = bx.CollisionBox;
+
+            //
+            // Find entity and ask
+
+            //
+            // Test collision with other "registered" BoxColliders
+            //
+            foreach (KeyValuePair<Entity, int> entry in ColliderCollection)
+            {
+                if (entry.Key == entity)
+                    continue;
+                if (entry.Value != (int)CollidreShape.Box)
+                    continue;
+
+                Entity ent = entry.Key;
+                bx = ent.Get<BoxCollider>();
+                if (bx == null)                     //incase collider was removed
+                    return false;
+
+                if (boxA.Overlaps(bx.CollisionBox))
+                {
+                    _collisionResult.CompEntity = entry.Key;
+                    //_collisionResult.BoxContainer = entry.Value;
+                    //_collisionResult.CollisionArea = Raylib.GetCollisionRec(boxA, entry.Value);
+                    return true;
+                }
+            }
+
+                return false;
+        }
         //
         // Test collision with other "registered" BoxColliders
         //
         public static bool CollidedWithBox(Entity entity,  out CollisionResult _collisionResult)
         {
             _collisionResult = new CollisionResult();
+            //
+            // Find the Entity in question, if not in database then no collision
+            //
+            if (!ColliderCollection.ContainsKey(entity))
+                return false;
+
             BoxCollider bx = entity.Get<BoxCollider>();
             //
             // if entity has no boxcollider then exit
@@ -65,7 +119,7 @@ namespace mmGameEngine
             if (bx == null)                         // incase collider was removed
                 return false;
 
-            AABB boxA = bx.CollisionBox;
+            BoxAABB boxA = bx.CollisionBox;
 
             foreach (KeyValuePair<Entity, int> entry in ColliderCollection)
             {
@@ -95,7 +149,7 @@ namespace mmGameEngine
     public struct CollisionResult
     {
         public Entity CompEntity;
-        public AABB BoxContainer;
+        public BoxAABB BoxContainer;
         public Rectangle CollisionArea;
         public bool Collided;
 

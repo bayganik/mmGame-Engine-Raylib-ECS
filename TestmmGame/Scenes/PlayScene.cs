@@ -196,6 +196,7 @@ namespace TestmmGame
             Spr.RenderLayer = 100;              //on top of everything
             CH.Add(Spr);
             BoxCollider bxxx = new BoxCollider(new Rectangle(0, 0, 8, 8));
+            //CircleCollider bxxx = new CircleCollider(0, 0, 8);
             CH.Add(bxxx);
             CH.Add<CrossHairComponent>();
             //--------------------------
@@ -205,6 +206,8 @@ namespace TestmmGame
             tankEnt.name = "Tank";
             textureImage = Raylib.LoadTexture("Assets/Img/Tank Base.png");
             Spr = new Sprite(textureImage);             // Setup the sprite for ent
+            Spr.EnableTracer = true;
+
             //Spr.HasBoxCollider = true;
             tankEnt.Get<Transform>().Visiable = true;
             tankEnt.Get<Transform>().Rotation = 0;

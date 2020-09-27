@@ -86,14 +86,14 @@ namespace mmGameEngine
                 foreach (Component child in entity.Get<Transform>().Children)
                 {
                     GameEntityToDestroy.TryAdd(child.CompEntity, true);
-                    SceneColliders.RemoveCollider(child.CompEntity);
+                    SceneColliderDatabase.RemoveCollider(child.CompEntity);
                 }
             }
             //
             // Add entity to be removed
             //
             GameEntityToDestroy.TryAdd(entity, true);
-            SceneColliders.RemoveCollider(entity);
+            SceneColliderDatabase.RemoveCollider(entity);
         }
         public static void DestroySceneEntity(Entity entity)
         {
@@ -194,5 +194,10 @@ namespace mmGameEngine
         FollowPlayer,
         FollowInsideMap,
         FollowCenterSmooth
+    }
+    public enum CollidreShape
+    {
+        Box,
+        Circle
     }
 }

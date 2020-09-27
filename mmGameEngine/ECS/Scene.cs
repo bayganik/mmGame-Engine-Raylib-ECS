@@ -204,7 +204,7 @@ namespace mmGameEngine
 			//
 			// mmGame calls Begin() before a new scene window is created
 			//
-			SceneColliders.Initialize();
+			SceneColliderDatabase.Initialize();
 
 			//
 			// Allow Entitas to init systems, auto collect matched systems, no manual Systems.Add(ISystem) required

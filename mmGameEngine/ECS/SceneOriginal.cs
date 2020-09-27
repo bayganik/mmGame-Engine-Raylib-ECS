@@ -225,7 +225,7 @@ namespace mmGameEngine
 		/// </summary>
 		public void DisplayScene()
 		{
-			SceneColliders.Initialize();
+			SceneColliderDatabase.Initialize();
 
 			//
 			// Allow Entitas to init systems, auto collect matched systems, no manual Systems.Add(ISystem) required

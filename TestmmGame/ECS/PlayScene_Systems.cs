@@ -26,7 +26,7 @@ namespace TestmmGame
 
                 //pos.Y += .05f;
                 //CollisionResult cr;
-                //if (SceneColliders.CollidedWith(ent, spComp.BoxContainer, out cr))
+                //if (SceneColliderDatabase.CollidedWith(ent, spComp.BoxContainer, out cr))
                 //{
 
                 //    Global.AddEntityDestroy(ent);
@@ -39,7 +39,6 @@ namespace TestmmGame
 
     public class FireMoveSystem : IExecuteSystem
     {
-
         public void Execute()
         {
             var MyScene = (Scene)Global.CurrentScene;
@@ -65,7 +64,7 @@ namespace TestmmGame
                 // e is entity moving
                 // cr.CompEntity.tag is entity we colided with
                 //
-                if (SceneColliders.CollidedWithBox(e, out cr))
+                if (SceneColliderDatabase.CollidedWithBox(e, out cr))
                 {
                     if (cr.CompEntity.tag == 1000)          //if cursor then do nothing
                     {
@@ -103,6 +102,9 @@ namespace TestmmGame
 
         public void Execute()
         {
+            //
+            // Make sure you are in the correct scene!
+            //
             var MyScene = (Scene)Global.CurrentScene;
             if (MyScene.GetType().Name != "PlayScene")
                 return;

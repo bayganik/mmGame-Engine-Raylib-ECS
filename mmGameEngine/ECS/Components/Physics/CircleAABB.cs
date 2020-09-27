@@ -5,10 +5,12 @@ using System.Numerics;
 
 namespace mmGameEngine
 {
-    public class Circle
+    public class CircleAABB
     {
-        Vector2 center;
-        float radius;
+        public Vector2 Center;
+        public float Radius;
+        public Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
+        public Vector2 max = new Vector2(float.MinValue, float.MinValue);
 
         #region FromVec3
         public static Vector2 Min(Vector2 a, Vector2 b)
@@ -49,15 +51,15 @@ namespace mmGameEngine
         }
         #endregion
 
-        public Circle()
+        public CircleAABB()
         {
             // Purposefully Blank.
         }
 
-        public Circle(Vector2 p, float r)
+        public CircleAABB(Vector2 p, float r)
         {
-            center = p;
-            radius = r;
+            Center = p;
+            Radius = r;
         }
 
         public void Fit(Vector2[] points)
@@ -71,14 +73,14 @@ namespace mmGameEngine
                 max = Vector2.Max(max, points[i]);
             }
 
-            center = (min + max) * 0.5f;
-            radius = Distance(center, max);
+            Center = (min + max) * 0.5f;
+            Radius = Distance(Center, max);
         }
 
         public void Fit(List<Vector2> points)
         {
-            Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
-            Vector2 max = new Vector2(float.MinValue, float.MinValue);
+            //Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
+            //Vector2 max = new Vector2(float.MinValue, float.MinValue);
 
             foreach (Vector2 p in points)
             {
@@ -86,13 +88,13 @@ namespace mmGameEngine
                 max = Vector2.Max(max, p);
             }
 
-            center = (min + max) * 0.5f;
-            radius = Distance(center, max);
+            Center = (min + max) * 0.5f;
+            Radius = Distance(Center, max);
         }
 
         // TODO: Another method of fitting a Sphere to a collection of points is to first find the average 
-        //       position within the collection and set it to the Sphere’s center, then set the radius to the 
-        //       distance between the center and the point farthest from the center.This method requires looping 
+        //       position within the collection and set it to the Sphere’s Center, then set the Radius to the 
+        //       distance between the Center and the point farthest from the Center.This method requires looping 
         //       through the points multiple times.
         //
         // Try and implement this second method yourself.
@@ -100,36 +102,36 @@ namespace mmGameEngine
         // Collision Checks --------------------
         public bool Overlaps(Vector2 p)
         {
-            Vector2 toPoint = p - center;
-            return MagnitudeSqr(toPoint) <= (radius * radius);
+            Vector2 toPoint = p - Center;
+            return MagnitudeSqr(toPoint) <= (Radius * Radius);
         }
 
-        public bool Overlaps(Circle otherCollider)
+        public bool Overlaps(CircleAABB otherCollider)
         {
-            Vector2 diff = otherCollider.center - center;
-            float r = radius + otherCollider.radius;
+            Vector2 diff = otherCollider.Center - Center;
+            float r = Radius + otherCollider.Radius;
             return MagnitudeSqr(diff) <= (r * r);
         }
         //
         // Circle check with collision box 
         //
-        public bool Overlaps(AABB aabb)
+        public bool Overlaps(BoxAABB aabb)
         {
-            Vector2 diff = aabb.ClosestPoint(center) - center;
-            return DotProduct(diff, diff) <= (radius * radius);
+            Vector2 diff = aabb.ClosestPoint(Center) - Center;
+            return DotProduct(diff, diff) <= (Radius * Radius);
         }
 
         Vector2 ClosestPoint(Vector2 p)
         {
-            // Distance from the center.
-            Vector2 toPoint = p - center;
+            // Distance from the Center.
+            Vector2 toPoint = p - Center;
 
-            // If outside the radius, bring it back to the radius.
-            if (MagnitudeSqr(toPoint) > (radius * radius))
+            // If outside the Radius, bring it back to the Radius.
+            if (MagnitudeSqr(toPoint) > (Radius * Radius))
             {
-                toPoint = GetNormalized(toPoint) * radius;
+                toPoint = GetNormalized(toPoint) * Radius;
             }
-            return center + toPoint;
+            return Center + toPoint;
         }
     }
 }

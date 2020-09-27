@@ -28,7 +28,7 @@ namespace TestmmGame.ECS
                 if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
                 {
                     CollisionResult cr;
-                    if (SceneColliders.CollidedWithBox(e, out cr))
+                    if (SceneColliderDatabase.CollidedWithBox(e, out cr))
                     {
                         e.Get<CrossHairComponent>().CurrentEntityChosen = cr.CompEntity;
                         cr.CompEntity.Add<EntityCapturedComponent>();

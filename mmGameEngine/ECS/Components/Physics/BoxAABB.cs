@@ -5,8 +5,10 @@ using System.Numerics;
 
 namespace mmGameEngine
 {
-
-    public class AABB
+    /*
+     * AABB 
+     */
+    public class BoxAABB
     {
         public Vector2 min = new Vector2(float.NegativeInfinity, float.NegativeInfinity);
         public Vector2 max = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
@@ -28,12 +30,12 @@ namespace mmGameEngine
         }
         #endregion
 
-        public AABB()
+        public BoxAABB()
         {
             // Purposefully Blank.
         }
 
-        public AABB(Vector2 min, Vector2 max)
+        public BoxAABB(Vector2 min, Vector2 max)
         {
             this.min = min;
             this.max = max;
@@ -87,15 +89,17 @@ namespace mmGameEngine
         //
         // Collision box check
         //
-        public bool Overlaps(AABB otherCollider)
+        public bool Overlaps(BoxAABB otherCollider)
         {
             return !(max.X < otherCollider.min.X || max.Y < otherCollider.min.Y || min.X > otherCollider.max.X || min.Y > otherCollider.max.Y);
         }
 
-        public bool Overlaps(Circle circleCol)
+        public bool Overlaps(CircleAABB circleCol)
         {
-            return true; //placeholder
-                         // TODO: Figure out how to make the overlap check for this.
+            Vector2 diff = ClosestPoint(circleCol.Center) - circleCol.Center;
+            return circleCol.DotProduct(diff, diff) <= (circleCol.Radius * circleCol.Radius);
+            //return true; //placeholder
+            //             // TODO: Figure out how to make the overlap check for this.
         }
 
         public Vector2 ClosestPoint(Vector2 p)

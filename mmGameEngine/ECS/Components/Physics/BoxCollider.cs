@@ -6,15 +6,10 @@ using Raylib_cs;
 
 namespace mmGameEngine
 {
-	public enum CollidreShape
-    {
-		Box,
-		Circle
-    }
     public class BoxCollider : RenderComponent
     {
 		public List<Vector2> BoxPoints;
-		public AABB CollisionBox;
+		public BoxAABB CollisionBox;
 		Rectangle boxContainer;
 		Vector2 theCenter;				//origin of the texture size
 		bool setScenColliders;
@@ -31,7 +26,7 @@ namespace mmGameEngine
 										 _boxToCollide.height);
 
 
-			CollisionBox = new AABB();
+			CollisionBox = new BoxAABB();
 			setScenColliders = false;
 			RenderLayer = Global.BOXCOLLIDER_LAYER;				//make sure this is drawn first
 		}
@@ -45,7 +40,7 @@ namespace mmGameEngine
 										 _boxToCollide.height);
 
 
-			CollisionBox = new AABB();
+			CollisionBox = new BoxAABB();
 			RenderLayer = Global.BOXCOLLIDER_LAYER;             //make sure this is drawn first
 		}
         public override void Update(float deltaTime)
@@ -73,11 +68,14 @@ namespace mmGameEngine
 			//
 			// Find the min & max vectors for collision
 			//
-            CollisionBox.Fit(BoxPoints);
+            CollisionBox.Fit(BoxPoints);				//updates the position of this collider
 
 			if (!setScenColliders)
 			{
-				SceneColliders.SetCollider(CompEntity, CollidreShape.Box);
+				//
+				// update the database of colliders in this scene (happens only once)
+				//
+				SceneColliderDatabase.SetCollider(CompEntity, CollidreShape.Box);
 				setScenColliders = true;
 			}
 		}
@@ -96,7 +94,8 @@ namespace mmGameEngine
 			//
 			// draw full rectangle
 			//
-			Rectangle rt = new Rectangle(CollisionBox.min.X, CollisionBox.min.Y, boxContainer.width, boxContainer.height);
+			//Rectangle rt = new Rectangle(CollisionBox.min.X, CollisionBox.min.Y, boxContainer.width, boxContainer.height);
+			Rectangle rt = new Rectangle(boxContainer.x, boxContainer.y, boxContainer.width, boxContainer.height);
 			//Raylib.DrawRectangle((int)rt.x, (int)rt.y, 
 			//					 (int)rt.width, (int)rt.height,
 			//					 Raylib.Fade(Color.RED, 0.5f));
