@@ -106,7 +106,7 @@ namespace mmGameEngine
 			for (int i = 0; i < nums.Count(); i++)
             {
 				int framNum = Convert.ToInt32(nums[i]);
-				saSet.SpriteFrames[i] = SourceFrames[i];
+				saSet.SpriteFrames[i] = SourceFrames[framNum];
             }
 			Animations.Add(name, saSet);
 
