@@ -1,9 +1,6 @@
 ﻿using System;
 using Raylib_cs;
-using static Raylib_cs.Raylib;
-using static Raylib_cs.CameraType;
-using static Raylib_cs.CameraMode;
-using static Raylib_cs.Color;
+using mmGameEngine;
 
 namespace TestmmGame
 {
@@ -14,6 +11,13 @@ namespace TestmmGame
 
             TestGame game = new TestGame();
 
+        }
+    }
+    public class TestGame : mmGame
+    {
+        public TestGame() : base()
+        {
+            Scene = new SplashScene();
         }
     }
 }

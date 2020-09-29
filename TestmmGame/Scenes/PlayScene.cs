@@ -169,7 +169,7 @@ namespace TestmmGame
             tm.RenderLayer = -1000;
             tm.Enabled = false;
 
-
+            entMap.Get<Transform>().Enabled = false;
             entMap.Add(tm);
 
             Global.WorldHeight = tm.Map.WorldHeight;
@@ -180,7 +180,7 @@ namespace TestmmGame
             //------------------------------
             Entity backG = this.CreateGameEntity(new Vector2(0, 0), 1.0f);
             backG.name = "Scrolling";
-            textureImage = Raylib.LoadTexture("Assets/Img/Map.png");
+            textureImage = Raylib.LoadTexture("Assets/Img/background.png");
             ScrollingImage si = new ScrollingImage(textureImage);
             si.ScrollSpeedX = 10;
             backG.Add(si);
@@ -195,7 +195,7 @@ namespace TestmmGame
             Spr = new Sprite(textureImage);
             Spr.RenderLayer = 100;              //on top of everything
             CH.Add(Spr);
-            BoxCollider bxxx = new BoxCollider(new Rectangle(0, 0, 8, 8));
+            BoxCollider bxxx = new BoxCollider(8, 8);
             //CircleCollider bxxx = new CircleCollider(0, 0, 8);
             CH.Add(bxxx);
             CH.Add<CrossHairComponent>();
@@ -216,7 +216,7 @@ namespace TestmmGame
             //
             // add tank collider
             //
-            BoxCollider bx = new BoxCollider(new Rectangle(300f,500f, Spr.Texture.width * 0.25f, Spr.Texture.height * 0.25f));
+            BoxCollider bx = new BoxCollider(Spr.Texture.width * 0.25f, Spr.Texture.height * 0.25f);
             tankEnt.Add(bx);
             tankEnt.Add<TankComponent>();
             //----------------------
@@ -293,17 +293,17 @@ namespace TestmmGame
             //
             // setup a Sprite Fire (looping)
             //
-            Entity entFire = CreateGameEntity(new Vector2(300, 100), 0.25f);
+            Entity entFire = CreateGameEntity(new Vector2(300, 300), 0.50f);
             entFire.name = "Fire";
-            spriteSheet = Raylib.LoadTexture("Assets/Missile/FIR001.png");
+            spriteSheet = Raylib.LoadTexture("Assets/Img/flame232x148.png");
 
-            SpriteAnimation fireAnim = new SpriteAnimation(spriteSheet, 128, 128);
+            SpriteAnimation fireAnim = new SpriteAnimation(spriteSheet, 232, 148);
             fireAnim.RenderLayer = 11;
             fireAnim.AddAnimation("explode", "all", 1.5f);
             fireAnim.Play("explode", true);
             entFire.Add(fireAnim);
 
-            bx = new BoxCollider(new Rectangle(300f, 100f, 128 * 0.25f, 128 * 0.25f));
+            bx = new BoxCollider(232 * 0.50f, 148 * 0.50f);
             entFire.Add(bx);
             entFire.Add<FireComponent>();
 
@@ -320,7 +320,7 @@ namespace TestmmGame
             bullet.Get<Transform>().Scale = new Vector2(1, 1);
             bullet.Get<Transform>().Rotation = rotation;
             bullet.Get<Transform>().Position = moveFrom;
-            BoxCollider bx = new BoxCollider((int)moveFrom.X, (int)moveFrom.Y, 9, 29);
+            BoxCollider bx = new BoxCollider( 9, 29);
             bullet.Add(bx);
 
             bullet.Add(rocketAnimation);

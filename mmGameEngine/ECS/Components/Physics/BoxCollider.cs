@@ -10,32 +10,34 @@ namespace mmGameEngine
     {
 		public List<Vector2> BoxPoints;
 		public BoxAABB CollisionBox;
+
 		Rectangle boxContainer;
-		Vector2 theCenter;				//origin of the texture size
+
 		bool setScenColliders;
 		/// <summary>
 		/// Box to check for collisions. Box goes around the image (using scales)
 		/// </summary>
 		/// <param name="boxToCollide"></param>
-		public BoxCollider(Rectangle _boxToCollide)
-        {
-			theCenter = new Vector2(_boxToCollide.width * 0.5f, _boxToCollide.height * 0.5f);
-			boxContainer = new Rectangle(_boxToCollide.x - theCenter.X,
-										 _boxToCollide.y - theCenter.Y,
-										 _boxToCollide.width,
-										 _boxToCollide.height);
+		//public BoxCollider(Rectangle _boxToCollide)
+  //      {
+		//	theCenter = new Vector2(_boxToCollide.width * 0.5f, _boxToCollide.height * 0.5f);
+		//	boxContainer = new Rectangle(_boxToCollide.x - theCenter.X,
+		//								 _boxToCollide.y - theCenter.Y,
+		//								 _boxToCollide.width,
+		//								 _boxToCollide.height);
 
 
-			CollisionBox = new BoxAABB();
-			setScenColliders = false;
-			RenderLayer = Global.BOXCOLLIDER_LAYER;				//make sure this is drawn first
-		}
-		public BoxCollider(int _x, int _y, int _width, int _height)
+		//	CollisionBox = new BoxAABB();
+		//	setScenColliders = false;
+		//	RenderLayer = Global.BOXCOLLIDER_LAYER;				//make sure this is drawn first
+		//}
+		public BoxCollider(float _width, float _height)
         {
-			Rectangle _boxToCollide = new Rectangle(_x, _y, _width, _height);
-			theCenter = new Vector2(_boxToCollide.width * 0.5f, _boxToCollide.height * 0.5f);
-			boxContainer = new Rectangle(_boxToCollide.x - theCenter.X,
-										 _boxToCollide.y - theCenter.Y,
+			Rectangle _boxToCollide = new Rectangle(0,0, _width, _height);
+			OriginLocal = new Vector2(_boxToCollide.width * 0.5f, _boxToCollide.height * 0.5f);
+
+			boxContainer = new Rectangle(_boxToCollide.x - OriginLocal.X,
+										 _boxToCollide.y - OriginLocal.Y,
 										 _boxToCollide.width,
 										 _boxToCollide.height);
 
@@ -54,8 +56,8 @@ namespace mmGameEngine
 			//
 			// update location of box containing the collider
 			//
-			boxContainer.x = Transform.Position.X - theCenter.X;
-			boxContainer.y = Transform.Position.Y - theCenter.Y;
+			boxContainer.x = Transform.Position.X - OriginLocal.X;
+			boxContainer.y = Transform.Position.Y - OriginLocal.Y;
 			BoxPoints = new List<Vector2>();
 			Vector2 topL = new Vector2(boxContainer.x, boxContainer.y);
 			Vector2 topR = new Vector2(topL.X + boxContainer.width, topL.Y);

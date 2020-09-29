@@ -56,7 +56,7 @@ namespace TestmmGame
             Spr = new Sprite(textureImage);
             Spr.RenderLayer = Global.CURSOR_LAYER;              //on top of everything
             CH.Add(Spr);
-            BoxCollider bxxx = new BoxCollider(new Rectangle(0, 0, 8, 8));
+            BoxCollider bxxx = new BoxCollider(8, 8);
             CH.Add(bxxx);
             CH.Add<CrossHairComponent>();
             //

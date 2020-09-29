@@ -31,7 +31,7 @@ namespace mmGameEngine
 		public Rectangle DestRect;
 
 		public Vector2 OriginLocal ;
-		public bool OriginDirty = true;					//force the first update to get correct Origin
+		public bool OriginReCalc = true;					//force the first update to get correct Origin
 		public Sprite(string filePath)
         {
 			Texture = Raylib.LoadTexture(filePath);
@@ -52,6 +52,7 @@ namespace mmGameEngine
 			TextureCenter = new Vector2(Texture.width * 0.5f, Texture.height * 0.5f);
 			OriginLocal = new Vector2(Texture.width * 0.5f , Texture.height * 0.5f );
 		}
+		
         public override void Update(float deltaTime)
         {
 			base.Update(deltaTime);
@@ -61,17 +62,17 @@ namespace mmGameEngine
 			if (CompEntity == null)
 				return;
 
-            //
-            // At this time, we have the Entity's "Transform" component assigned by Scene or find Origin
-            //		using the Scale
-            //
-            if (OriginDirty)
+			//
+			// At this time, we have the Entity's "Transform" component assigned by Scene or find Origin
+			//		using the Scale
+			//
+			TextureCenter = new Vector2(Texture.width * 0.5f * Transform.Scale.X, Texture.height * 0.5f * Transform.Scale.Y);
+			InitialPosition = Transform.Position;
+			if (OriginReCalc)
             {
-                TextureCenter = new Vector2(Texture.width * 0.5f * Transform.Scale.X, Texture.height * 0.5f * Transform.Scale.Y);
 				Origin = new Vector2(OriginLocal.X * Transform.Scale.X, 
 									 OriginLocal.Y * Transform.Scale.Y);
-                OriginDirty = false;
-				InitialPosition = Transform.Position;
+                OriginReCalc = false;
             }
         }
         public override void Render()

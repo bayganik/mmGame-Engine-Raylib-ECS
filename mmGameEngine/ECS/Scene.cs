@@ -508,9 +508,9 @@ namespace mmGameEngine
 			float delta = Raylib.GetFrameTime();
 			int width = Global.SceneWidth;
 			int height = Global.SceneHeight;
-			float minSpeed = 30;
+			//float minSpeed = 30;
 			float minEffectLength = 10;
-			float fractionSpeed = 0.8f;
+			//float fractionSpeed = 0.8f;
 			float speed = 4.0f;
 
 			Camera.offset = new Vector2(width / 2, height / 2);

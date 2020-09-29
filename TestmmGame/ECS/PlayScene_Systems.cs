@@ -90,8 +90,8 @@ namespace TestmmGame
                     return;
                 }
 
-                e.Get<Transform>().Position = pos;
-                //e.Get<Transform>().Enabled = true;
+                //e.Get<Transform>().Position = pos;
+
 
 
             }

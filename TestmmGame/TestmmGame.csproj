@@ -15,11 +15,14 @@
     <None Remove="Assets\Fonts\arial.ttf" />
     <None Remove="Assets\Fonts\toon.ttf" />
     <None Remove="Assets\Fonts\Volkhov-Regular.ttf" />
+    <None Remove="Assets\Img\background.png" />
     <None Remove="Assets\Img\Base.png" />
     <None Remove="Assets\Img\Button_empty.png" />
     <None Remove="Assets\Img\Button_empty1.JPG" />
     <None Remove="Assets\Img\characters.png" />
     <None Remove="Assets\Img\crosshair.png" />
+    <None Remove="Assets\Img\flame232x148.png" />
+    <None Remove="Assets\Img\flame304x194.jpg" />
     <None Remove="Assets\Img\GameBackground.jpg" />
     <None Remove="Assets\Img\GameBackground.png" />
     <None Remove="Assets\Img\Map.png" />
@@ -42,6 +45,12 @@
     <None Remove="Assets\Missile\RocketTail7x9.png" />
     <None Remove="Assets\Sound\boom.wav" />
     <None Remove="Assets\SplashScreen.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Img\background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -73,6 +82,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Img\crosshair.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Img\flame232x148.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Img\GameBackground.jpg">

@@ -28,7 +28,7 @@ namespace mmGameEngine
 		/// </summary>
 		public AnimationState CurrentState { get; private set; } = AnimationState.None;
 		public SpriteAnimationSet CurrentAnimation;
-		public bool OriginDirty = true;
+		public bool OriginReCalc = true;
 		//
 		// Animation sets 
 		//
@@ -159,11 +159,11 @@ namespace mmGameEngine
 			//
 			// Set the origin of the frame one time only
 			//
-            if (OriginDirty)
+            if (OriginReCalc)
             {
                 TextureCenter = new Vector2(FrameWidth * 0.5f * Transform.Scale.X, FrameHeight * 0.5f * Transform.Scale.Y);
 				Origin = TextureCenter;
-				OriginDirty = false;
+				OriginReCalc = false;
 			}
 		}
 		public override void Render()

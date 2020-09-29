@@ -62,27 +62,4 @@ namespace TestmmGame
         { }
 
     }
-
-    // if no context declaration, it comes into Default context
-    //public class GameDrawComponent : RenderComponent
-    //{
-    //	public int x;
-    //	public int y;
-    //	public GameDrawComponent()
-    //       {
-    //		RenderLayer = 10;
-    //       }
-    //	// don't be afraid of writing helper accessor
-    //	public void SetValue(int nx, int ny)
-    //	{
-    //		x = nx;
-    //		y = ny;
-    //	}
-    //	public override void Render()
-    //	{
-    //		//Raylib.DrawTexture(Sprite, x, y, Color.WHITE);
-    //		Raylib.DrawText("PlayScene, ..", (int)Transform.Position.X, (int)Transform.Position.Y, 30, Color.BLACK);
-
-    //	}
-    //}
 }

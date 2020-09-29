@@ -7,7 +7,7 @@ using Entitas;
 using mmGameEngine;
 using Transform = mmGameEngine.Transform;
 using Raylib_cs;
-namespace TestmmGame.ECS
+namespace TestmmGame
 {
     public class CrossHairMoveSystem : IExecuteSystem
     {

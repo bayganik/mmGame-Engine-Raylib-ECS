@@ -297,7 +297,7 @@ namespace mmGameEngine
             _cardEnt.name = cardComp.CName;
             _cardEnt.Get<Transform>().Enabled = _enabled;
             _cardEnt.Add(cardComp);
-            BoxCollider bx = new BoxCollider(new Rectangle(0, 0, CardWidth, CardHeight));
+            BoxCollider bx = new BoxCollider(CardWidth, CardHeight);
             _cardEnt.Add(bx);
             _cardEnt.tag = -1;                          //tag to identify this entity as a card
             return _cardEnt;
@@ -315,7 +315,7 @@ namespace mmGameEngine
             _cardEnt.Get<Transform>().Enabled = _enabled;
             cardComp.CardFace = JockerCard;
             cardComp.CardBack = cardBacks[currentCardBack];
-            BoxCollider bx = new BoxCollider(new Rectangle(0, 0, CardWidth, CardHeight));
+            BoxCollider bx = new BoxCollider(CardWidth, CardHeight);
             _cardEnt.Add(bx);
             _cardEnt.Add(cardComp);
             _cardEnt.tag = -1;                          //tag to identify this entity as a card
