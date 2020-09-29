@@ -11,7 +11,7 @@ Entity Component System (ECS) is used to allow for separation of concern when co
 Scene is the base of the game.  Inside the Scene you add Entities that have Components.  Then you add a System to act on those entities.  If you don't add a system, you all you get is a scene displaying a bunch of things (like the Card Scene).  
 
 
-The are components that have special meaning.  
+There are components that have special meaning.  
 
     Transform component gets added to all entities.
     
@@ -28,6 +28,14 @@ The are components that have special meaning.
 Systems do the guts of the logic of the game.  They are executed once every frame and process all entities that match certain components (that we give them).
 
 Below examples have "Debug" flag on.  F9 will flip "Debug" off/on.  The tank will move using arrow keys.  The red boxes are BoxColliders drawn as debug guide.
+
+## To Start a VS2019 project:
+
+    Start with Net Core 3 console app
+    
+    Using Dependencies add Raylib-cs Nuget package
+    
+    Add references to Entitas-Lite and mmGameEngine
 
 ## Main Menu Scene
 
