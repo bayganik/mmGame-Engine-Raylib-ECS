@@ -207,10 +207,6 @@ namespace TestmmGame
             textureImage = Raylib.LoadTexture("Assets/Img/Tank Base.png");
             Spr = new Sprite(textureImage);             // Setup the sprite for ent
             Spr.EnableTracer = true;
-
-            //Spr.HasBoxCollider = true;
-            tankEnt.Get<Transform>().Visiable = true;
-            tankEnt.Get<Transform>().Rotation = 0;
             Spr.RenderLayer = 0;
             tankEnt.Add(Spr);
             //
@@ -224,7 +220,7 @@ namespace TestmmGame
             //----------------------
             Entity turret = this.CreateGameEntity(new Vector2(0, 0), 1f);       //position whithin the parent
             turret.name = "Turret";
-            turret.Get<Transform>().Parent = tankEnt.Get<Transform>();
+            turret.Get<Transform>().Parent = tankEnt.Get<Transform>();          //attached to parent
             textureImage = Raylib.LoadTexture("Assets/Img/Tank Turret.png");
             Spr = new Sprite(textureImage);                        // Setup the sprite for ent
             Spr.OriginLocal = new Vector2(133, 500);             //when you want a very specific origin point
@@ -299,8 +295,8 @@ namespace TestmmGame
 
             SpriteAnimation fireAnim = new SpriteAnimation(spriteSheet, 232, 148);
             fireAnim.RenderLayer = 11;
-            fireAnim.AddAnimation("explode", "all", 1.5f);
-            fireAnim.Play("explode", true);
+            fireAnim.AddAnimation("fireburn", "all", 1.5f);
+            fireAnim.Play("fireburn", true);
             entFire.Add(fireAnim);
 
             bx = new BoxCollider(232 * 0.50f, 148 * 0.50f);

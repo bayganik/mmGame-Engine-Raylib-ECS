@@ -34,9 +34,9 @@ namespace mmGameEngine
         //
         // Windows size
         //
-        public static int ViewPortWidth;
-        public static int ViewPortHeight;
-        public static Vector2 WindowCenter = new Vector2(ViewPortWidth / 2, ViewPortHeight / 2);
+        //public static int ViewPortWidth;
+        //public static int ViewPortHeight;
+        public static Vector2 WindowCenter = new Vector2(SceneWidth / 2, SceneHeight / 2);
         public const int TARGET_FPS = 60;
         public static float DeltaTime;
         //
