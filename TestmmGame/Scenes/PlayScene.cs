@@ -167,9 +167,9 @@ namespace TestmmGame
             entMap.name = "txmMap";
             TiledMap tm = new TiledMap("Assets/Map/Desert.tmx");
             tm.RenderLayer = -1000;
-            tm.Enabled = false;
+            tm.Enabled = true;
 
-            entMap.Get<Transform>().Enabled = false;
+            entMap.Get<Transform>().Enabled = true;
             entMap.Add(tm);
 
             Global.WorldHeight = tm.Map.WorldHeight;
