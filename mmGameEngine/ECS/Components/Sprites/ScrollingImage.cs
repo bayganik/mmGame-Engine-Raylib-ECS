@@ -99,6 +99,8 @@ namespace mmGameEngine
             base.Update(deltaTime);
 			if (CompEntity == null)
 				return;
+			if (!Enabled)
+				return;
 
 			_scrollX += ScrollSpeedX * deltaTime;
 			_scrollY += ScrollSpeedY * deltaTime;
@@ -107,7 +109,10 @@ namespace mmGameEngine
 		}
         public override void Render()
         {
-            base.Render();
+			if (CompEntity == null)
+				return;
+			if (!Enabled)
+				return;
 			//
 			// Origin is always 0,0
 			//

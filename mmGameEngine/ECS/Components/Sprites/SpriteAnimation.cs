@@ -120,6 +120,9 @@ namespace mmGameEngine
 			if (CompEntity == null)
 				return;
 
+			if (!Enabled)
+				return;
+
 			if (CurrentState != AnimationState.Running)
 				return;
 			//
@@ -168,8 +171,19 @@ namespace mmGameEngine
 		}
 		public override void Render()
 		{
-			if (CurrentState != AnimationState.Running)
+			//
+			// This component is not attached to Entity yet, cycle out
+			//
+			if (CompEntity == null)
 				return;
+			if (!Enabled)
+				return;
+
+			if (CurrentState != AnimationState.Running)
+			{
+				Transform.Enabled = false;
+				return;
+			}
 
 			DestRect = new Rectangle(Transform.Position.X, Transform.Position.Y, 
 									 FrameWidth * Transform.Scale.X, 

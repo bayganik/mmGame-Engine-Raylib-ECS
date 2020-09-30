@@ -53,6 +53,8 @@ namespace mmGameEngine
 			//
 			if (CompEntity == null)
 				return;
+			if (!Enabled)
+				return;
 			//
 			// update location of box containing the collider
 			//
@@ -83,7 +85,12 @@ namespace mmGameEngine
 		}
         public override void Render()
 		{
-            if (Global.DebugRenderEnabled)
+			if (CompEntity == null)
+				return;
+			if (!Enabled)
+				return;
+
+			if (Global.DebugRenderEnabled)
                 RenderDebug();
         }
 		public void RenderDebug()

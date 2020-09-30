@@ -21,6 +21,10 @@ namespace mmGameEngine
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
+            if (CompEntity == null)
+                return;
+            if (!Enabled)
+                return;
         }
         public void Play()
         {
@@ -28,6 +32,11 @@ namespace mmGameEngine
         }
         public override void Render()
         {
+            if (CompEntity == null)
+                return;
+            if (!Enabled)
+                return;
+
             if (SoundFxState == SoundState.Play)
             {
                 Raylib.PlaySound(SoundFx);

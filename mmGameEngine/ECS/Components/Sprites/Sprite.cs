@@ -61,7 +61,8 @@ namespace mmGameEngine
 			//
 			if (CompEntity == null)
 				return;
-
+			if (!Enabled)
+				return;
 			//
 			// At this time, we have the Entity's "Transform" component assigned by Scene or find Origin
 			//		using the Scale
@@ -77,8 +78,13 @@ namespace mmGameEngine
         }
         public override void Render()
         {
-			//if (HasBoxCollider && Global.DebugRenderEnabled)
-			//	RenderDebug();
+			//
+			// If Entity has not been attached, then leave
+			//
+			if (CompEntity == null)
+				return;
+			if (!Enabled)
+				return;
 			//
 			// Destination Rect depends on position & scale
 			//

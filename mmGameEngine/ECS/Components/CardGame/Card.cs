@@ -43,10 +43,17 @@ namespace mmGameEngine
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
+            if (CompEntity == null)
+                return;
+            if (!Enabled)
+                return;
         }
         public override void Render()
         {
-            base.Render();
+            if (CompEntity == null)
+                return;
+            if (!Enabled)
+                return;
             //
             // Card face or back
             //

@@ -50,10 +50,19 @@ namespace mmGameEngine
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
+            if (CompEntity == null)
+                return;
+            if (!Enabled)
+                return;
         }
 
         public override void Render()
         {
+            if (CompEntity == null)
+                return;
+            if (!Enabled)
+                return;
+
             if (Global.DebugRenderEnabled)
                 RenderDebug();
 
