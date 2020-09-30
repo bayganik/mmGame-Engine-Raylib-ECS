@@ -244,9 +244,9 @@ namespace mmGameEngine
 		/// </summary>
 		public virtual void Update()
 		{
-			//
+			//-------------------
 			// Z O O M 
-			//
+			//-------------------
 			if (Global.DebugRenderEnabled && CameraEnabled)
 			{
 				// Camera zoom controls
@@ -262,14 +262,16 @@ namespace mmGameEngine
 				}
 			}
 			deltaTime = Raylib.GetFrameTime();
+			Global.DeltaTime = deltaTime;
 			//
 			// Find all Entities
 			//
 			GameEntities = EntityContext.GetEntities().Where(e => e.EntityType == 0).ToList();
 			SceneEntities = EntityContext.GetEntities().Where(e => e.EntityType == 1).ToList();
-			//
+
+			//-----------------------------------------------------------------------
 			// Update game entities (Todo: Update order ? like the RenderLayer)
-			//
+			//-----------------------------------------------------------------------
 			foreach (Entity ent in GameEntities)
 			{
 				
@@ -286,13 +288,13 @@ namespace mmGameEngine
 						//
 						RenderComponent myComp = (RenderComponent)comp;
 						myComp.CompEntity = ent;
-
 						myComp.Update(deltaTime);
 					}
 					else
 					{
 						Component myComp = (Component)comp;
-						myComp.Update(deltaTime);                           //force it to update()
+						myComp.CompEntity = ent;
+						myComp.Update(deltaTime);
 					}
 				}
 			}
@@ -321,6 +323,7 @@ namespace mmGameEngine
 					else
 					{
 						Component myComp = (Component)comp;
+						myComp.CompEntity = ent;
 						myComp.Update(deltaTime);                          //force it to update()
 					}
 				}
