@@ -7,7 +7,7 @@ using System.Net.NetworkInformation;
 
 namespace mmGameEngine
 {
-    public class MoveProjectile : Component
+    public class EntityMover : Component
     {
 		//
 		// Following items are data to be used by calling processing system
@@ -25,7 +25,7 @@ namespace mmGameEngine
 		public bool DoesRotate = false;             //rotating like a wheel
 		public float RotationSpeed = 15f;            //how fast rotate
 
-		public MoveProjectile()
+		public EntityMover()
 		{
 			IsMoving = true;
 			Speed = 20f;
@@ -33,7 +33,7 @@ namespace mmGameEngine
 			RotationSpeed = 15f;
 
 		}
-		public MoveProjectile(Vector2 _from, Vector2 _to, float _speed = 200f)
+		public EntityMover(Vector2 _from, Vector2 _to, float _speed = 200f)
 		{
 			MoveFrom = _from;
 			MoveTo = _to;

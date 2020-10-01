@@ -11,7 +11,6 @@ namespace mmGameEngine
 {
     public class Global
     {
-
         //
         // Special Render Layers
         //
@@ -22,8 +21,8 @@ namespace mmGameEngine
         //
         // Game state
         //
-        public static bool EndOfGame = false;
-        public static string GameState;
+        public static bool GameOver = false;
+        public static GameState GameState;
         //
         // Game Windows setup for mmGame
         //

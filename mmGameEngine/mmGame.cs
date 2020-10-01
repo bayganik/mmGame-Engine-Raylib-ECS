@@ -67,6 +67,8 @@ namespace mmGameEngine
         protected mmGame()
         {
             _instance = this;
+            Global.GameState = GameState.Playing;
+            Global.GameOver = false;
         }
         internal void RunGameLoop()
         {
