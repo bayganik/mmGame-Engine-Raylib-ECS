@@ -92,6 +92,8 @@ namespace mmGameEngine
                 if (boxA.Overlaps(bx.CollisionBox))
                 {
                     _collisionResult.CompEntity = entry.Key;
+                    _collisionResult.Collided = true;
+
                     //_collisionResult.BoxContainer = entry.Value;
                     //_collisionResult.CollisionArea = Raylib.GetCollisionRec(boxA, entry.Value);
                     return true;
@@ -136,6 +138,7 @@ namespace mmGameEngine
                 if (boxA.Overlaps(bx.CollisionBox))
                 {
                     _collisionResult.CompEntity = entry.Key;
+                    _collisionResult.Collided = true;
                     //_collisionResult.BoxContainer = entry.Value;
                     //_collisionResult.CollisionArea = Raylib.GetCollisionRec(boxA, entry.Value);
                     return true;
@@ -152,6 +155,12 @@ namespace mmGameEngine
         public BoxAABB BoxContainer;
         public Rectangle CollisionArea;
         public bool Collided;
-
+        public CollisionResult(bool _collided = false)
+        {
+            Collided = false;
+            CompEntity = null;
+            BoxContainer = new BoxAABB();
+            CollisionArea = new Rectangle(0, 0, 0, 0);
+        }
     }
 }

@@ -73,7 +73,7 @@ namespace mmGameEngine
             return false;
         }
         /// <summary>
-        /// Add and entity/children to be destroyed when Update/Render cycle is done
+        /// Add an entity/children to be destroyed after Scene Update/Render is done
         /// </summary>
         /// <param name="entity"></param>
         public static void DestroyGameEntity(Entity entity)
@@ -125,6 +125,7 @@ namespace mmGameEngine
             float RotationDegrees = rotationInRadians * 57.2958f;            //convert to degrees for Raylib (1 rad * 180/pi)
             return RotationDegrees;
         }
+
         #region // Camera2D  \\
         //znznznznznznznznznznznznznznznznznznznznznznznznznznznznznznznznznznznzn
         // When camera is used, all coordinants must come here
@@ -172,15 +173,15 @@ namespace mmGameEngine
             WorldHeight = _height;
             WorldView = new RectangleF(0, 0, _width, _height);
         }
-        public static void CreateViewport (int _x, int _y, int _width, int _height)
-        {
-            //
-            // Viewport starts at a particular location in the world
-            //
-            SceneView = new RectangleF(0,0,SceneWidth, SceneHeight);
-        }
 
 
+
+    }
+    public enum GameState
+    {
+        Playing,
+        Paused,
+        Over
     }
     public enum Edge
     {

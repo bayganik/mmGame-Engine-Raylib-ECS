@@ -30,7 +30,6 @@ namespace mmGameEngine
 		/// </summary>
 		public Rectangle DestRect;
 
-		public Vector2 OriginLocal ;
 		public bool OriginReCalc = true;					//force the first update to get correct Origin
 		public Sprite(string filePath)
         {
