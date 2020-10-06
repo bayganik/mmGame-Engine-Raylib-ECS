@@ -67,9 +67,10 @@ namespace mmGameEngine
 			//		using the Scale
 			//
 			TextureCenter = new Vector2(Texture.width * 0.5f * Transform.Scale.X, Texture.height * 0.5f * Transform.Scale.Y);
-			InitialPosition = Transform.Position;
+
 			if (OriginReCalc)
             {
+				InitialPosition = Transform.Position;
 				Origin = new Vector2(OriginLocal.X * Transform.Scale.X, 
 									 OriginLocal.Y * Transform.Scale.Y);
                 OriginReCalc = false;

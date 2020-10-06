@@ -23,6 +23,7 @@ namespace mmGameEngine
         //
         public static bool GameOver = false;
         public static GameState GameState;
+        public static Int64 FrameCount;
         //
         // Game Windows setup for mmGame
         //
@@ -58,6 +59,10 @@ namespace mmGameEngine
         //
         public static Scene CurrentScene;
         public static string NextScene;
+        //
+        // Default text fonts loaded to engine
+        //
+        public static Font[] EngineFonts;
 
         public static bool DebugRenderEnabled = false;
         /// <summary>
@@ -65,6 +70,18 @@ namespace mmGameEngine
         /// </summary>
         public static Dictionary<Entity, bool> GameEntityToDestroy;
         public static Dictionary<Entity, bool> SceneEntityToDestroy;
+        public static void LoadFonts()
+        {
+            EngineFonts = new Font[7];
+
+            EngineFonts[0] = Raylib.LoadFont("AssetsEngine/Fonts/Default.ttf");
+            EngineFonts[1] = Raylib.LoadFont("AssetsEngine/Fonts/Default2.ttf");
+            EngineFonts[2] = Raylib.LoadFont("AssetsEngine/Fonts/arial.ttf");
+            EngineFonts[3] = Raylib.LoadFont("AssetsEngine/Fonts/toon.ttf");
+            EngineFonts[4] = Raylib.LoadFont("AssetsEngine/Fonts/VeraMono.ttf");
+            EngineFonts[5] = Raylib.LoadFont("AssetsEngine/Fonts/Digitalt.ttf");
+            EngineFonts[6] = Raylib.LoadFont("AssetsEngine/Fonts/OpenSans.ttf");
+        }
         public static bool ActiveCurrentScene(ISystem _current)
         {
             if (_current.GetType().Name == CurrentScene.GetType().Name)

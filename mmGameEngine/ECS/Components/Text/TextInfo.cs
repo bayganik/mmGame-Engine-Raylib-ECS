@@ -34,25 +34,25 @@ namespace mmGameEngine
             switch((int)fontType)
             {
                 case (int)TextFontTypes.Default:
-                    TextFont = Raylib.LoadFont("AssetsEngine/Fonts/Default.ttf");
+                    TextFont = Global.EngineFonts[0];
                     break;
                 case (int)TextFontTypes.Default2:
-                    TextFont = Raylib.LoadFont("AssetsEngine/Fonts/Default2.ttf");
+                    TextFont = Global.EngineFonts[1];
                     break;
                 case (int)TextFontTypes.Arial:
-                    TextFont = Raylib.LoadFont("AssetsEngine/Fonts/arial.ttf");
+                    TextFont = Global.EngineFonts[2];
                     break;
                 case (int)TextFontTypes.Toon:
-                    TextFont = Raylib.LoadFont("AssetsEngine/Fonts/toon.ttf");
+                    TextFont = Global.EngineFonts[3];
                     break;
                 case (int)TextFontTypes.Vera:
-                    TextFont = Raylib.LoadFont("AssetsEngine/Fonts/VeraMono.ttf");
+                    TextFont = Global.EngineFonts[4];
                     break;
                 case (int)TextFontTypes.Digital:
-                    TextFont = Raylib.LoadFont("AssetsEngine/Fonts/Digitalt.ttf");
+                    TextFont = Global.EngineFonts[5];
                     break;
                 case (int)TextFontTypes.OpenSans:
-                    TextFont = Raylib.LoadFont("AssetsEngine/Fonts/OpenSans.ttf");
+                    TextFont = Global.EngineFonts[6];
                     break;
             }
 

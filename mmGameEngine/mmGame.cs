@@ -7,13 +7,15 @@ using Raylib_cs;
 namespace mmGameEngine
 {
     /*
-     * The core of our game.  The game class MUST inhirit from mmGame
+     * The core of our game.  
+     * 
+     * The game class MUST inhirit from mmGame (then you can change scenes)
      *
      *public class TestGame : mmGame
      *{
      *   public TestGame() : base()
      *   {
-     *       Scene = new SplashScene();
+     *       Scene = new StartScene();          //could be Splash Or Menu Or a game
      *   }
      *}
      */
@@ -81,9 +83,15 @@ namespace mmGameEngine
 
             while (true)
             {
-                Run();                                              //update and render loop
+                //-----------------------------------
+                //update and render game loop
+                //-----------------------------------
+                Run();                                              
                 //
-                // if scene changes
+                // We are here because game loop was intrupted
+                // scene changed or user forced out by pressing ESCAPE
+                //
+                // EACH SCENE SHUTS DOWN PREVIOUS WINDOW & STARTS A NEW WINDOW
                 //
                 if (_nextScene != null)
                 {
@@ -129,13 +137,23 @@ namespace mmGameEngine
                 Raylib.InitAudioDevice();
 
             Global.WindowCenter = new Vector2(Global.SceneWidth / 2, Global.SceneHeight / 2);
+            Global.LoadFonts();
 
             Raylib.SetExitKey(ExitKey);
         }
+        //
+        //  We are here because a new scene was activated.  We will be running this until
+        //  a ESCAPE is pressed or Scene changes.
+        //
         public void Run()
         {
+            //
+            // actual scene loop
+            //
+            Global.FrameCount = 0;                      //Scene may affect this counter
             while (!Raylib.WindowShouldClose())
             {
+                Global.FrameCount += 1;
                 //
                 // Test for debug key F9 (F12 is used for screenshot by RayLib)
                 //
@@ -148,11 +166,16 @@ namespace mmGameEngine
 
                 if (ForceEndScene)
                     break;
+                //
+                // remove deleted/destroyed entities
+                //
+                _scene.RemoveDeletedEntities();
 
                 Render();
 
+
                 //------------------------------------
-                // New scene is given this frame
+                // New scene is given
                 //------------------------------------
                 if (_nextScene != null)
                     break;
@@ -183,11 +206,6 @@ namespace mmGameEngine
             _scene.Render();              //give the scene the "RenderTarget"
 
             Raylib.EndDrawing();
-            //
-            // remove deleted/destroyed entities
-            //
-            _scene.RemoveDeletedEntities();
-
 
         }
 

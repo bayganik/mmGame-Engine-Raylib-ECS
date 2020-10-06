@@ -212,8 +212,8 @@ namespace mmGameEngine
 			EntitySystems = new Entitas.Feature(null);               //game entities
 			EntitySystems.Initialize();
 
-			SceneSystems = new Entitas.Feature(null);               //scene UI entities
-			SceneSystems.Initialize();
+			//SceneSystems = new Entitas.Feature(null);               //scene UI entities
+			//SceneSystems.Initialize();
 			OnStart();
 		}
 		internal void End()
@@ -298,12 +298,11 @@ namespace mmGameEngine
 					}
 				}
 			}
-			EntitySystems.Execute();
-			EntitySystems.Cleanup();
-			//
-			// Update scene UI entities
-			//
-			foreach (Entity ent in SceneEntities)
+
+            //
+            // Update scene UI entities
+            //
+            foreach (Entity ent in SceneEntities)
 			{
 				if (!ent.Get<Transform>().Enabled)
 					continue;
@@ -329,8 +328,10 @@ namespace mmGameEngine
 				}
 			}
 
-			SceneSystems.Execute();
-			SceneSystems.Cleanup();
+			//SceneSystems.Execute();
+			//SceneSystems.Cleanup();
+
+			EntitySystems.Execute();					//run IExecuteSystems
 
 			Game.ForceEndScene = ForceEndScene;
 		}
@@ -369,7 +370,7 @@ namespace mmGameEngine
 			//
 			// Do ECS update/cleanup
 			//
-			EntitySystems.Execute();
+			//EntitySystems.Execute();
 			EntitySystems.Cleanup();
 		}
 		/// <summary>
@@ -377,11 +378,15 @@ namespace mmGameEngine
 		/// </summary>
 		public virtual void Render()
 		{
-
-			//
+			//-------------------------------------------------------------------------------
 			// Get all RenderComponent, sort them, low -> high
-			//
+			//-------------------------------------------------------------------------------
 			List<RenderComponent> ComponentsToRender = new List<RenderComponent>();
+			//
+			// Find all Entities (in case some were removed/added)
+			//
+			GameEntities = EntityContext.GetEntities().Where(e => e.EntityType == 0).ToList();
+			SceneEntities = EntityContext.GetEntities().Where(e => e.EntityType == 1).ToList();
 
 			foreach (Entity ent in GameEntities)
 			{
@@ -402,14 +407,14 @@ namespace mmGameEngine
 				}
 			}
 
-			//
-			//   C A M E R A  D I S P L A Y  begins
-			//
+			//-------------------------------------------------------------------------------
+			//   CAMERA DISPLAY  begins
+			//-------------------------------------------------------------------------------
 
 			if (CameraEnabled && CameraEntityToFollow != null)
 			{
-				//    need to know the entity that is target of camera -> target Get<Transform>().Position
-				//    Any component that is to be in the camera then is drawn first
+				//    need to get the entity that is target of camera -> target Get<Transform>().Position
+				//    Any component that is in view of the camera, is drawn first
 
 				switch(CameraType2D)
                 {
@@ -423,22 +428,19 @@ namespace mmGameEngine
 						UpdateCameraCenterSmoothFollow();
 						break;
 				}
-				
-				
 				Raylib.BeginMode2D(Camera);
-
 			}
 
-			//
-			//   R E N D E R  O R D E R   sorting (low to high)/render
-			//
+			//-------------------------------------------------------------------------------
+			//   RENDER ORDER  sorting (low to high) then render
+			//-------------------------------------------------------------------------------
 			foreach (RenderComponent myComp in ComponentsToRender.OrderBy(e => e.RenderLayer))
 			{
 				myComp.Render();									//call draw method
 			}
-			//
-			//   C A M E R A  D I S P L A Y  ends
-			//
+			//-------------------------------------------------------------------------------
+			//   CAMERA DISPLAY  ends
+			//-------------------------------------------------------------------------------
 			if (CameraEnabled && CameraEntityToFollow != null)
 			{
 				if (Global.DebugRenderEnabled)
@@ -463,9 +465,9 @@ namespace mmGameEngine
 				}
 				Raylib.EndMode2D();
 			}
-			//
-			//   U I  E N T I T I E S , they are drawn on top of all other game entities
-			//
+			//-------------------------------------------------------------------------------
+			//   U I  ENTITIES , they are drawn on top of all other game entities
+			//-------------------------------------------------------------------------------
 			foreach (Entity ent in SceneEntities)
 			{
 				if (!ent.Get<Transform>().Enabled)
@@ -485,9 +487,9 @@ namespace mmGameEngine
 				}
 			}
 
-			//
+			//-----------------
 			// Scene debug
-			//
+			//-----------------
 			if (Global.DebugRenderEnabled)
 			{
 				Raylib.DrawText(Raylib.GetMousePosition().ToString(), 10, 10, 20, Color.WHITE);

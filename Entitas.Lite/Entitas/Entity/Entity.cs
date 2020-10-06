@@ -324,7 +324,18 @@ namespace Entitas
 
             return true;
         }
+        /// Determines whether this entity has any component
+        /// 
+        public bool HasAnyComponent()
+        {
+            for (int i = 0; i < _components.Length; i++)
+            {
+                if (_components[i] != null)
+                    return true;
+            }
 
+            return false;
+        }
         /// Determines whether this entity has a component
         /// at any of the specified indices.
         public bool HasAnyComponent(int[] indices) {

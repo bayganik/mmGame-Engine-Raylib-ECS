@@ -15,9 +15,11 @@ namespace mmGameEngine
 		//
 		public float Speed = 200f;
 
-		public Vector2 MoveFrom;						//From/To are place holders they do not work here
-		public Vector2 MoveTo;
-		public bool IsMoving;							//entity still is moving (true/false)
+		public Vector2 MoveStart;						//From/To are place holders they do not work here
+		public Vector2 MoveEnd;
+		public bool IsMoving;                           //entity still is moving (true/false)
+		public bool IsAtEnd;					//didn't hit anything but reached MoveEnd
+
 		public CollisionResult MoveCollisionResult;		//if we hit any other collider
 		//
 		// rotate entity during movement if false, no rotation e.g. arrows are pressed
@@ -33,11 +35,12 @@ namespace mmGameEngine
 			RotationSpeed = 15f;
 
 		}
-		public EntityMover(Vector2 _from, Vector2 _to, float _speed = 200f)
+		public EntityMover(Vector2 _start, Vector2 _end, float _speed = 200f)
 		{
-			MoveFrom = _from;
-			MoveTo = _to;
+			MoveStart = _start;
+			MoveEnd = _end;
 			IsMoving = true;
+			IsAtEnd = false;
 			Speed = _speed;
 			DoesRotate = false;
 			RotationSpeed = 15f;
@@ -58,8 +61,8 @@ namespace mmGameEngine
 			if (!this.IsMoving)
 				return;                     //not moving anymore (did we hit a collider or reached the end)
 
-			Vector2 start = this.MoveFrom;
-			Vector2 end = this.MoveTo;
+			Vector2 start = this.MoveStart;
+			Vector2 end = this.MoveEnd;
 
 			float distance = Vector2.Distance(start, end);
 			Vector2 moveDir = Vector2.Normalize(end - start);
@@ -78,35 +81,37 @@ namespace mmGameEngine
 			{
 				Transform.Position = end;
 				this.IsMoving = false;
+				this.IsAtEnd = true;
 				return ;
 			}
 			//
 			// set a new starting location for the next update cycle
 			//
-			this.MoveFrom = Transform.Position;
+			this.MoveStart = Transform.Position;
 			//
-			// If we hit anything, then no entity does not move
+			// If we hit anything, then entity does not move
 			// Its up to the caller to investigate MoveCollisionResult
 			//
 			this.IsMoving = Move(moveDir);
-			//if (Move(moveDir))
-			//{
-			//	MoveCollisionResult = new CollisionResult();
-			//	this.IsMoving = true;
-			//}
-			//else
-			//	this.IsMoving = false;
 		}
 		private bool Move(Vector2 motion)
         {
-			
+			MoveCollisionResult = new CollisionResult();
 			Transform.Position += motion * this.Speed * Global.DeltaTime;
 
 			if (SceneColliderDatabase.CollidedWithBox(CompEntity, out MoveCollisionResult))
 			{
-				if (CompEntity.isEnemy == MoveCollisionResult.CompEntity.isEnemy)
+				//
+				// continue moving is both entities that hit eachother
+				// are either enemies or friends
+				//
+				if (CompEntity.isEnemy && MoveCollisionResult.CompEntity.isEnemy)
 					return true;
-
+				if (!CompEntity.isEnemy && !MoveCollisionResult.CompEntity.isEnemy)
+					return true;
+				//
+				// stop moving (enemy hit a friendly OR friendly hit an enemy
+				//
 				return false;
 			}
 			return true;
