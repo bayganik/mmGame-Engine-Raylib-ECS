@@ -55,12 +55,12 @@ namespace mmGameEngine
 				return;
 			if (!Enabled)
 				return;
-			//
-			// Moving from - to on its own
-			//
+
 			if (!this.IsMoving)
 				return;                     //not moving anymore (did we hit a collider or reached the end)
-
+			//
+			// Moving from start - to end on its own
+			//
 			Vector2 start = this.MoveStart;
 			Vector2 end = this.MoveEnd;
 
@@ -92,9 +92,9 @@ namespace mmGameEngine
 			// If we hit anything, then entity does not move
 			// Its up to the caller to investigate MoveCollisionResult
 			//
-			this.IsMoving = Move(moveDir);
+			Move(moveDir);
 		}
-		private bool Move(Vector2 motion)
+		private void Move(Vector2 motion)
         {
 			MoveCollisionResult = new CollisionResult();
 			Transform.Position += motion * this.Speed * Global.DeltaTime;
@@ -102,19 +102,17 @@ namespace mmGameEngine
 			if (SceneColliderDatabase.CollidedWithBox(CompEntity, out MoveCollisionResult))
 			{
 				//
-				// continue moving is both entities that hit eachother
+				// continue moving if both entities that hit eachother
 				// are either enemies or friends
 				//
 				if (CompEntity.isEnemy && MoveCollisionResult.CompEntity.isEnemy)
-					return true;
+					return;				//both enemy
 				if (!CompEntity.isEnemy && !MoveCollisionResult.CompEntity.isEnemy)
-					return true;
-				//
-				// stop moving (enemy hit a friendly OR friendly hit an enemy
-				//
-				return false;
+					return;             //both friends
+
+				this.IsMoving = false;          // stop moving(enemy hit a friendly OR friendly hit an enemy
 			}
-			return true;
+			return;
 		}
     }
 }

@@ -36,6 +36,7 @@ namespace mmGameEngine
 		//public Color WindowClearColor;
 		//public KeyboardKey ExitKey = KeyboardKey.KEY_ESCAPE;
 		public bool ForceEndScene = false;
+		public GameState StateOfGame;
 		//
 		// Camera 2D
 		//
@@ -332,8 +333,11 @@ namespace mmGameEngine
 			//SceneSystems.Cleanup();
 
 			EntitySystems.Execute();					//run IExecuteSystems
-
-			Game.ForceEndScene = ForceEndScene;
+			//
+			// If user wants out of this scene
+			//
+			if (ForceEndScene)
+				Global.StateOfGame = GameState.ForcedExit;
 		}
 		public void RemoveDeletedEntities()
         {

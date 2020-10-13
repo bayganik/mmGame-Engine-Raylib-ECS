@@ -23,7 +23,6 @@ namespace mmGameEngine
     {
         public Color WindowClearColor;                                  //Can be changed
         public KeyboardKey ExitKey = KeyboardKey.KEY_ESCAPE;            //Can be changed by user
-        public bool ForceEndScene = false;
         /// <summary>
         /// provides access to the singlton mmGame/Scene instance
         /// </summary>
@@ -69,7 +68,7 @@ namespace mmGameEngine
         protected mmGame()
         {
             _instance = this;
-            Global.GameState = GameState.Playing;
+            Global.StateOfGame = GameState.Playing;
             Global.GameOver = false;
         }
         internal void RunGameLoop()
@@ -153,7 +152,6 @@ namespace mmGameEngine
             Global.FrameCount = 0;                      //Scene may affect this counter
             while (!Raylib.WindowShouldClose())
             {
-                Global.FrameCount += 1;
                 //
                 // Test for debug key F9 (F12 is used for screenshot by RayLib)
                 //
@@ -164,7 +162,12 @@ namespace mmGameEngine
 
                 Update();
 
-                if (ForceEndScene)
+                //
+                // Check the game state before next update
+                // P = pause
+                // Scene change or forced exit
+
+                if (Global.StateOfGame == GameState.ForcedExit)
                     break;
                 //
                 // remove deleted/destroyed entities
@@ -188,7 +191,7 @@ namespace mmGameEngine
         }
         public void Update()
         {
-
+            Global.FrameCount += 1;
             if (_scene == null)
                 return;
 

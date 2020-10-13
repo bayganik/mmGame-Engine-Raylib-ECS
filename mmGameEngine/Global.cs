@@ -22,7 +22,7 @@ namespace mmGameEngine
         // Game state
         //
         public static bool GameOver = false;
-        public static GameState GameState;
+        public static GameState StateOfGame;
         public static Int64 FrameCount;
         //
         // Game Windows setup for mmGame
@@ -197,6 +197,7 @@ namespace mmGameEngine
     {
         Playing,
         Paused,
+        ForcedExit,
         Over
     }
     public enum Edge

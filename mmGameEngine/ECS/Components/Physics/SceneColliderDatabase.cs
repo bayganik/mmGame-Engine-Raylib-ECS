@@ -52,7 +52,7 @@ namespace mmGameEngine
                 ColliderCollection.Remove(entity);
             }
         }
-        public static bool CollidedWith(Entity entity,  out CollisionResult _collisionResult)
+        public static bool CollidedWithBox(Entity entity,  out CollisionResult _collisionResult)
         {
             //
             // currently not used
@@ -70,7 +70,7 @@ namespace mmGameEngine
             //CircleCollider cx = entity.Get<CircleCollider>();
 
             BoxAABB boxA = bx.CollisionBox;
-
+            //Vector2 boxA = new Vector2(bx.CollisionBox.x, bx.CollisionBox.y);
             //
             // Find entity and ask
 
@@ -105,48 +105,7 @@ namespace mmGameEngine
         //
         // Test collision with other "registered" BoxColliders
         //
-        public static bool CollidedWithBox(Entity entity,  out CollisionResult _collisionResult)
-        {
-            _collisionResult = new CollisionResult();
-            //
-            // Find the Entity in question, if not in database then no collision
-            //
-            if (!ColliderCollection.ContainsKey(entity))
-                return false;
 
-            BoxCollider bx = entity.Get<BoxCollider>();
-            //
-            // if entity has no boxcollider then exit
-            //
-            if (bx == null)                         // incase collider was removed
-                return false;
-
-            BoxAABB boxA = bx.CollisionBox;
-
-            foreach (KeyValuePair<Entity, int> entry in ColliderCollection)
-            {
-                if (entry.Key == entity)
-                    continue;
-                if (entry.Value != (int)CollidreShape.Box)
-                    continue;
-
-                Entity ent = entry.Key;
-                bx = ent.Get<BoxCollider>();
-                if (bx == null)                     //incase collider was removed
-                    return false;
-
-                if (boxA.Overlaps(bx.CollisionBox))
-                {
-                    _collisionResult.CompEntity = entry.Key;
-                    _collisionResult.Collided = true;
-                    //_collisionResult.BoxContainer = entry.Value;
-                    //_collisionResult.CollisionArea = Raylib.GetCollisionRec(boxA, entry.Value);
-                    return true;
-                }
-            }
-            
-            return false;
-        }
     }
 
     public struct CollisionResult
