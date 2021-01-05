@@ -116,6 +116,9 @@ namespace TestmmGame
         {
             Button bt = (Button)btn;
             int SceneNum = bt.Tag - 1;
+            if (string.IsNullOrEmpty(SceneNames[SceneNum]))
+                return;
+
             Global.NextScene = assName + "." + SceneNames[SceneNum];
             //
             // Using reflection to invoke the Scene

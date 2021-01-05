@@ -226,8 +226,8 @@ namespace mmGameEngine
 			EntitySystems.ClearReactiveSystems();
 			EntityContext.DestroyAllEntities();
 
-			SceneSystems.TearDown();
-			SceneContext.DestroyAllEntities();
+			//SceneSystems.TearDown();
+			//SceneContext.DestroyAllEntities();
 		}
 		/// <summary>
 		/// You MUST override this in Scene classes and do your loading & other logic. 
@@ -412,7 +412,7 @@ namespace mmGameEngine
 			}
 
 			//-------------------------------------------------------------------------------
-			//   CAMERA DISPLAY  begins
+			//   CAMERA DISPLAY  BeginMode2D
 			//-------------------------------------------------------------------------------
 
 			if (CameraEnabled && CameraEntityToFollow != null)
@@ -443,7 +443,7 @@ namespace mmGameEngine
 				myComp.Render();									//call draw method
 			}
 			//-------------------------------------------------------------------------------
-			//   CAMERA DISPLAY  ends
+			//   CAMERA DISPLAY  EndMode2D
 			//-------------------------------------------------------------------------------
 			if (CameraEnabled && CameraEntityToFollow != null)
 			{

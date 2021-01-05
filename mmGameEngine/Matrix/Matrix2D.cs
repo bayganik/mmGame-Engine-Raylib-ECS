@@ -108,7 +108,20 @@ namespace mmGameEngine
 			M31 = m31;
 			M32 = m32;
 		}
+		public static Matrix2D CreateRotationZ(double radians)
+		{
+			Matrix2D returnMatrix = Matrix2D.Identity;
 
+			var val1 = (float)Math.Cos(radians);
+			var val2 = (float)Math.Sin(radians);
+
+			returnMatrix.M11 = val1;
+			returnMatrix.M12 = val2;
+			returnMatrix.M21 = -val2;
+			returnMatrix.M22 = val1;
+
+			return returnMatrix;
+		}
 
 		#region Public static methods
 

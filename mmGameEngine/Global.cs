@@ -37,7 +37,7 @@ namespace mmGameEngine
         //public static int ViewPortWidth;
         //public static int ViewPortHeight;
         public static Vector2 WindowCenter = new Vector2(SceneWidth / 2, SceneHeight / 2);
-        public const int TARGET_FPS = 60;
+        public static int TARGET_FPS = 60;
         public static float DeltaTime;
         //
         // World size (using myown camera)

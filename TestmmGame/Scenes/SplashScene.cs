@@ -21,7 +21,7 @@ namespace TestmmGame
             Global.SceneHeight = 600;
             Global.SceneWidth = 800;
             Global.SceneTitle = "splash";
-            Global.SceneClearColor = Color.BLUE;
+            Global.SceneClearColor = Color.RED;
 
             string assName = (string)System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
 
