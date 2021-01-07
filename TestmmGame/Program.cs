@@ -17,7 +17,7 @@ namespace TestmmGame
     {
         public TestGame() : base()
         {
-            Scene = new CardScene();
+            Scene = new MenuScene();
         }
     }
 }

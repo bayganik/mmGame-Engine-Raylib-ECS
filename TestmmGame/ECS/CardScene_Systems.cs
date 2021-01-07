@@ -103,12 +103,11 @@ namespace TestmmGame
         CardScene MyScene;
         public void Execute()
         {
-            MyScene = (CardScene)Global.CurrentScene;
-            if (MyScene.GetType().Name != "CardScene")
+            var tmpScene = (Scene)Global.CurrentScene;
+            if (tmpScene.GetType().Name != "CardScene")
                 return;
 
-
-
+            MyScene = (CardScene)tmpScene;
             var entities = Context<Default>.AllOf<MouseComponent>().GetEntities();
 
             foreach (var mouseEntity in entities)
@@ -233,10 +232,11 @@ namespace TestmmGame
         Vector2 CurrentMouse = Vector2.Zero;
         public void Execute()
         {
-            MyScene = (CardScene)Global.CurrentScene;
-            if (MyScene.GetType().Name != "CardScene")
+            var tmpScene = (Scene)Global.CurrentScene;
+            if (tmpScene.GetType().Name != "CardScene")
                 return;
 
+            MyScene = (CardScene)tmpScene;
             var entities = Context<Default>.AllOf<DragComponent>().GetEntities();
 
             foreach (var entity in entities)
