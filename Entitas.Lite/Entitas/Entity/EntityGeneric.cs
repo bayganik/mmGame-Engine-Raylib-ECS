@@ -24,6 +24,12 @@ namespace Entitas
 			AddComponent(index, component);
 			return index;
 		}
+		public int AddComponent<T>(T component) where T : IComponent
+		{
+			int index = ComponentIndex<T>.FindIn(_contextInfo);
+			AddComponent(index, component);
+			return index;
+		}
 		/// add a new Component, return the old one if exists
 		public T Add<T>(bool useExisted = true) where T : IComponent, new()
 		{

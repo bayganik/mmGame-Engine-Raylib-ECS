@@ -55,6 +55,7 @@ namespace mmGameEngine
                     _instance._scene.Begin();                       //setup of entity context, lists, etc
 
                     _instance.SetSceneWindow();                     //create a new Raylib window
+
                     _instance._scene.Play();                        //do game logic - load assets, entities
                     _instance.RunGameLoop();                        //run the loop
                 }
@@ -125,11 +126,12 @@ namespace mmGameEngine
             // setup game window
             //
             Raylib.SetConfigFlags(ConfigFlag.FLAG_WINDOW_RESIZABLE);
-            //
-            // This allows all other operations for RayLib 
-            //
             Raylib.InitWindow(Global.SceneWidth, Global.SceneHeight, Global.SceneTitle);
+            //
+            // set min size of window
+            //
             Raylib.SetWindowMinSize(600, 4000);
+            
             Raylib.SetWindowPosition(200, 100);
             Raylib.SetTargetFPS(Global.TARGET_FPS);
             if (!Raylib.IsAudioDeviceReady())
@@ -139,6 +141,8 @@ namespace mmGameEngine
             Global.LoadFonts();
 
             Raylib.SetExitKey(ExitKey);
+            if (Global.HideCursor)
+                Raylib.HideCursor();
         }
         //
         //  We are here because a new scene was activated.  We will be running this until

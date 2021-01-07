@@ -19,6 +19,7 @@ namespace mmGameEngine
         public int XCard = 52;                          //X marks the card
         public int OCard = 53;                          //O marks the card
         public int CardBackBegin = 54;                  //card backs starting point (last row of cards)
+        public bool CardsHaveCollider = true;           //each card dealt has a box collider
 
         //object syncRoot = new System.Object();       //object for locking
         //CardDeckManager _Instance;
@@ -48,6 +49,7 @@ namespace mmGameEngine
         Texture2D[] cardFaces;
         Texture2D[] cardBacks;
         Texture2D JockerCard;
+        Texture2D EmptyCardHolder;
 
         Entity cEntity;
         //CanvasAnimatedControl cRenderer;
@@ -122,6 +124,7 @@ namespace mmGameEngine
             //
             temp = Raylib.ImageFromImage(cardSheet, cards[JockerLocation]);
             JockerCard = Raylib.LoadTextureFromImage(temp);
+            EmptyCardHolder = Raylib.LoadTexture("AssetsEngine/Cards/EmptyHolder.png");
 
             currentCardBack = 6;
             currentCardNumber = 0;
@@ -130,11 +133,16 @@ namespace mmGameEngine
             temp = new Image();
 
         }
+        /// <summary>
+        /// Re-Initialize an entire deck of cards & get ready for a new game
+        /// </summary>
+        /// <param name="_shuffle"></param>
         public void CreateDeckOfCards(bool _shuffle = true)
         {
 
             cardDeckPointer = new int[52];
             cardDeck = new Card[52];
+            Score = 0;
             //
             // Create 52 CardComponents
             //
@@ -208,12 +216,11 @@ namespace mmGameEngine
                 //
                 card.CName = "C" + card.FaceImage.ToString("00") + tempSuit;
 
-                currentCardNumber = 0;
                 cardDeckPointer[i] = i;
-
                 cardDeck[i] = card;
             }
 
+            currentCardNumber = 0;
             if (_shuffle)
                 Shuffle();
             else
@@ -294,13 +301,46 @@ namespace mmGameEngine
             // Create a card entity with proper components
             //
             Entity _cardEnt = ActiveScene.CreateGameEntity();
-            _cardEnt.name = cardComp.CName;
+            _cardEnt.Name = cardComp.CName;
             _cardEnt.Get<Transform>().Enabled = _enabled;
             _cardEnt.Add(cardComp);
-            BoxCollider bx = new BoxCollider(CardWidth, CardHeight);
-            _cardEnt.Add(bx);
-            _cardEnt.tag = -1;                          //tag to identify this entity as a card
+            if (CardsHaveCollider)
+            {
+                BoxCollider bx = new BoxCollider(CardWidth, CardHeight);
+                _cardEnt.Add(bx);
+            }
+
+            _cardEnt.Tag = cardComp.Index * -1;                          //tag to identify this entity as a card
             return _cardEnt;
+        }
+        public Entity DealEmptyHolder()
+        {
+            Card cardComp = new Card();
+            cardComp.CName = "EmptyHolder";
+            cardComp.IsFaceUp = true;
+            cardComp.RenderLayer = -1000;
+            //
+            // Create a Jockere entity with proper components
+            //
+            Entity _cardEnt = ActiveScene.CreateGameEntity();
+            _cardEnt.Name = cardComp.CName;
+            _cardEnt.Get<Transform>().Enabled = true;
+            cardComp.CardFace = EmptyCardHolder;
+            cardComp.CardBack = cardBacks[currentCardBack];
+            //
+            // Empty card holders always have a collider
+            //
+            BoxCollider bx = new BoxCollider(CardWidth, CardHeight);
+            bx.RenderLayer = 1;
+            _cardEnt.Add(bx);
+
+            _cardEnt.Add(cardComp);
+            _cardEnt.Tag = -1;                          //tag to identify this entity as a card
+            return _cardEnt;
+        }
+        public Texture2D GetEmptyHolderTexture()
+        {
+            return EmptyCardHolder;
         }
         public Entity DealAJoker(bool _enabled = false, bool _faceup = true)
         {
@@ -311,14 +351,18 @@ namespace mmGameEngine
             // Create a Jockere entity with proper components
             //
             Entity _cardEnt = ActiveScene.CreateGameEntity();
-            _cardEnt.name = cardComp.CName;
+            _cardEnt.Name = cardComp.CName;
             _cardEnt.Get<Transform>().Enabled = _enabled;
             cardComp.CardFace = JockerCard;
             cardComp.CardBack = cardBacks[currentCardBack];
-            BoxCollider bx = new BoxCollider(CardWidth, CardHeight);
-            _cardEnt.Add(bx);
+            if (CardsHaveCollider)
+            {
+                BoxCollider bx = new BoxCollider(CardWidth, CardHeight);
+                _cardEnt.Add(bx);
+            }
+
             _cardEnt.Add(cardComp);
-            _cardEnt.tag = -1;                          //tag to identify this entity as a card
+            _cardEnt.Tag = -1;                          //tag to identify this entity as a card
             return _cardEnt;
         }
         public Card GetCardComponent(int cardPTR)

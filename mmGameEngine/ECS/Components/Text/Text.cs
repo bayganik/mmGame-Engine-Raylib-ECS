@@ -60,7 +60,7 @@ namespace mmGameEngine
         {
             if (CompEntity == null)
                 return;
-            if (!Enabled)
+            if (!base.Visiable)
                 return;
 
             if (Global.DebugRenderEnabled)

@@ -26,7 +26,7 @@ namespace mmGameEngine
         public Label(Vector2 _position, string _content)
         {
             content = _content;
-            TextData = new TextInfo(_content, TextFontTypes.Default, 25, Color.WHITE);
+            TextData = new TextInfo(_content, TextFontTypes.Arial, 25, Color.WHITE);
             CurrentBackgroundColor = BackgroundColor;
             CurrentTextColor = TextData.FontColor;
             CompPosition = _position;
@@ -45,6 +45,8 @@ namespace mmGameEngine
         public override void Render()
         {
             base.Render();
+            if (!base.Visiable)
+                return;
             //
             // Todo: use this to wrap words
             //

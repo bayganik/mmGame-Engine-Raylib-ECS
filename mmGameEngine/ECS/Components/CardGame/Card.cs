@@ -9,7 +9,7 @@ namespace mmGameEngine
 {
     public class Card : RenderComponent
     {
-        public CardPile HoldingPile;                 //Card pile component holding this card
+        public CardPileComponent HoldingPile;                 //Card pile component holding this card
         public string CName = "Card";
         public Rectangle SourceRect;
         public Rectangle DestRect;

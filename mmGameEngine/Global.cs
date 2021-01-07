@@ -17,13 +17,15 @@ namespace mmGameEngine
         public const int BOXCOLLIDER_LAYER = -1000;         
         public const int TILEMAP_LAYER = -1500;
         public const int SCROLLINGBACK_LAYER = -2000;       //first to draw
-        public const int CURSOR_LAYER = 1000;               //last to draw
+        public const int CURSOR_LAYER = 100000;               //last to draw
         //
         // Game state
         //
         public static bool GameOver = false;
         public static GameState StateOfGame;
+        public static int GameScore;
         public static Int64 FrameCount;
+
         //
         // Game Windows setup for mmGame
         //
@@ -31,6 +33,7 @@ namespace mmGameEngine
         public static int SceneHeight;
         public static string SceneTitle;
         public static Color SceneClearColor;
+        public static bool HideCursor = false;
         //
         // Windows size
         //
@@ -179,7 +182,13 @@ namespace mmGameEngine
             return (int)pos.Y;
         }
         #endregion
+        public static bool EntityOutOfBound(Vector2 _pos)
+        {
+            if ((_pos.X >= Global.WorldWidth || _pos.X <= 0) || (_pos.Y >= Global.WorldHeight || _pos.Y <= 0))
+                return true;
 
+            return false;
+        }
         public static void CreateWorld(int _width, int _height)
         {
             //

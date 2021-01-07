@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using Entitas;
@@ -7,7 +8,7 @@ using Raylib_cs;
 
 namespace mmGameEngine
 {
-    public class CardPile : Component
+    public class CardPileComponent : Component
     {
         //
         // id the card Pile eg. Dealer, Player, Discard, etc
@@ -38,10 +39,39 @@ namespace mmGameEngine
         //
         public bool IsMoving;
 
-        public CardPile()
+        public CardPileComponent()
         {
             CardsInPile = new List<Entity>();
             BlockedPiles = new List<int>();
+        }
+        public Entity GetLastCard()
+        {
+            if (CardsInPile.Count <= 0)
+                return null;
+
+            return CardsInPile.LastOrDefault();
+        }
+        public Entity GetFirstCard()
+        {
+            if (CardsInPile.Count <= 0)
+                return null;
+
+            return CardsInPile[0];
+        }
+        public Entity GetCard(int _cardSeq)
+        {
+            if (_cardSeq > CardsInPile.Count - 1)
+                return null;
+
+            return CardsInPile[_cardSeq];
+        }
+        public int GetCardFaceImageValue(int _cardSeq)
+        {
+            Entity card = GetCard(_cardSeq);
+            if (card == null)
+                return 0;
+            Card ccomp = card.GetComponent<Card>();
+            return ccomp.FaceImage;
         }
     }
 }

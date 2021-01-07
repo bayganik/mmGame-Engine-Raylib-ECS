@@ -11,7 +11,7 @@ namespace Entitas {
         }
 
         public int GetHashCode(Entity obj) {
-            return obj.creationIndex;
+            return obj.CreationIndex;
         }
     }
 }

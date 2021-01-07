@@ -32,12 +32,14 @@ namespace mmGameEngine
         {
             base.Update(deltaTime);
             //
+            // This componenet obeys its CompPosition given
+            //
             // If component is attached to an Entity, the obey his position
             //
-            if (CompEntity != null)
-            {
-                CompPosition = Transform.Position;
-            }
+            //if (CompEntity != null)
+            //{
+            //    CompPosition = Transform.Position;
+            //}
             //
             // Panel will call component Update method
             //
@@ -45,14 +47,12 @@ namespace mmGameEngine
             {
                 control.Update(deltaTime);
             }
-
-            if (!Transform.Enabled)
-                return;
-
         }
         public override void Render()
         {
             base.Render();
+            if (!base.Visiable)
+                return;
             //
             // Draw Rectangle filled + line around it
             //

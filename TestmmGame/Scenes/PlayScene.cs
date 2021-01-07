@@ -60,7 +60,7 @@ namespace TestmmGame
              * 
              */
             //msgEnt = CreateSceneEntity(new Vector2(300, 300));
-            //msgEnt.name = "msgbox";
+            //msgEnt.Name = "msgbox";
             //MsgBox msb = new MsgBox(new Vector2(300, 300), 200, 200, Color.RED);
             ////
             //// ok button of the msgbox
@@ -84,7 +84,7 @@ namespace TestmmGame
             // Button
             //
             //entUI = CreateSceneEntity(new Vector2(500, 300));
-            //entUI.name = "button";
+            //entUI.Name = "button";
             //position = entUI.Get<Transform>().Position;
             //Button bt = new Button(position, 75, 30, "Push", -6, 2);
             //entUI.Add(bt);
@@ -93,7 +93,7 @@ namespace TestmmGame
             // Panel (menu type)
             //-----------------------------
             //entPanel = CreateSceneEntity(new Vector2(800, 200));
-            //entPanel.name = "panel";
+            //entPanel.Name = "panel";
             //position = entPanel.Get<Transform>().Position;
 
             //Panel menuPanel = new Panel(position, 300, 200, Color.BEIGE);
@@ -130,7 +130,7 @@ namespace TestmmGame
             // Panel with tiles
             //---------------------------
             //Entity entTiles = CreateSceneEntity(new Vector2(800, 400));
-            //entTiles.name = "tiles";
+            //entTiles.Name = "tiles";
             //Vector2 pos = entTiles.Get<Transform>().Position;
 
             //Panel panWithTiles = new Panel(pos, 300, 310, Color.LIME);
@@ -164,14 +164,16 @@ namespace TestmmGame
             // TmxMap
             //-------------------------
             entMap = this.CreateGameEntity(new Vector2(0, 0));
-            entMap.name = "txmMap";
+            entMap.Name = "txmMap";
             TiledMap tm = new TiledMap("Assets/Map/Desert.tmx");
             tm.RenderLayer = -1000;
             tm.Enabled = true;
 
             entMap.Get<Transform>().Enabled = true;
             entMap.Add(tm);
-
+            //
+            // used as test to make sure player doesn't step out
+            //
             Global.WorldHeight = tm.Map.WorldHeight;
             Global.WorldWidth = tm.Map.WorldWidth;
 
@@ -179,7 +181,7 @@ namespace TestmmGame
             // Scrolling background
             //------------------------------
             Entity backG = this.CreateGameEntity(new Vector2(0, 0), 1.0f);
-            backG.name = "Scrolling";
+            backG.Name = "Scrolling";
             textureImage = Raylib.LoadTexture("Assets/Img/background.png");
             ScrollingImage si = new ScrollingImage(textureImage);
             si.ScrollSpeedX = 10;
@@ -189,7 +191,7 @@ namespace TestmmGame
             // Crosshair mouse cursor
             //-------------------------
             Entity CH = this.CreateGameEntity(Vector2.Zero);
-            CH.name = "cursor";
+            CH.Name = "cursor";
 
             textureImage = Raylib.LoadTexture("Assets/Img/crosshair.png");
             Spr = new Sprite(textureImage);
@@ -203,7 +205,7 @@ namespace TestmmGame
             // Tank
             //--------------------------
             Entity tankEnt = this.CreateGameEntity(new Vector2(300, 500), .25f);
-            tankEnt.name = "Tank";
+            tankEnt.Name = "Tank";
             textureImage = Raylib.LoadTexture("Assets/Img/Tank Base.png");
             Spr = new Sprite(textureImage);             // Setup the sprite for ent
             Spr.EnableTracer = true;
@@ -215,11 +217,13 @@ namespace TestmmGame
             BoxCollider bx = new BoxCollider(Spr.Texture.width * 0.25f, Spr.Texture.height * 0.25f);
             tankEnt.Add(bx);
             tankEnt.Add<TankComponent>();
+            InputController ic = new InputController();         //using arrow keys & IsKeyDown
+            tankEnt.Add(ic);
             //----------------------
             // Create turret
             //----------------------
             Entity turret = this.CreateGameEntity(new Vector2(0, 0), 1f);       //position whithin the parent
-            turret.name = "Turret";
+            turret.Name = "Turret";
             turret.Get<Transform>().Parent = tankEnt.Get<Transform>();          //attached to parent
             textureImage = Raylib.LoadTexture("Assets/Img/Tank Turret.png");
             Spr = new Sprite(textureImage);                        // Setup the sprite for ent
@@ -260,7 +264,7 @@ namespace TestmmGame
             // Setup the words for ent1
             //----------------------------
             Entity ent1 = this.CreateGameEntity(new Vector2(30, 300));
-            ent1.name = "Text";
+            ent1.Name = "Text";
             Text gdc = new Text("stay with tank", TextFontTypes.Default);
             ent1.Get<Transform>().Parent = tankEnt.Get<Transform>();
             gdc.RenderLayer = 10;
@@ -271,7 +275,7 @@ namespace TestmmGame
             // setup a Sprite Explosion
             //
             //Entity entAnim = CreateGameEntity(new Vector2(300, 300));
-            //entAnim.name = "Exlode";
+            //entAnim.Name = "Exlode";
             Texture2D spriteSheet = Raylib.LoadTexture("Assets/Missile/EXP001.png");
 
             //SpriteAnimation anim = new SpriteAnimation(spriteSheet, 128, 128);
@@ -290,7 +294,7 @@ namespace TestmmGame
             // setup a Sprite Fire (looping)
             //
             Entity entFire = CreateGameEntity(new Vector2(300, 300), 0.50f);
-            entFire.name = "Fire";
+            entFire.Name = "Fire";
             spriteSheet = Raylib.LoadTexture("Assets/Img/flame232x148.png");
 
             SpriteAnimation fireAnim = new SpriteAnimation(spriteSheet, 232, 148);

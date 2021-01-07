@@ -36,7 +36,6 @@ namespace TestmmGame
             }
         }
     }
-
     public class FireMoveSystem : IExecuteSystem
     {
         public void Execute()
@@ -66,7 +65,7 @@ namespace TestmmGame
                 //
                 if (SceneColliderDatabase.CollidedWithBox(e, out cr))
                 {
-                    if (cr.CompEntity.tag == 1000)          //if cursor then do nothing
+                    if (cr.CompEntity.Tag == 1000)          //if cursor then do nothing
                     {
                         e.Get<Transform>().Position = pos;
                         e.Get<Transform>().Enabled = true;
@@ -75,7 +74,7 @@ namespace TestmmGame
                     //Global.AddEntityToDestroy(e);
                     // cr.CompEntity is the entity we cloided with
                     //
-                    e.Get<Transform>().Enabled = false;         //else this code is executed every frame
+                    e.Get<Transform>().Enabled = false;         //else this code is executed
                     Global.DestroyGameEntity(e);
                     //ActiveScene.ChangeSprite(cr.CompEntity);
                     return;
@@ -159,52 +158,60 @@ namespace TestmmGame
             foreach (var e in entities)
             {
                 TankComponent tc = e.Get<TankComponent>();
-                //EntityCapturedComponent ECC = e.Get<EntityCapturedComponent>();
-                //if (ECC == null)
-                //    return;
+                InputController inpCnt = e.Get<InputController>();
                 //
                 // We move tank if it was clicked on
                 //
                 Transform tr = e.Get<Transform>();
                 Vector2 pos = e.Get<Transform>().Position; 
                 //
-                // Move the tank using keyboard
+                // Input controller gives us direction to go
                 //
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT))
+                if(inpCnt.Direction != Vector2.Zero)
                 {
-                    pos.X += Raylib.GetFrameTime() * tc.Speed;
-                    //ActiveScene.Camera.offset.X -= Raylib.GetFrameTime() * tc.Speed;
+                    if (e.Get<Transform>().Rotation != 0)
+                        inpCnt.Direction = (inpCnt.Direction * e.Get<Transform>().Rotation);
+                    pos += inpCnt.Direction * Raylib.GetFrameTime() * tc.Speed;
+                    
                 }
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT))
-                {
-                    pos.X -= Raylib.GetFrameTime() * tc.Speed;
-                    //ActiveScene.Camera.offset.X += Raylib.GetFrameTime() * tc.Speed;
-                }
+                ////
+                //// Move the tank using keyboard
+                ////
+                //if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT))
+                //{
+                //    pos.X += Raylib.GetFrameTime() * tc.Speed;
+                //    //ActiveScene.Camera.offset.X -= Raylib.GetFrameTime() * tc.Speed;
+                //}
+                //if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT))
+                //{
+                //    pos.X -= Raylib.GetFrameTime() * tc.Speed;
+                //    //ActiveScene.Camera.offset.X += Raylib.GetFrameTime() * tc.Speed;
+                //}
 
 
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_UP))
-                {
-                    pos.Y -= Raylib.GetFrameTime() * tc.Speed;
-                    //ActiveScene.Camera.offset.Y += Raylib.GetFrameTime() * tc.Speed;
-                }
+                //if (Raylib.IsKeyDown(KeyboardKey.KEY_UP))
+                //{
+                //    pos.Y -= Raylib.GetFrameTime() * tc.Speed;
+                //    //ActiveScene.Camera.offset.Y += Raylib.GetFrameTime() * tc.Speed;
+                //}
 
 
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_DOWN))
-                {
-                    pos.Y += Raylib.GetFrameTime() * tc.Speed;
-                    //ActiveScene.Camera.offset.Y -= Raylib.GetFrameTime() * tc.Speed;
-                }
+                //if (Raylib.IsKeyDown(KeyboardKey.KEY_DOWN))
+                //{
+                //    pos.Y += Raylib.GetFrameTime() * tc.Speed;
+                //    //ActiveScene.Camera.offset.Y -= Raylib.GetFrameTime() * tc.Speed;
+                //}
 
 
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_Q))
                     e.Get<Transform>().Rotation -= .05f;
 
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_E))
                     e.Get<Transform>().Rotation += .05f;
                 //
                 // Test to make sure we don't leave the world
                 //
-                if ((pos.X >= Global.WorldWidth || pos.X <= 0) || (pos.Y >= Global.WorldHeight || pos.Y <= 0))
+                if (Global.EntityOutOfBound(pos))
                     pos = e.Get<Transform>().Position;
                 else
                     e.Get<Transform>().Position = pos;

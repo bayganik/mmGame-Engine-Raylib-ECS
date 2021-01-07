@@ -54,7 +54,7 @@ namespace mmGameEngine
             width = _width;
             height = _height;
             content = _content;
-            TextData = new TextInfo(_content, TextFontTypes.Default, 23, Color.WHITE);
+            TextData = new TextInfo(_content, TextFontTypes.Arial, 23, Color.WHITE);
             CurrentBackgroundColor = BackgroundColor;
             CurrentTextColor = TextColor;
             CompPosition = _position;
@@ -91,6 +91,9 @@ namespace mmGameEngine
         public override void Render()
         {
             base.Render();
+            if (!base.Visiable)
+                return;
+
             if (hasImage)
             {
                 //

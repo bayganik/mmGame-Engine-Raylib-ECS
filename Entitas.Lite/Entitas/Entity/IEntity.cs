@@ -21,9 +21,9 @@ namespace Entitas {
         event EntityEvent OnEntityReleased;
         event EntityEvent OnDestroyEntity;
 
-        int totalComponents { get; }
-        int creationIndex { get; }
-        bool isEnabled { get; }
+        int TotalComponents { get; }
+        int CreationIndex { get; }
+        bool IsEnabled { get; }
 
         Stack<IComponent>[] componentPools { get; }
         ContextInfo contextInfo { get; }

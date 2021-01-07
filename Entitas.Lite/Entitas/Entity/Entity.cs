@@ -40,29 +40,29 @@ namespace Entitas
         public event EntityEvent OnDestroyEntity;
 
         /// The total amount of components an entity can possibly have.
-        public int totalComponents { get { return _totalComponents; } }
+        public int TotalComponents { get { return _totalComponents; } }
 
         /// Each entity has its own unique creationIndex which will be set by
         /// the context when you create the entity.
-        public int creationIndex { get { return _creationIndex; } }
+        public int CreationIndex { get { return _creationIndex; } }
         /// <summary>
         /// Tag is used to group entities together (buildings=100, player=200)
         /// </summary>
-        public int tag { get { return _tag; } set { _tag = value; } }
+        public int Tag { get { return _tag; } set { _tag = value; } }
         /// <summary>
         /// Tags all enemy entities. this is used for collision detections (missile fired that needs to clear its own buildings)
         /// </summary>
-        public bool isEnemy { get { return _isEnemy; } set { _isEnemy = value; } }
+        public bool IsEnemy { get { return _isEnemy; } set { _isEnemy = value; } }
         /// <summary>
-        /// Tag is used to group entities together (Type=0 game entity, Type=1 scene (ui) entity)
+        /// EntityType is used to group entities together (Type=0 game entity, Type=1 scene (ui) entity)
         /// </summary>
         public int EntityType { get { return _entityType; } set { _entityType = value; } }
         /// The context manages the state of an entity.
         /// Active entities are enabled, destroyed entities are not.
-        public bool isEnabled { get { return _isEnabled; } }
+        public bool IsEnabled { get { return _isEnabled; } }
 		
 		/// Optional name
-		public String name { get { return _name; } set { _name = value; _toStringCache = null; } }
+		public String Name { get { return _name; } set { _name = value; _toStringCache = null; } }
 
         /// componentPools is set by the context which created the entity and
         /// is used to reuse removed components.
@@ -114,7 +114,7 @@ namespace Entitas
         }
 
         ContextInfo createDefaultContextInfo() {
-            var componentNames = new string[totalComponents];
+            var componentNames = new string[TotalComponents];
             for (int i = 0; i < componentNames.Length; i++) {
                 componentNames[i] = i.ToString();
             }

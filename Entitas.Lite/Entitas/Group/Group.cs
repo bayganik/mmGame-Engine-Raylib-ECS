@@ -90,7 +90,7 @@ namespace Entitas {
         }
 
         bool addEntitySilently(Entity entity) {
-            if (entity.isEnabled) {
+            if (entity.IsEnabled) {
                 var added = _entities.Add(entity);
                 if (added) {
                     _entitiesCache = null;

@@ -121,7 +121,7 @@ namespace mmGameEngine
 			//
 			Entity ent = EntityContext.CreateEntity();
 			ent.EntityType = 0;		//game entity
-			ent.name = name;
+			ent.Name = name;
 			//
 			// fix the Transform
 			//
@@ -153,6 +153,22 @@ namespace mmGameEngine
 			ent.Add(trm);
 			return ent;
 		}
+		public Entity CreateGameEntity(string name , Vector2 initPosition, float initScale = 1.0f)
+		{
+			Entity ent = EntityContext.CreateEntity();
+			ent.EntityType = 0;         //game entity type
+			ent.Name = name;
+			//
+			// fix the Transform
+			//
+			Transform trm = new Transform();
+			trm.Position = initPosition;
+			trm.Scale = new Vector2(initScale, initScale);
+			trm.Rotation = 0;
+
+			ent.Add(trm);
+			return ent;
+		}
 		/// <summary>
 		/// Create a Scene Entity (drawn on top of game scene e.g. UI entity)
 		/// </summary>
@@ -164,7 +180,7 @@ namespace mmGameEngine
 			//
 			Entity ent = SceneContext.CreateEntity();
 			ent.EntityType = 1;     //scene entity type
-			ent.name = name;
+			ent.Name = name;
 			//
 			// fix the Transform
 			//

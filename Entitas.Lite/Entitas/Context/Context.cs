@@ -134,8 +134,8 @@ namespace Entitas {
 			_cachedDestroyEntity = onDestroyEntity;
 
 			// Add listener for updating lookup
-			OnEntityCreated += (c, entity) => _entitiesLookup.Add(entity.creationIndex, (Entity)entity);
-			OnEntityDestroyed += (c, entity) => _entitiesLookup.Remove(entity.creationIndex);
+			OnEntityCreated += (c, entity) => _entitiesLookup.Add(entity.CreationIndex, (Entity)entity);
+			OnEntityDestroyed += (c, entity) => _entitiesLookup.Remove(entity.CreationIndex);
 		}
 
 		ContextInfo createDefaultContextInfo()
@@ -186,7 +186,7 @@ namespace Entitas {
 		public Entity CreateEntity(string name)
 		{
 			Entity entity = CreateEntity();
-			entity.name = name;
+			entity.Name = name;
 			return entity;
 		}
 
@@ -420,7 +420,7 @@ namespace Entitas {
 
 		void onEntityReleased(IEntity entity)
 		{
-			if (entity.isEnabled)
+			if (entity.IsEnabled)
 			{
 				throw new EntityIsNotDestroyedException(
 					"Cannot release " + entity + "!"

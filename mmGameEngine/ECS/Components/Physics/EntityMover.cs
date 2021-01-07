@@ -105,9 +105,9 @@ namespace mmGameEngine
 				// continue moving if both entities that hit eachother
 				// are either enemies or friends
 				//
-				if (CompEntity.isEnemy && MoveCollisionResult.CompEntity.isEnemy)
+				if (CompEntity.IsEnemy && MoveCollisionResult.CompEntity.IsEnemy)
 					return;				//both enemy
-				if (!CompEntity.isEnemy && !MoveCollisionResult.CompEntity.isEnemy)
+				if (!CompEntity.IsEnemy && !MoveCollisionResult.CompEntity.IsEnemy)
 					return;             //both friends
 
 				this.IsMoving = false;          // stop moving(enemy hit a friendly OR friendly hit an enemy

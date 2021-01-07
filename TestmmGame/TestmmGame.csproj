@@ -25,6 +25,7 @@
     <None Remove="Assets\Img\flame304x194.jpg" />
     <None Remove="Assets\Img\GameBackground.jpg" />
     <None Remove="Assets\Img\GameBackground.png" />
+    <None Remove="Assets\Img\hand.png" />
     <None Remove="Assets\Img\Map.png" />
     <None Remove="Assets\Img\Tank Base.png" />
     <None Remove="Assets\Img\Tank Turret.png" />
@@ -91,6 +92,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Img\GameBackground.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Img\hand.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Img\Map.png">

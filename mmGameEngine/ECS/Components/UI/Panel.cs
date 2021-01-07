@@ -56,6 +56,8 @@ namespace mmGameEngine
         public override void Render()
         {
             base.Render();
+            if (!base.Visiable)
+                return;
             //
             // Draw Rectangle filled + line around it
             //

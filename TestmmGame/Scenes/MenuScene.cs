@@ -55,13 +55,13 @@ namespace TestmmGame
             // Background
             //-----------------------------
             Entity entBack = CreateGameEntity(new Vector2(0, 0));
-            entBack.name = "background";
+            entBack.Name = "background";
             Sprite sp = new Sprite(Content.backGround);
             sp.FitWindow = true;
             entBack.Add(sp);
 
             entPanel = CreateSceneEntity(new Vector2(150, 200));                //position of panel
-            entPanel.name = "panel";
+            entPanel.Name = "panel";
             position = entPanel.Get<Transform>().Position;
             //-----------------------------
             // Panel (menu type)

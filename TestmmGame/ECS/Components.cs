@@ -32,7 +32,7 @@ namespace TestmmGame
     }
     public class TankComponent : Component
     {
-        public float Speed = 20f;
+        public float Speed = 40f;
         public TankComponent()
         { }
     }

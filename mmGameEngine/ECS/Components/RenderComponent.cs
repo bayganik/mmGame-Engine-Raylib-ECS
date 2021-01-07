@@ -32,6 +32,7 @@ namespace mmGameEngine
         /// </summary>
         public Vector2 Origin;
         public Vector2 OriginLocal;				//pre Determined origin to override Origin
+        public bool Visiable = true;
 
         public RenderComponent()
         {
