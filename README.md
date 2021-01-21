@@ -1,6 +1,16 @@
-A Game Engine using Raylib as the core, Entitas lite as the ECS engine.  The combination works !!
+A Game Engine using Raylib as the core, Entitas lite as the ECS engine.
 
 The engine and a sample Menu + few other scenes with sprites, animated sprites, compound sprites + simple card game, 
+
+Update Jan 7, 2021
+
+* Using Raylib-cs 3.1.5 from NuGet
+
+* Added a solitaire game as card example.
+
+* Changed Entitas-lite to have more fields.
+
+* Updated a few components in the mmGame engine.
 
 https://github.com/ChrisDill/Raylib-cs         (use NuGet package, much easier)
 
@@ -13,17 +23,23 @@ Scene is the base of the game.  Inside the Scene you add Entities that have Comp
 
 There are components that have special meaning.  
 
-    Transform component gets added to all entities.
+    Each game is a scene holding Entities.
+        
+        * Game Entity (what is used to do the game)
+        
+        * Scene Entity (typically UI elements that are drawn on top of all Game Entities)
+        
+    Transform component gets added to all entities when scene creates them.
     
-    Sprite adds an image
+    Sprite component is used to display images
     
-    SpriteAnimation adds an animated sprite using sprite sheet
+    SpriteAnimation component adds an animated sprite using spritesheet
     
-    Tiled map - adds a TmxMap that allows you to access all of its levels & objects
+    Tiled map component adds a TmxMap that allows you to access all of its levels & objects
     
-    Text addes a text 
+    Text compoenent addes a text and will follow the entity on the screen 
     
-    BoxCollider allows the Entity to collide with other entities that have a collider
+    BoxCollider component allows the Entity to collide with other entities that have a collider
     
 Systems do the guts of the logic of the game.  They are executed once every frame and process all entities that match certain components (that we give them).
 
