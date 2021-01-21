@@ -201,7 +201,7 @@ namespace TestmmGame
                 // 
                 // We are recycling the waste cards back in the deal deal deck 
                 //
-                UpdateScore(-100);
+                UpdateScore(-20);
 
                 for (int i = scDisp.CardsInPile.Count - 1; i >= 0; i--)
                 {

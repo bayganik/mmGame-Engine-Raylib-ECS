@@ -132,7 +132,7 @@ namespace mmGameEngine
             int camPosX = 0;
             int camPosY = 0;
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_UP))
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
             {
                 camPosX = (Int32)(LevelCamera.Position.X + LevelCamera.Direction.X);
                 camPosY = (Int32)(LevelCamera.Position.Y);
@@ -147,7 +147,7 @@ namespace mmGameEngine
                 }
             }
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_DOWN))
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
             {
                 camPosX = (Int32)(LevelCamera.Position.X - LevelCamera.Direction.X);
                 camPosY = (Int32)(LevelCamera.Position.Y);
@@ -171,9 +171,9 @@ namespace mmGameEngine
             //    LevelCamera.RotateLeft();
             //mousePrev = mousePos;
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT))
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
                 LevelCamera.RotateRight();
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT))
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
                 LevelCamera.RotateLeft();
 
 
@@ -200,7 +200,12 @@ namespace mmGameEngine
             //
             // Write the data into an image, then into a texture 
             //
-            Image img = Raylib.LoadImageEx(screenData, Global.SceneWidth, Global.SceneHeight);
+            //Image img = Raylib.LoadImageEx(screenData, Global.SceneWidth, Global.SceneHeight);
+            Image img = Raylib.LoadImage("junk/notused/broken change in Raylib");
+            //
+            //LoadImageEx is removed from Raylib 3.5
+            //Some Bogus access is put here to allow the mmGameEngine to work
+            //
             Texture2D gameDisp = Raylib.LoadTextureFromImage(img);
             Raylib.UnloadImage(img);
             Rectangle rect = new Rectangle(0, 0, gameDisp.width, gameDisp.height);

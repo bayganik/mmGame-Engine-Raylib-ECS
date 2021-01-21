@@ -32,7 +32,7 @@ namespace mmGameEngine
         {
             _textureName = _name;
             Image img = Raylib.GetTextureData(_texture);                    //load into an image
-            IntPtr mapPixelsData = Raylib.GetImageData(img);                //get image data IntPtr
+            IntPtr mapPixelsData = Raylib.LoadImageColors(img);                //get image data IntPtr
             Color* mapPixels = (Color*)mapPixelsData.ToPointer();           //IntPtr points to Color data    
             //
             // Find color DATA going thru width of the texture

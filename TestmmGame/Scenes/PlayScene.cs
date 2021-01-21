@@ -265,7 +265,7 @@ namespace TestmmGame
             //----------------------------
             Entity ent1 = this.CreateGameEntity(new Vector2(30, 300));
             ent1.Name = "Text";
-            Text gdc = new Text("stay with tank", TextFontTypes.Default);
+            Text gdc = new Text("stay with tank", TextFontTypes.Arial);
             ent1.Get<Transform>().Parent = tankEnt.Get<Transform>();
             gdc.RenderLayer = 10;
             ent1.Add(gdc);
