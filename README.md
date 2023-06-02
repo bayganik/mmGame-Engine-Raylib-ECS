@@ -57,6 +57,30 @@ Below examples have "Debug" flag on.  F9 will flip "Debug" off/on.  The tank wil
     Using Dependencies add Raylib-cs Nuget package
     
     Add references to Entitas-Lite , mmGameEngine and Sanford.MIDI
+ 
+## Your Program.cs
+
+using mmGameEngine;
+
+namespace TestmmGame
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            TestGame game = new TestGame();
+
+        }
+    }
+    public class TestGame : mmGame
+    {
+        public TestGame() : base()
+        {
+            Scene = new MenuScene();
+        }
+    }
+}
 
 ## Main Menu Scene
 
