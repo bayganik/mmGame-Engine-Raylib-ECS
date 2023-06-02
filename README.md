@@ -60,27 +60,27 @@ Below examples have "Debug" flag on.  F9 will flip "Debug" off/on.  The tank wil
  
 ## Your Program.cs
 
-using mmGameEngine;
+    using mmGameEngine;
 
-namespace TestmmGame
-{
-    class Program
+    namespace TestmmGame
     {
-        static void Main(string[] args)
+        class Program
         {
+            static void Main(string[] args)
+            {
 
-            TestGame game = new TestGame();
+                TestGame game = new TestGame();
 
+            }
+        }
+        public class TestGame : mmGame
+        {
+            public TestGame() : base()
+            {
+                Scene = new MenuScene();
+            }
         }
     }
-    public class TestGame : mmGame
-    {
-        public TestGame() : base()
-        {
-            Scene = new MenuScene();
-        }
-    }
-}
 
 ## Main Menu Scene
 
