@@ -94,6 +94,4 @@ The background image is a Game Entity with a Sprite component.
 
 ![game image](MidiPiano.png)
 
-Would like to thank Prime31 with his wonderful Nez ECS framework.  https://github.com/prime31/Nez  (although this framework no longer uses ECS)
-
 
