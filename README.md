@@ -98,6 +98,9 @@ The background image is a Game Entity with a Sprite component.
 
 
 
+
+
+
 ## Play Scene
 
 ![game image](PlaySrn.png)
