@@ -1,3 +1,11 @@
+Update June 6, 2023
+    Added Raylib-CS as a NuGet package
+    Added Sandford MIDI project (all in ONE project so to upgrade to NET 7.0)
+    Many changes to mmGameEngine
+    Update of UI components
+    Added new scene with MIDI piano
+    Added new scene as splash screen
+
 A Game Engine using Raylib as the core, Entitas lite as the ECS engine.
 
 The engine and a sample Menu + few other scenes with sprites, animated sprites, compound sprites + simple card game, 
