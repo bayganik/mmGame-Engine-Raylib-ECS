@@ -16,15 +16,6 @@ A Game Engine using Raylib as the core, Entitas lite as the ECS engine.
 
 The engine and a sample Menu + few other scenes with sprites, animated sprites, compound sprites + simple card game, 
 
-Update Jan 7, 2021
-
-* Using Raylib-cs 3.1.5 from NuGet
-
-* Added a solitaire game as card example.
-
-* Changed Entitas-lite to have more fields.
-
-* Updated a few components in the mmGame engine.
 
 https://github.com/ChrisDill/Raylib-cs         (use NuGet package, much easier)
 
