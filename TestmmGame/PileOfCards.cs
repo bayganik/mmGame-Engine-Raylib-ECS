@@ -7,7 +7,7 @@ using System.Text;
 
 using Entitas;
 using mmGameEngine;
-using Transform = mmGameEngine.Transform;
+using Transform = mmGameEngine.TransformComponent;
 using Raylib_cs;
 
 namespace TestmmGame

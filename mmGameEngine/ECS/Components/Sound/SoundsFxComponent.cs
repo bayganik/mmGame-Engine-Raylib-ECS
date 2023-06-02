@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Numerics;
+using Raylib_cs;
+
+namespace mmGameEngine
+{
+    /*
+     * Play a sound fx ONE time (like explosion)
+     */
+    public class SoundsFxComponent : Component
+    {
+        public Sound SoundFx;
+        public SoundState SoundFxState;
+        public SoundsFxComponent(Sound wavSound)
+        {
+            SoundFx = wavSound;
+            SoundFxState = SoundState.None;
+        }
+        public override void Update(float deltaTime)
+        {
+            base.Update(deltaTime);
+            if (OwnerEntity == null)
+                return;
+            if (!Enabled)
+                return;
+        }
+        public void Play()
+        {
+            Raylib.PlaySound(SoundFx);
+            SoundFxState = SoundState.Completed;
+        }
+        //public override void Render()
+        //{
+        //    if (OwnerEntity == null)
+        //        return;
+        //    if (!Enabled)
+        //        return;
+
+        //    if (SoundFxState == SoundState.Play)
+        //    {
+        //        Raylib.PlaySound(SoundFx);
+        //        SoundFxState = SoundState.Completed;
+        //    }
+
+        //}
+    }
+    public enum SoundState
+    {
+        None,
+        Play,
+        Pause,
+        Completed
+    }
+}

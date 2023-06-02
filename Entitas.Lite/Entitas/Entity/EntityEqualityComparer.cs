@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace Entitas {
+namespace Entitas 
+{
 
     public class EntityEqualityComparer : IEqualityComparer<Entity> {
 

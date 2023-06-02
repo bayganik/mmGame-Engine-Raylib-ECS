@@ -9,14 +9,21 @@ namespace mmGameEngine
     /*
      * Button UI element.  Mouse movements don't take camera into account.
      * Assumption is all UI elements are drawn AFTER camera draw is done
+     * 
+     * Button can be used as a component of an entity, in which case it will
+     *      use the position dictated by Transform component
+     * Button can be 'Added' to MsgBox or Panel and not have an entity associated
+     *      with it. It will then use UIPosition of RenderComponent and not any
+     *      Entity.
      */
     public class Button : RenderComponent
     {
-        public Color TextColor = Color.WHITE;
+        public Color TextColor = Color.RAYWHITE;
         public Color BackgroundColor = Color.GRAY;
         public Color BorderColor = Color.WHITE;
         public TextInfo TextData;
         public bool HasBorder;
+        public bool HasImage;
 
         Color CurrentBackgroundColor;
         Color CurrentTextColor;
@@ -27,7 +34,7 @@ namespace mmGameEngine
         public int YOffset = 0;
 
         Texture2D _image;
-        bool hasImage;
+
 
 
         Vector2 textPosition;
@@ -43,25 +50,26 @@ namespace mmGameEngine
             set
             {
                 _image = value;
-                hasImage = true;
+                HasImage = true;
                 HasBorder = false;
                 BackgroundColor = Color.WHITE;
             }
         }
-        public Button(Vector2 _position, int _width, int _height, string _content = "", int _xoffset = 0, int _yoffset = 0)
+        public Button(int _width, int _height, string _content = "", int _xoffset = 0, int _yoffset = 0)
         {
 
             width = _width;
             height = _height;
             content = _content;
-            TextData = new TextInfo(_content, TextFontTypes.Arial, 23, Color.WHITE);
+            TextData = new TextInfo(_content, TextFontTypes.Arial, 23, TextColor);
             CurrentBackgroundColor = BackgroundColor;
             CurrentTextColor = TextColor;
-            CompPosition = _position;
-            hasImage = false;
+            UIPosition = Vector2.Zero;
+            HasImage = false;
             XOffset = _xoffset;
             YOffset = _yoffset;
             HasBorder = true;
+            Image = Global.ButtonImage;
         }
         public override void Update(float deltaTime)
         {
@@ -69,50 +77,70 @@ namespace mmGameEngine
             //
             // If component is attached to an Entity, the obey his position
             //
-            if (CompEntity != null)
+            if (OwnerEntity != null)
             {
-                CompPosition = Transform.Position;
+                UIPosition = Transform.Position;
             }
 
-            textPosition = CompPosition;
+            textPosition = UIPosition;
 
             Vector2 size = Raylib.MeasureTextEx(TextData.TextFont,
                                     TextData.Content,
                                     TextData.FontSize,
                                     0);
+
             textPosition.X += (size.X / 2) + XOffset;
             textPosition.Y += YOffset;
 
-            if (!Transform.Enabled)
-                return;
+            //if (!Transform.Enabled)
+            //    return;
 
             TestMouseOver();
         }
         public override void Render()
         {
             base.Render();
-            if (!base.Visiable)
-                return;
+            if (OwnerEntity != null)
+            {
+                if (!OwnerEntity.IsVisible)
+                    return;
+                if (OwnerEntity.Get<TransformComponent>().Parent != null)
+                    if (!OwnerEntity.Get<TransformComponent>().Parent.OwnerEntity.IsVisible)
+                        return;
+                //
+                // UI is drawn according to entity
+                //
+                UIPosition = Transform.Position;
+            }
+            else
+            {
+                //
+                // UI is drawn according to component 
+                //
+                if (!ComponentVisiable)
+                    return;
+                
+            }
 
-            if (hasImage)
+            if (HasImage)
             {
                 //
                 // Draw image
                 //
-                Raylib.DrawTexture(Image, (int)CompPosition.X, (int)CompPosition.Y, CurrentBackgroundColor);
+                Raylib.DrawTexture(Image, (int)UIPosition.X, (int)UIPosition.Y, CurrentBackgroundColor);
             }
             else
             {
                 //
                 // Draw Rectangle filled with background color
                 //
-                Raylib.DrawRectangle((int)CompPosition.X, (int)CompPosition.Y,
+                Raylib.DrawRectangle((int)UIPosition.X, (int)UIPosition.Y,
                                      width, height, CurrentBackgroundColor);
             }
 
             if (HasBorder)
             {
-                Raylib.DrawRectangleLines((int)CompPosition.X, (int)CompPosition.Y,
+                Raylib.DrawRectangleLines((int)UIPosition.X, (int)UIPosition.Y,
                                      width, height, BorderColor);
             }
             //
@@ -141,7 +169,7 @@ namespace mmGameEngine
                 //
                 // Test the last key for Left Mouse button
                 //
-                if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
+                if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
                 {
                     base.OnClick(this);              //invoike the click delegate
                 }
@@ -155,10 +183,10 @@ namespace mmGameEngine
         }
         public virtual bool HitTest(Vector2 point)
         {
-            if (point.X < CompPosition.X) { return false; }
-            if (point.X >= CompPosition.X + width) { return false; }
-            if (point.Y < CompPosition.Y) { return false; }
-            if (point.Y >= CompPosition.Y + height) { return false; }
+            if (point.X < UIPosition.X) { return false; }
+            if (point.X >= UIPosition.X + width) { return false; }
+            if (point.Y < UIPosition.Y) { return false; }
+            if (point.Y >= UIPosition.Y + height) { return false; }
 
             return true;
         }

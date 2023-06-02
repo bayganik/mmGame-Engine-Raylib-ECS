@@ -43,21 +43,21 @@ namespace mmGameEngine
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
-            if (CompEntity == null)
+            if (OwnerEntity == null)
                 return;
             if (!Enabled)
                 return;
         }
         public override void Render()
         {
-            if (CompEntity == null)
+            if (OwnerEntity == null)
                 return;
             if (!Enabled)
                 return;
             //
             // Card face or back
             //
-            Vector2 position = CompEntity.Get<Transform>().Position;
+            Vector2 position = OwnerEntity.Get<TransformComponent>().Position;
             if (IsFaceUp)
                 Texture = CardFace;
             else
@@ -81,10 +81,10 @@ namespace mmGameEngine
             //
             // Entity.Transform.Position + LocalOffset (Vector2) consider for minor adjustments
             //
-            //Rectangle sRect = Texture2D.Bounds;
+            //Rectangle sRect = Texture.Bounds;
             //var Origin = new Vector2((float)sRect.Width * 0.5f, (float)sRect.Height * 0.5f);
 
-            //DrawImage(Texture2D,
+            //DrawImage(Texture,
             //    new Rectangle(Entity.Position.X, Entity.Position.Y, sRect.Width, sRect.Height), sRect);
         }
         //
@@ -92,22 +92,22 @@ namespace mmGameEngine
         //
         //public void Render(CanvasSpriteBatch sb)
         //{
-        //    CanvasBitmap Texture2D = CardFace;
+        //    CanvasBitmap Texture = CardFace;
 
         //    //
         //    // Card face or back
         //    //
         //    if (IsFaceUp && CardFace != null)
-        //        Texture2D = CardFace;
+        //        Texture = CardFace;
         //    if (!IsFaceUp && CardBack != null)
-        //        Texture2D = CardBack;
+        //        Texture = CardBack;
         //    //
         //    // Entity.Transform.Position + LocalOffset (Vector2) consider for minor adjustments
         //    //
-        //    Rect sRect = Texture2D.Bounds;
+        //    Rect sRect = Texture.Bounds;
         //    var Origin = new Vector2((float)sRect.Width * 0.5f, (float)sRect.Height * 0.5f);
 
-        //    sb.DrawFromSpriteSheet(Texture2D, Entity.Transform.Position, sRect,
+        //    sb.DrawFromSpriteSheet(Texture, Entity.Transform.Position, sRect,
         //                           Vector4.One, Origin, Entity.Transform.Rotation, 
         //                           Entity.Transform.Scale, Entity.Flip);
         //}

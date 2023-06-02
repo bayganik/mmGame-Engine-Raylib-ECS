@@ -15,12 +15,15 @@ namespace mmGameEngine
 		/// <summary>
 		/// x speed of automatic scrolling in pixels/s
 		/// </summary>
-		public float ScrollSpeedX = 15;					//default is horizontal move
-
+		public float ScrollSpeedX = 15;                 //default is horizontal move
 		/// <summary>
-		/// y speed of automatic scrolling in pixels/s
+		/// fill entire screen with the image
 		/// </summary>
-		public float ScrollSpeedY = 0;					//vertial move
+        public bool FitWindow = false;
+        /// <summary>
+        /// y speed of automatic scrolling in pixels/s
+        /// </summary>
+        public float ScrollSpeedY = 0;					//vertial move
 		/// <summary>
 		/// x value of the texture scroll
 		/// </summary>
@@ -97,7 +100,7 @@ namespace mmGameEngine
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
-			if (CompEntity == null)
+			if (OwnerEntity == null)
 				return;
 			if (!Enabled)
 				return;
@@ -109,7 +112,9 @@ namespace mmGameEngine
 		}
         public override void Render()
         {
-			if (CompEntity == null)
+			if (OwnerEntity == null)
+				return;
+			if(!OwnerEntity.IsVisible)
 				return;
 			if (!Enabled)
 				return;
@@ -121,8 +126,14 @@ namespace mmGameEngine
 			Rectangle _destRect = new Rectangle(topLeft.X, topLeft.Y,
 						Texture.width * Transform.Scale.X,
 						Texture.height * Transform.Scale.Y);
-
-			Raylib.DrawTexturePro(Texture,
+            if (FitWindow)
+            {
+                _destRect = new Rectangle(Transform.Position.X, Transform.Position.Y,
+                         Global.SceneWidth * Transform.Scale.X,
+                         Global.SceneHeight * Transform.Scale.Y);
+                Origin = Vector2.Zero;
+            }
+            Raylib.DrawTexturePro(Texture,
 					  _sourceRect,
 					  _destRect,
 					  Vector2.Zero,

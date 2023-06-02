@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Numerics;
 using Raylib_cs;
-using System.Linq;
+using Entitas;
 
 namespace mmGameEngine
 {
@@ -29,7 +29,7 @@ namespace mmGameEngine
             width = _width;
             height = _height;
             BackgroundColor = _backgroundColor;
-            CompPosition = _position;
+            UIPosition = _position;
         }
         public override void Update(float deltaTime)
         {
@@ -37,9 +37,9 @@ namespace mmGameEngine
             //
             // If component is attached to an Entity, the obey its position
             //
-            if (CompEntity != null)
+            if (OwnerEntity != null)
             {
-                CompPosition = Transform.Position;
+                UIPosition = Transform.Position;
             }
             //
             // Panel will call component Update method
@@ -49,22 +49,40 @@ namespace mmGameEngine
                 control.Update(deltaTime);
             }
 
-            if (!Transform.Enabled)
-                return;
+            //if (!Transform.Enabled)
+            //    return;
 
         }
         public override void Render()
         {
             base.Render();
-            if (!base.Visiable)
-                return;
+            if (OwnerEntity != null)
+            {
+                if (!OwnerEntity.IsVisible)
+                    return;
+                if (OwnerEntity.Get<TransformComponent>().Parent != null)
+                    if (!OwnerEntity.Get<TransformComponent>().Parent.OwnerEntity.IsVisible)
+                        return;
+                //
+                // UI is drawn according to entity
+                //
+                UIPosition = Transform.Position;
+            }
+            else
+            {
+                //
+                // UI is drawn according to component 
+                //
+                if (!ComponentVisiable)
+                    return;
+
+            }
             //
             // Draw Rectangle filled + line around it
             //
             Raylib.DrawRectangle((int)Transform.Position.X, (int)Transform.Position.Y,
                                  width, height, BackgroundColor);
-            //Raylib.DrawRectangleLines((int)Transform.Position.X, (int)Transform.Position.Y,
-            //                     width, height, BorderColor);
+
             Raylib.DrawRectangleLinesEx(new Rectangle((int)Transform.Position.X, (int)Transform.Position.Y,
                                         width, height), BorderThickness, BorderColor);
             //
@@ -76,12 +94,12 @@ namespace mmGameEngine
             }
 
         }
-        public void AddComponent(RenderComponent _uiElement)
+        public void AddComponent(RenderComponent _uiElement, Vector2 _location)
         {
-            // convert relative position to absolute
-            _uiElement.CompPosition = new Vector2(_uiElement.CompPosition.X + CompPosition.X, _uiElement.CompPosition.Y + CompPosition.Y);
+            _uiElement.UIPosition = _location;
+
+            _uiElement.UIPosition = new Vector2(_uiElement.UIPosition.X + UIPosition.X, _uiElement.UIPosition.Y + UIPosition.Y);
             PanelComponents.Add(_uiElement);
         }
-
     }
 }

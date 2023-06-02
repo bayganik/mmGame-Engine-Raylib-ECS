@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Numerics;
-using mmGameEngine;
 using Raylib_cs;
-using Transform = mmGameEngine.Transform;
+using mmGameEngine;
+
+using Transform = mmGameEngine.TransformComponent;
 using Entitas;
 
 namespace TestmmGame
@@ -61,42 +62,40 @@ namespace TestmmGame
             Global.SceneHeight = 800;
             Global.SceneWidth = 960;
             Global.SceneTitle = "Card Scene";
-            Global.SceneClearColor = Color.BLUE;
-            Global.SceneClearColor = Color.DARKGREEN;
+            Global.SceneClearColor = new Color(255, 255, 255, 255);
+            Global.SceneClearColor = new Color(0, 117, 44, 255);
+
+        }
+        public override void Initialize()
+        {
+            Content.LoadMenu();
             //
             // we will show an index finger hand
             //
             Global.HideCursor = true;
+            Global.CurrentScene = this;
+            Global.DebugRenderEnabled = true;
         }
         public override void Play()
         {
-            Global.CurrentScene = this;
-            Global.DebugRenderEnabled = false;
-            
+
             dispY = (int)Global.WindowCenter.Y - 100;
             dispX = 40;
+
             //znznznznznznznznznznznznznznznznznznznznznznznznznznznznzn
             // Hand cursor mouse + boxcollider
             //znznznznznznznznznznznznznznznznznznznznznznznznznznznznzn
-            tmpEnt = this.CreateGameEntity(Vector2.Zero);
-            tmpEnt.Name = "cursor";
+            PrefabEntity.CreateCursorEntity("Assets/Img/hand.png");
 
-            textureImage = Raylib.LoadTexture("Assets/Img/hand.png");
-            Spr = new Sprite(textureImage);
-            Spr.RenderLayer = Global.CURSOR_LAYER;              //on top of everything
-            tmpEnt.Add(Spr);
-            BoxCollider bxxx = new BoxCollider(12, 12);
-            tmpEnt.Add(bxxx);
-            tmpEnt.Add<MouseComponent>();
             //znznznznznznznznznznznznznznznznznznznznznznznznznznznznzn
             // Game status (Score + Game over)
             //znznznznznznznznznznznznznznznznznznznznznznznznznznznznzn
-            GameStatus = this.CreateGameEntity(new Vector2(5, 10));
+            GameStatus = Global.CreateGameEntity(Global.WindowCenter - new Vector2(150, 0));
             GameStatus.Name = "Game Status";
             Text scoreTxt = new Text("Score: ", TextFontTypes.Arial);
             GameStatus.Add(scoreTxt);
-            MsgBox mb = new MsgBox(Global.WindowCenter - new Vector2(150,0), 350, 150, Color.BROWN);
-            mb.Visiable = false;
+            MsgBox mb = new MsgBox( 350, 150, Color.BROWN);
+            //mb.Visiable = false;
             GameStatus.Add(mb);
             GameStatus.Add<GameStatComponent>();
 
@@ -114,40 +113,68 @@ namespace TestmmGame
             CreateEmptyDragPile();                      // used to disp cards being dragged around
             DealCardsToPiles();                         // draw cards & place in piles above
             //
-            // Play Button
+            // Play Button (game entity so the cursor can hover over it)
             //
             Global.StateOfGame = GameState.Over;
-            PlayBtn = CreateSceneEntity(new Vector2(850, 50));
+            PlayBtn = Global.CreateGameEntity(new Vector2(850, 50));
             PlayBtn.Name = "playBtn";
             position = PlayBtn.Get<Transform>().Position;
-            Button bt = new Button(position, 75, 30, "Play", -6, 2);
+            Button bt = new Button(75, 30, "Play", -6, 4);
             PlayBtn.Add(bt);
             bt.Click += PlayButton;
             //
             // End Button
             //
             Global.StateOfGame = GameState.Over;
-            entUI = CreateSceneEntity(new Vector2(850, 100));
-            entUI.Name = "playBtn";
+            entUI = Global.CreateGameEntity(new Vector2(850, 100));
+            entUI.Name = "endBtn";
             position = entUI.Get<Transform>().Position;
-            bt = new Button(position, 75, 30, "End", -6, 2);
+            bt = new Button(75, 30, "End", -6, 4);
             entUI.Add(bt);
             bt.Click += EndButton;
-
+            //
+            // Menu Button
+            //
+            Global.StateOfGame = GameState.Over;
+            entUI = Global.CreateGameEntity(new Vector2(850, 150));
+            entUI.Name = "menuBtn";
+            position = entUI.Get<Transform>().Position;
+            bt = new Button(75, 30, "Menu", -6, 4);
+            entUI.Add(bt);
+            bt.Click += MenuButton;
+            //
             //znznznznznznznznznznznznznzn
             //   Scene Starts Playing
             //znznznznznznznznznznznznznzn
 
+            AddSystem(new PileDispSystem());
+            AddSystem(new MouseClickSystem());
+            AddSystem(new DragDispPileSystem());
+            AddSystem(new GameStateSystem());
+        }
+        public void MenuButton(object btn)
+        {
+            //
+            // show normal cursor
+            //
+            Global.HideCursor = false;
+            //
+            // change the scene to Menu
+            //
+            Scene otherScene = new MenuScene();
+            mmGame.Scene = otherScene;
         }
         public void PlayButton(object btn)
         {
 
-            PlayBtn.Get<Transform>().Visiable = false;
+            //PlayBtn.Get<Transform>().Visiable = false;
+            PlayBtn.IsVisible = false;
             Global.StateOfGame = GameState.Playing;
             GameStatComponent sc = GameStatus.Get<GameStatComponent>();
             sc.Score = 0;
             MsgBox mb = GameStatus.Get<MsgBox>();
-            mb.Visiable = false;
+            GameStatus.IsVisible = false;
+            //mb.Visible = false;
 
             //CardDeck.CreateDeckOfCards(false);
 
@@ -160,21 +187,21 @@ namespace TestmmGame
         }
         public void EndButton(object btn)
         {
-            PlayBtn.Get<Transform>().Visiable = true;
+            //PlayBtn.Get<Transform>().Visiable = true;
+            PlayBtn.IsVisible = true;
             Global.StateOfGame = GameState.Over;
-            //GameStatComponent sc = GameStatus.Get<GameStatComponent>();
-            //sc.Score = 0;
             MsgBox mb = GameStatus.Get<MsgBox>();
-            mb.Visiable = true;
+            GameStatus.IsVisible = true;
+            //mb.Visiable = true;
         }
         public void UpdateScore(int _value)
         {
             /*
-             *  Waste to Tableau	5
-                Waste to Foundation	10
-                Tableau to Foundation	10
-                Turn over Tableau card	5
-                Foundation to Tableau	−15
+             *  Waste to 7 play pile	    5   points
+                Waste to Aces pile	        10  points
+                play pile to aces pile	    10  points
+                Turn over play pile card	5   points
+                Aces pile to play pile	    −15 points
                 Recycle waste when playing by ones	−100 (minimum score is 0)
              */
 
@@ -241,7 +268,9 @@ namespace TestmmGame
         }
         public void Card2Drag(Entity _entity)
         {
-            
+            //
+            // We have a single Card entity to drag
+            //
             CardPileComponent scDrag = DragDisp.GetComponent<CardPileComponent>();
             CardPileComponent scTemp = _entity.GetComponent<CardPileComponent>();
             if (scTemp == null)
@@ -279,7 +308,7 @@ namespace TestmmGame
                 return;
 
             CardPileComponent scTemp = _cc.HoldingPile;
-            Entity fromEntity = scTemp.CompEntity;
+            Entity fromEntity = scTemp.OwnerEntity;
             //
             // Find the card in the pile, then get all cards from that on down
             //
@@ -315,12 +344,15 @@ namespace TestmmGame
         }
         public void DropCardFromDrag2PlayStack(Entity _playStack)
         {
+            //
+            // Dragging cards are being dropped on play stack
+            //
             CardPileComponent scDrag = DragDisp.GetComponent<CardPileComponent>();            //cards being dragged
             CardPileComponent scPlay = _playStack.GetComponent<CardPileComponent>();            //cards being dropped
             if (scDrag.CardsInPile.Count == 0)
                 return;
             //
-            // first card of drag needs to match last card of drop
+            // Test first card of drag to match last card of drop
             //
             Entity firstCardonStack = scDrag.CardsInPile[0];               //get first card
             Card firstCard = firstCardonStack.GetComponent<Card>();
@@ -382,6 +414,7 @@ namespace TestmmGame
                 //
                 if (possibleScoreValue == -1000)
                     UpdateScore(5);
+
                 ReturnCardFromDrag2Stack();
             }
 
@@ -410,6 +443,9 @@ namespace TestmmGame
         }
         public void ReturnCardFromDrag2Stack()
         {
+            //
+            // Drag cards are NOT dropped on any ligit pile, return them to where they came from
+            //
             DragComponent scDragComp = DragDisp.GetComponent<DragComponent>();
             if (scDragComp == null)
                 return;
@@ -426,6 +462,9 @@ namespace TestmmGame
         }
         public void DragStackClear()
         {
+            //
+            // Clear drag stack (cards have been dropped)
+            //
             DragDisp.RemoveComponent<DragComponent>();
             CardPileComponent sc = DragDisp.GetComponent<CardPileComponent>();
             sc.CardsInPile.Clear();
@@ -620,7 +659,7 @@ namespace TestmmGame
             // Drag stack (all cards are faceup and are being moved)
             //znznznznznznznznznznznznznznznznznznznznznznznznznznznznzn
             //DragDisp = CardDeck.DealEmptyHolder();
-            DragDisp = CreateGameEntity("DragStack");
+            DragDisp = Global.CreateGameEntity("DragStack");
             DragDisp.Tag = 85;
             DragDisp.Name = "DragStack";
             DragDisp.Get<Transform>().Visiable = false;
@@ -718,7 +757,7 @@ namespace TestmmGame
             //znznznznznznznznznznznznznznznznznznznznznzn
             // 7 playing stacks
             //znznznznznznznznznznznznznznznznznznznznznzn
-            Entity playEnt = CreateGameEntity("PlayStack1", playStack1);
+            Entity playEnt = Global.CreateGameEntity("PlayStack1", playStack1);
             playEnt.Tag = 1;               //special tag for Ace pile
             playEnt.Add(new Sprite(CardDeck.GetEmptyHolderTexture()));
             playEnt.Add(new BoxCollider(playStack1.X, playStack1.Y, colliderWidth, colliderHeight));
@@ -726,7 +765,7 @@ namespace TestmmGame
             playEnt.Add(new PileDispComponent());
             PlayStacks.Add(playEnt);
 
-            playEnt = CreateGameEntity("PlayStack2", playStack1 + new Vector2(100, 0));
+            playEnt = Global.CreateGameEntity("PlayStack2", playStack1 + new Vector2(100, 0));
             playEnt.Tag = 2;               //special tag for Ace pile
             playEnt.Add(new Sprite(CardDeck.GetEmptyHolderTexture()));
             playEnt.Add(new BoxCollider(playStack1.X + 200, playStack1.Y, colliderWidth, colliderHeight));
@@ -734,7 +773,7 @@ namespace TestmmGame
             playEnt.Add(new PileDispComponent());
             PlayStacks.Add(playEnt);
 
-            playEnt = CreateGameEntity("PlayStack3", playStack1 + new Vector2(200, 0));
+            playEnt = Global.CreateGameEntity("PlayStack3", playStack1 + new Vector2(200, 0));
             playEnt.Tag = 3;               //special tag for Ace pile
             playEnt.Add(new Sprite(CardDeck.GetEmptyHolderTexture()));
             playEnt.Add(new BoxCollider(playStack1.X + 400, playStack1.Y, colliderWidth, colliderHeight));
@@ -742,7 +781,7 @@ namespace TestmmGame
             playEnt.Add(new PileDispComponent());
             PlayStacks.Add(playEnt);
 
-            playEnt = CreateGameEntity("PlayStack4", playStack1 + new Vector2(300, 0));
+            playEnt = Global.CreateGameEntity("PlayStack4", playStack1 + new Vector2(300, 0));
             playEnt.Tag = 4;               //special tag for Ace pile
             playEnt.Add(new Sprite(CardDeck.GetEmptyHolderTexture()));
             playEnt.Add(new BoxCollider(playStack1.X + 600, playStack1.Y, colliderWidth, colliderHeight));
@@ -750,7 +789,7 @@ namespace TestmmGame
             playEnt.Add(new PileDispComponent());
             PlayStacks.Add(playEnt);
 
-            playEnt = CreateGameEntity("PlayStack5", playStack1 + new Vector2(400, 0));
+            playEnt = Global.CreateGameEntity("PlayStack5", playStack1 + new Vector2(400, 0));
             playEnt.Tag = 5;               //special tag for Ace pile
             playEnt.Add(new Sprite(CardDeck.GetEmptyHolderTexture()));
             playEnt.Add(new BoxCollider(playStack1.X + 800, playStack1.Y, colliderWidth, colliderHeight));
@@ -758,7 +797,7 @@ namespace TestmmGame
             playEnt.Add(new PileDispComponent());
             PlayStacks.Add(playEnt);
 
-            playEnt = CreateGameEntity("PlayStack6", playStack1 + new Vector2(500, 0));
+            playEnt = Global.CreateGameEntity("PlayStack6", playStack1 + new Vector2(500, 0));
             playEnt.Tag = 6;               //special tag for Ace pile
             playEnt.Add(new Sprite(CardDeck.GetEmptyHolderTexture()));
             playEnt.Add(new BoxCollider(playStack1.X + 1000, playStack1.Y, colliderWidth, colliderHeight));
@@ -766,7 +805,7 @@ namespace TestmmGame
             playEnt.Add(new PileDispComponent());
             PlayStacks.Add(playEnt);
 
-            playEnt = CreateGameEntity("PlayStack7", playStack1 + new Vector2(600, 0));
+            playEnt = Global.CreateGameEntity("PlayStack7", playStack1 + new Vector2(600, 0));
             playEnt.Tag = 7;               //special tag for Ace pile
             playEnt.Add(new Sprite(CardDeck.GetEmptyHolderTexture()));
             playEnt.Add(new BoxCollider(playStack1.X + 1200, playStack1.Y, colliderWidth, colliderHeight));
@@ -776,7 +815,7 @@ namespace TestmmGame
         }
         private void CreateCardPile(int _dispX, int _dispY)
         {
-            Entity oneCardPile = CreateGameEntity(new Vector2(_dispX, _dispY));
+            Entity oneCardPile = Global.CreateGameEntity(new Vector2(_dispX, _dispY));
             oneCardPile.Tag = 80;
             oneCardPile.Add<PileDispComponent>();
             //BoxCollider bx = new BoxCollider(new Rectangle(0, 0, 75, 100));

@@ -17,6 +17,9 @@ namespace mmGameEngine
         Digital,
         OpenSans
     }
+    /// <summary>
+    /// Data about the text being displayed (string value, font, size, color)
+    /// </summary>
     public class TextInfo
     {
         public Color FontColor = Color.WHITE;

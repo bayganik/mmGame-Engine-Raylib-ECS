@@ -182,7 +182,7 @@ namespace mmGameEngine
         public override void Render()
         {
             //
-            // Create a texture2D image of what you see
+            // Create a Texture image of what you see
             //
             RenderLevel(LevelMap.Map, LevelMap.Sprites);
             //RenderSprites();
@@ -495,7 +495,7 @@ namespace mmGameEngine
             float vMove = 0.0f;    // size of texture or Zero
             int vMoveScreen;
             // arrays used to sort the sprites
-            int[] spriteOrder;
+            //int[] spriteOrder;
             double[] spriteDistance;
 
             //for (int i = 0; i < LevelMap.SpriteTotals; i++)

@@ -31,9 +31,12 @@ namespace mmGameEngine
         public unsafe void LoadTextureData(Texture2D _texture, string _name = "")
         {
             _textureName = _name;
-            Image img = Raylib.GetTextureData(_texture);                    //load into an image
-            IntPtr mapPixelsData = Raylib.LoadImageColors(img);                //get image data IntPtr
-            Color* mapPixels = (Color*)mapPixelsData.ToPointer();           //IntPtr points to Color data    
+            //Image img = Raylib.GetTextureData(_texture);                    //load into an image
+            //IntPtr mapPixelsData = Raylib.LoadImageColors(img);                //get image data IntPtr
+            //Color* mapPixels = (Color*)mapPixelsData.ToPointer();           //IntPtr points to Color data  
+            Image img = Raylib.LoadImageFromTexture(_texture);                    //load into an image
+            Color* mapPixelsData = Raylib.LoadImageColors(img);                //get image data IntPtr
+  
             //
             // Find color DATA going thru width of the texture
             //
@@ -43,7 +46,7 @@ namespace mmGameEngine
             {
                 for (int y = 0; y < img.height; y++)
                 {
-                    ImageData[y * img.width + x] = mapPixels[y * img.width + x];
+                    ImageData[y * img.width + x] = mapPixelsData[y * img.width + x];
                 }
             }
             Raylib.UnloadImage(img);                                        // Unload image from RAM

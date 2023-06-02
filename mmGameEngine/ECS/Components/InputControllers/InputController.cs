@@ -40,7 +40,7 @@ namespace mmGameEngine
             //
             // Has Entity been assigned yet?
             //
-            if (CompEntity == null)
+            if (OwnerEntity == null)
                 return;
             if (!Enabled)
                 return;

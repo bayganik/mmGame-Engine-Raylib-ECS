@@ -12,24 +12,17 @@ namespace mmGameEngine
     public class Label : RenderComponent
     {
 
-        public Color TextColor = Color.WHITE;
-        public Color BackgroundColor = Color.GRAY;
-        public Color BorderColor = Color.WHITE;
-        public Vector2 Position;
-
-        Color CurrentBackgroundColor;
-        Color CurrentTextColor;
         public TextInfo TextData;
 
+        Color CurrentTextColor;
         string content;
         
-        public Label(Vector2 _position, string _content)
+        public Label( string _content)
         {
             content = _content;
             TextData = new TextInfo(_content, TextFontTypes.Arial, 25, Color.WHITE);
-            CurrentBackgroundColor = BackgroundColor;
             CurrentTextColor = TextData.FontColor;
-            CompPosition = _position;
+            UIPosition = Vector2.Zero;
         }
         public override void Update(float deltaTime)
         {
@@ -37,26 +30,41 @@ namespace mmGameEngine
             //
             // If component is attached to an Entity, the obey his position
             //
-            if (CompEntity != null)
+            if (OwnerEntity != null)
             {
-                CompPosition = Transform.Position;
+                UIPosition = Transform.Position;
             }
         }
         public override void Render()
         {
-            base.Render();
-            if (!base.Visiable)
-                return;
-            //
-            // Todo: use this to wrap words
-            //
-            //Raylib.DrawTextRec()
+            if (OwnerEntity != null)
+            {
+                if (!OwnerEntity.IsVisible)
+                    return;
+                if (OwnerEntity.Get<TransformComponent>().Parent != null)
+                    if (!OwnerEntity.Get<TransformComponent>().Parent.OwnerEntity.IsVisible)
+                        return;
+                //
+                // UI is drawn according to entity
+                //
+                UIPosition = Transform.Position;
+            }
+            else
+            {
+                //
+                // UI is drawn according to component 
+                //
+                if (!ComponentVisiable)
+                    return;
+
+            }
+            CurrentTextColor = TextData.FontColor;
             //
             // Draw the text
             //
             Raylib.DrawTextEx(TextData.TextFont,
                   TextData.Content,
-                  CompPosition,
+                  UIPosition,
                   (float)TextData.FontSize,
                   0,
                   CurrentTextColor);

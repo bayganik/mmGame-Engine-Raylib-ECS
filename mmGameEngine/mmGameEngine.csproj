@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -14,6 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Color.cs" />
     <Compile Remove="mmGameNOTUSED.cs" />
   </ItemGroup>
 
@@ -23,6 +24,9 @@
     <None Remove="AssetsEngine\Fonts\arial.ttf" />
     <None Remove="AssetsEngine\Fonts\toon.ttf" />
     <None Remove="AssetsEngine\Fonts\Volkhov-Regular.ttf" />
+    <None Remove="AssetsEngine\Img\Button_empty.png" />
+    <None Remove="AssetsEngine\Img\crosshair.png" />
+    <None Remove="AssetsEngine\Img\hand.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,10 +45,20 @@
     <Content Include="AssetsEngine\Fonts\Volkhov-Regular.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="AssetsEngine\Img\Button_empty.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetsEngine\Img\crosshair.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AssetsEngine\Img\hand.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Raylib-cs" Version="3.5.0" />
+    <PackageReference Include="MeltySynth" Version="2.4.0" />
+    <PackageReference Include="Raylib-cs" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>

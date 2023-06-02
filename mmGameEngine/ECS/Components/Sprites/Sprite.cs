@@ -13,24 +13,21 @@ namespace mmGameEngine
     public class Sprite : RenderComponent
     {
 		//
-		// Draw line data (from init pos to current pos)
+		// Draw tracer line data (from init pos to current pos)
 		//
 		public bool EnableTracer = false;   
 		public Vector2 InitialPosition;
 		public Color TracerColor = Color.RED;
 		public float TracerThick = 1.0f;
-
+		//
+		// Fit entire sprite in a window
+		//
 		public bool FitWindow = false;
-		/// <summary>
-		/// rectangle in the Texture2D for this element
-		/// </summary>
-		public Rectangle SourceRect;
-		/// <summary>
-		/// rectangle in the Texture2D for this element
-		/// </summary>
-		public Rectangle DestRect;
+		public Rectangle SourceRect;                //source rectangle in the Texture for this element
+        public Rectangle DestRect;					//rectangle (position & size) for display
 
-		public bool OriginReCalc = true;					//force the first update to get correct Origin
+		public bool OriginReCalc = true;            //force the first update to get correct Origin
+		public Color DrawColor = Color.WHITE;		//default color for drawing is White
 		public Sprite(string filePath)
         {
 			Texture = Raylib.LoadTexture(filePath);
@@ -49,16 +46,16 @@ namespace mmGameEngine
         {
 			SourceRect = new Rectangle(0, 0, Texture.width, Texture.height);
 			TextureCenter = new Vector2(Texture.width * 0.5f, Texture.height * 0.5f);
-			OriginLocal = new Vector2(Texture.width * 0.5f , Texture.height * 0.5f );
+			Origin = new Vector2(Texture.width * 0.5f , Texture.height * 0.5f );
 		}
 		
         public override void Update(float deltaTime)
         {
 			base.Update(deltaTime);
-			//
-			// If Entity has not been attached, then leave
-			//
-			if (CompEntity == null)
+
+			if (OwnerEntity == null)
+				return;
+			if(!OwnerEntity.IsVisible)
 				return;
 			if (!Enabled)
 				return;
@@ -71,8 +68,8 @@ namespace mmGameEngine
 			if (OriginReCalc)
             {
 				InitialPosition = Transform.Position;
-				Origin = new Vector2(OriginLocal.X * Transform.Scale.X, 
-									 OriginLocal.Y * Transform.Scale.Y);
+				Origin = new Vector2(Origin.X * Transform.Scale.X, 
+									 Origin.Y * Transform.Scale.Y);
                 OriginReCalc = false;
             }
         }
@@ -81,9 +78,11 @@ namespace mmGameEngine
 			//
 			// If Entity has not been attached, then leave
 			//
-			if (CompEntity == null)
+			if (OwnerEntity == null)
 				return;
 			if (!Enabled)
+				return;
+			if (!OwnerEntity.IsVisible)
 				return;
 			//
 			// Destination Rect depends on position & scale
@@ -116,7 +115,7 @@ namespace mmGameEngine
                                   DestRect,
                                   Origin,
                                   Transform.Rotation,
-                                  Color.WHITE);
+                                  DrawColor);
 
 		}
     }

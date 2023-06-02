@@ -50,10 +50,6 @@ namespace Entitas
         /// </summary>
         public int Tag { get { return _tag; } set { _tag = value; } }
         /// <summary>
-        /// Tags all enemy entities. this is used for collision detections (missile fired that needs to clear its own buildings)
-        /// </summary>
-        public bool IsEnemy { get { return _isEnemy; } set { _isEnemy = value; } }
-        /// <summary>
         /// EntityType is used to group entities together (Type=0 game entity, Type=1 scene (ui) entity)
         /// </summary>
         public int EntityType { get { return _entityType; } set { _entityType = value; } }
@@ -85,7 +81,6 @@ namespace Entitas
         public IAERC aerc { get { return _aerc; } }
 
         int _creationIndex;
-        bool _isEnemy;                      //Kamran: bool is used for collision detection (so friendly entity cannot collide together)
         int _tag;                           //Kamran: tag is used for grouping enteties together
         int _entityType;                    //Kamran: tag is used for entity types in the default context
         bool _isEnabled;
@@ -162,7 +157,8 @@ namespace Entitas
             _componentIndicesCache = null;
 			//_toStringCache = null;
 
-			if (OnComponentAdded != null) {
+			if (OnComponentAdded != null) 
+            {
                 OnComponentAdded(this, index, component);
             }
         }

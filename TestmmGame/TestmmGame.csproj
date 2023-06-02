@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -48,6 +48,77 @@
     <None Remove="Assets\Missile\Rocket9x26.png" />
     <None Remove="Assets\Missile\RocketSmoke12x12.png" />
     <None Remove="Assets\Missile\RocketTail7x9.png" />
+    <None Remove="Assets\Piano\bkey.png" />
+    <None Remove="Assets\Piano\bkey_large.png" />
+    <None Remove="Assets\Piano\bkey_med.png" />
+    <None Remove="Assets\Piano\black_key - Copy.png" />
+    <None Remove="Assets\Piano\black_key.png" />
+    <None Remove="Assets\Piano\white_key.png" />
+    <None Remove="Assets\Piano\wkey.png" />
+    <None Remove="Assets\Piano\wkey_large.png" />
+    <None Remove="Assets\Piano\wkey_med.png" />
+    <None Remove="Assets\Slider\BackgroundMetal - Copy.png" />
+    <None Remove="Assets\Slider\BackgroundMetal.png" />
+    <None Remove="Assets\Slider\BlankOnOff.png" />
+    <None Remove="Assets\Slider\KnobMetal.png" />
+    <None Remove="Assets\Slider\KnobMetalSmall.png" />
+    <None Remove="Assets\Slider\KnobSoft.png" />
+    <None Remove="Assets\Slider\Mixer1.png" />
+    <None Remove="Assets\Slider\MuteOff.png" />
+    <None Remove="Assets\Slider\MuteOff0.png" />
+    <None Remove="Assets\Slider\MuteOn.png" />
+    <None Remove="Assets\Slider\SelOff.png" />
+    <None Remove="Assets\Slider\SelOff0.png" />
+    <None Remove="Assets\Slider\SelOn.png" />
+    <None Remove="Assets\Slider\SelOn0.png" />
+    <None Remove="Assets\Slider\SliderKnobBlk.png" />
+    <None Remove="Assets\Slider\SliderMetal.png" />
+    <None Remove="Assets\Slider\SliderMetalOriginal.png" />
+    <None Remove="Assets\Slider\SliderMetalSmall.png" />
+    <None Remove="Assets\Slider\SliderMetalSmall0.png" />
+    <None Remove="Assets\Slider\SliderSimple.png" />
+    <None Remove="Assets\Slider\SliderSoft.png" />
+    <None Remove="Assets\Slider\SliderSoftSmall.png" />
+    <None Remove="Assets\Slider\SlideTicks.png" />
+    <None Remove="Assets\Slider\SlideTicks_big.png" />
+    <None Remove="Assets\Slider\SlideTicks_Med.png" />
+    <None Remove="Assets\Slider\SoloOff.png" />
+    <None Remove="Assets\Slider\SoloOff0.png" />
+    <None Remove="Assets\Slider\SoloOn.png" />
+    <None Remove="Assets\Slider\Trk00Off.png" />
+    <None Remove="Assets\Slider\Trk00On.png" />
+    <None Remove="Assets\Slider\Trk01Off.png" />
+    <None Remove="Assets\Slider\Trk01On.png" />
+    <None Remove="Assets\Slider\Trk02Off.png" />
+    <None Remove="Assets\Slider\Trk02On.png" />
+    <None Remove="Assets\Slider\Trk03Off.png" />
+    <None Remove="Assets\Slider\Trk03On.png" />
+    <None Remove="Assets\Slider\Trk04Off.png" />
+    <None Remove="Assets\Slider\Trk04On.png" />
+    <None Remove="Assets\Slider\Trk05Off.png" />
+    <None Remove="Assets\Slider\Trk05On.png" />
+    <None Remove="Assets\Slider\Trk06Off.png" />
+    <None Remove="Assets\Slider\Trk06On.png" />
+    <None Remove="Assets\Slider\Trk07Off.png" />
+    <None Remove="Assets\Slider\Trk07On.png" />
+    <None Remove="Assets\Slider\Trk08Off.png" />
+    <None Remove="Assets\Slider\Trk08On.png" />
+    <None Remove="Assets\Slider\Trk09Off.png" />
+    <None Remove="Assets\Slider\Trk09On.png" />
+    <None Remove="Assets\Slider\Trk10Off.png" />
+    <None Remove="Assets\Slider\Trk10On.png" />
+    <None Remove="Assets\Slider\Trk11Off.png" />
+    <None Remove="Assets\Slider\Trk11On.png" />
+    <None Remove="Assets\Slider\Trk12Off.png" />
+    <None Remove="Assets\Slider\Trk12On.png" />
+    <None Remove="Assets\Slider\Trk13Off.png" />
+    <None Remove="Assets\Slider\Trk13On.png" />
+    <None Remove="Assets\Slider\Trk14Off.png" />
+    <None Remove="Assets\Slider\Trk14On.png" />
+    <None Remove="Assets\Slider\Trk15Off.png" />
+    <None Remove="Assets\Slider\Trk15On.png" />
+    <None Remove="Assets\Slider\TrkOff.png" />
+    <None Remove="Assets\Slider\TrkOn.png" />
     <None Remove="Assets\Sound\boom.wav" />
     <None Remove="Assets\SplashScreen.png" />
   </ItemGroup>
@@ -152,6 +223,219 @@
     <Content Include="Assets\Missile\RocketTail7x9.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Piano\bkey.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Piano\bkey_large.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Piano\bkey_med.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Piano\black_key - Copy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Piano\black_key.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Piano\white_key.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Piano\wkey.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Piano\wkey_large.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Piano\wkey_med.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\BackgroundMetal - Copy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\BackgroundMetal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\BlankOnOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\KnobMetal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\KnobMetalSmall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\KnobSoft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Mixer1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\MuteOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\MuteOff0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\MuteOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SelOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SelOff0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SelOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SelOn0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SliderKnobBlk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SliderMetal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SliderMetalOriginal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SliderMetalSmall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SliderMetalSmall0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SliderSimple.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SliderSoft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SliderSoftSmall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SlideTicks.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SlideTicks_big.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SlideTicks_Med.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SoloOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SoloOff0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\SoloOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk00Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk00On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk01Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk01On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk02Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk02On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk03Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk03On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk04Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk04On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk05Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk05On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk06Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk06On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk07Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk07On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk08Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk08On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk09Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk09On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk10Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk10On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk11Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk11On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk12Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk12On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk13Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk13On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk14Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk14On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk15Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\Trk15On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\TrkOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slider\TrkOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Sound\boom.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -165,9 +449,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Raylib-cs-master\Raylib-cs\Raylib-cs.csproj" />
     <ProjectReference Include="..\Entitas.Lite\Entitas.Lite.csproj" />
     <ProjectReference Include="..\mmGameEngine\mmGameEngine.csproj" />
+    <ProjectReference Include="..\SanfordMIDI\mmGameMidi\mmGameMidi\Sanford.Midi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Numerics;
 using Raylib_cs;
+using System.Reflection;
 
 namespace mmGameEngine
 {
@@ -21,16 +22,11 @@ namespace mmGameEngine
      */
     public class mmGame
     {
-        public Color WindowClearColor;                                  //Can be changed
-        public KeyboardKey ExitKey = KeyboardKey.KEY_ESCAPE;            //Can be changed by user
+        internal static mmGame _instance;
         /// <summary>
         /// provides access to the singlton mmGame/Scene instance
         /// </summary>
         public static mmGame Instance => _instance;
-        /// <summary>
-        /// facilitates easy access to the global Content instance for internal classes
-        /// </summary>
-        internal static mmGame _instance;
         //
         // Scene variables for internal use
         //
@@ -49,13 +45,15 @@ namespace mmGameEngine
                 {
                     _instance._nextScene = null;
                     _instance._scene = value;                       //scene object
-                    _instance._scene.Game = _instance;              //tell the scene where Game is 
+
                     Global.CurrentScene = value;
 
                     _instance._scene.Begin();                       //setup of entity context, lists, etc
 
+
                     _instance.SetSceneWindow();                     //create a new Raylib window
 
+                    _instance._scene.Initialize();
                     _instance._scene.Play();                        //do game logic - load assets, entities
                     _instance.RunGameLoop();                        //run the loop
                 }
@@ -84,12 +82,12 @@ namespace mmGameEngine
             while (true)
             {
                 //-----------------------------------
-                //update and render game loop
+                // update and render game loop
                 //-----------------------------------
                 Run();                                              
                 //
                 // We are here because game loop was intrupted
-                // scene changed or user forced out by pressing ESCAPE
+                // scene changed or user forced out by pressing ExitKey
                 //
                 // EACH SCENE SHUTS DOWN PREVIOUS WINDOW & STARTS A NEW WINDOW
                 //
@@ -100,17 +98,19 @@ namespace mmGameEngine
                     Global.CurrentScene = _scene;
 
                     _nextScene = null;
-
-                    _scene.Game = this;
                     OnSceneChanged();                               // clean up, start the new Scene/Window
                     _scene.Begin();                                 //setup of entity context, lists, etc
 
                     _instance.SetSceneWindow();                     //create a new Raylib window
+                    _instance._scene.Initialize();
                     _instance._scene.Play();                        //do game logic - load assets, entities
-
+                    
                 }
                 else
-                    break;                                          //game is done
+                {
+                    break;              //Escape or Window close comes here
+                }
+
             }
         }
         /// <summary>
@@ -120,27 +120,41 @@ namespace mmGameEngine
         {
             GC.Collect();
         }
-        public void SetSceneWindow()
+        internal void SetSceneWindow()
         {
             //
             // setup game window
             //
-            Raylib.SetConfigFlags(ConfigFlag.FLAG_WINDOW_RESIZABLE);
+            Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE | ConfigFlags.FLAG_MSAA_4X_HINT);
             Raylib.InitWindow(Global.SceneWidth, Global.SceneHeight, Global.SceneTitle);
             //
-            // set min size of window
+            // if audio is on already, then skip it
+            //
+            if (!Raylib.IsAudioDeviceReady())
+            {
+                Raylib.InitAudioDevice();
+                var audioBufferSize = 4096;
+                Raylib.SetAudioStreamBufferSizeDefault(audioBufferSize);
+            }
+
+            //
+            // set min size of window & its location
             //
             Raylib.SetWindowMinSize(600, 4000);
-            
             Raylib.SetWindowPosition(200, 100);
-            Raylib.SetTargetFPS(Global.TARGET_FPS);
+            if (Global.TARGET_FPS > 0)
+                Raylib.SetTargetFPS(Global.TARGET_FPS);
+
             if (!Raylib.IsAudioDeviceReady())
                 Raylib.InitAudioDevice();
 
             Global.WindowCenter = new Vector2(Global.SceneWidth / 2, Global.SceneHeight / 2);
-            Global.LoadFonts();
+            //
+            // default fonts & button image
+            //
+            Global.LoadUIDefaults();
 
-            Raylib.SetExitKey(ExitKey);
+            Raylib.SetExitKey(Global.ExitKey);
             if (Global.HideCursor)
                 Raylib.HideCursor();
         }
@@ -148,7 +162,7 @@ namespace mmGameEngine
         //  We are here because a new scene was activated.  We will be running this until
         //  a ESCAPE is pressed or Scene changes.
         //
-        public void Run()
+        private void Run()
         {
             //
             // actual scene loop
@@ -163,7 +177,9 @@ namespace mmGameEngine
                 {
                     Global.DebugRenderEnabled = !Global.DebugRenderEnabled;
                 }
-
+                //------------------------
+                //       Update Scene 
+                //------------------------
                 Update();
 
                 //
@@ -173,16 +189,16 @@ namespace mmGameEngine
 
                 if (Global.StateOfGame == GameState.ForcedExit)
                     break;
-                //
-                // remove deleted/destroyed entities
-                //
-                _scene.RemoveDeletedEntities();
 
+                _scene.RemoveDeletedEntities();         // remove deleted/destroyed entities
+                //------------------------
+                //       Render Scene 
+                //------------------------
                 Render();
 
 
                 //------------------------------------
-                // New scene is given
+                //      New scene is given
                 //------------------------------------
                 if (_nextScene != null)
                     break;
@@ -200,7 +216,7 @@ namespace mmGameEngine
                 return;
 
             _scene.Update();                        // Update current scene
-
+            _scene.LateUpdate();
         }
         public void Render()
         {
@@ -210,7 +226,7 @@ namespace mmGameEngine
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Global.SceneClearColor);
 
-            _scene.Render();              //give the scene the "RenderTarget"
+            _scene.Render();              //give scene the "RenderTarget"
 
             Raylib.EndDrawing();
 

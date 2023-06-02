@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Runtime.InteropServices;
 using System.Numerics;
 using Entitas;
 using Raylib_cs;
@@ -12,12 +12,12 @@ namespace mmGameEngine
     public class Global
     {
         //
-        // Special Render Layers
+        // Special Render Layers (lowest number first to render)
         //
-        public const int BOXCOLLIDER_LAYER = -1000;         
+        public const int SCROLLINGBACK_LAYER = -2000;
         public const int TILEMAP_LAYER = -1500;
-        public const int SCROLLINGBACK_LAYER = -2000;       //first to draw
-        public const int CURSOR_LAYER = 100000;               //last to draw
+        public const int BOXCOLLIDER_LAYER = 1000;
+        public const int CURSOR_LAYER = 100000; 
         //
         // Game state
         //
@@ -29,9 +29,11 @@ namespace mmGameEngine
         //
         // Game Windows setup for mmGame
         //
+        public static KeyboardKey ExitKey = KeyboardKey.KEY_ESCAPE;
         public static int SceneWidth;
         public static int SceneHeight;
         public static string SceneTitle;
+        public static Scene HomeScene;
         public static Color SceneClearColor;
         public static bool HideCursor = false;
         //
@@ -66,6 +68,7 @@ namespace mmGameEngine
         // Default text fonts loaded to engine
         //
         public static Font[] EngineFonts;
+        public static Texture2D ButtonImage;
 
         public static bool DebugRenderEnabled = false;
         /// <summary>
@@ -73,7 +76,8 @@ namespace mmGameEngine
         /// </summary>
         public static Dictionary<Entity, bool> GameEntityToDestroy;
         public static Dictionary<Entity, bool> SceneEntityToDestroy;
-        public static void LoadFonts()
+
+        public static void LoadUIDefaults()
         {
             EngineFonts = new Font[7];
 
@@ -84,6 +88,8 @@ namespace mmGameEngine
             EngineFonts[4] = Raylib.LoadFont("AssetsEngine/Fonts/VeraMono.ttf");
             EngineFonts[5] = Raylib.LoadFont("AssetsEngine/Fonts/Digitalt.ttf");
             EngineFonts[6] = Raylib.LoadFont("AssetsEngine/Fonts/OpenSans.ttf");
+
+            ButtonImage = Raylib.LoadTexture("AssetsEngine/Img/Button_empty.png");
         }
         public static bool ActiveCurrentScene(ISystem _current)
         {
@@ -100,36 +106,19 @@ namespace mmGameEngine
             //
             // All children added first (to be removed)
             //
-            if (entity.Get<Transform>().ChildCount > 0)
+            if (entity.Get<TransformComponent>().ChildCount > 0)
             {
-                foreach (Component child in entity.Get<Transform>().Children)
+                foreach (Component child in entity.Get<TransformComponent>().Children)
                 {
-                    GameEntityToDestroy.TryAdd(child.CompEntity, true);
-                    SceneColliderDatabase.RemoveCollider(child.CompEntity);
+                    GameEntityToDestroy.TryAdd(child.OwnerEntity, true);
+                    SceneColliderManager.RemoveCollider(child.OwnerEntity);
                 }
             }
             //
             // Add entity to be removed
             //
             GameEntityToDestroy.TryAdd(entity, true);
-            SceneColliderDatabase.RemoveCollider(entity);
-        }
-        public static void DestroySceneEntity(Entity entity)
-        {
-            //
-            // All children added first (to be removed)
-            //
-            if (entity.Get<Transform>().ChildCount > 0)
-            {
-                foreach (Component child in entity.Get<Transform>().Children)
-                {
-                    SceneEntityToDestroy.TryAdd(child.CompEntity, true);
-                }
-            }
-            //
-            // Add entity to be removed
-            //
-            SceneEntityToDestroy.TryAdd(entity, true);
+            SceneColliderManager.RemoveCollider(entity);
         }
         /// <summary>
         /// Rotate so the top of the sprite is facing <see cref="pos"/>
@@ -198,7 +187,63 @@ namespace mmGameEngine
             WorldHeight = _height;
             WorldView = new RectangleF(0, 0, _width, _height);
         }
+        #region  // Scene/Game Entity Create \\
+        //ZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZN
+        //               Create Entity (Node} in this Scene
+        //ZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZN
+        public static  Entity CreateGameEntity(string name, Vector2 initPosition, float initScale = 1.0f)
+        {
+            Entity ent = EntityContext.CreateEntity();
+            ent.EntityType = 0;
+            ent.Name = name;
+            ent.IsVisible = true;
 
+            //
+            // Add a Transform component
+            //
+            TransformComponent trm = new TransformComponent();
+            trm.Position = initPosition;
+            trm.Scale = new Vector2(initScale, initScale);
+            trm.Rotation = 0;
+
+            ent.Add(trm);
+
+            return ent;
+        }
+        public static  Entity CreateGameEntity(Vector2 initPosition, float initScale = 1.0f)
+        {
+            return CreateGameEntity("gameEnt", initPosition, initScale);
+        }
+        public static  Entity CreateGameEntity(string name = "")
+        {
+            if (string.IsNullOrEmpty(name))
+                name = "gameEnt";
+            return CreateGameEntity(name, Vector2.One, 1.0f);
+        }
+        /// <summary>
+        /// Create a Scene Entity (drawn on top of game scene e.g. UI entity)
+        /// </summary>
+        /// <returns></returns>
+        public static  Entity CreateSceneEntity(string name = "", float initScale = 1.0f)
+        {
+            Entity ent = CreateGameEntity(name, Vector2.Zero, initScale);
+            ent.EntityType = 1;
+            return ent;
+        }
+        /// <summary>
+        /// Create a Scene Entity (drawn on top of game scene e.g. UI entity)
+        /// </summary>
+        /// <param name="initPosition"></param>
+        /// <param name="initScale"></param>
+        /// <returns></returns>
+        public static  Entity CreateSceneEntity(Vector2 initPosition)
+        {
+            Entity ent = CreateGameEntity("sceneEnt", initPosition, 1.0f);
+            ent.EntityType = 1;
+            return ent;
+        }
+
+        #endregion
 
 
     }

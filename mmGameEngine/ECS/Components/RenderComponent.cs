@@ -31,8 +31,8 @@ namespace mmGameEngine
         /// the origin that a RenderableComponent should use when using this Sprite. Defaults to the center.
         /// </summary>
         public Vector2 Origin;
-        public Vector2 OriginLocal;				//pre Determined origin to override Origin
-        public bool Visiable = true;
+        //public Vector2 OriginLocal;				//pre Determined origin to override Origin
+        public bool ComponentVisiable = true;
 
         public RenderComponent()
         {

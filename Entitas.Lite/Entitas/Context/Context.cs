@@ -167,7 +167,8 @@ namespace Entitas {
 				entity.Initialize(_creationIndex++, _totalComponents, _componentPools, _contextInfo, _aercFactory(entity));
 			}
 
-			_entities.Add(entity);
+            entity.IsVisible = true;
+            _entities.Add(entity);
 			entity.Retain(this);
 			_entitiesCache = null;
 			entity.OnComponentAdded += _cachedEntityChanged;

@@ -10,6 +10,8 @@ namespace TestmmGame
 {
     /*
      * Special splash scene using its own Update/Render override
+     * This means Scene ECS is completely ignored.  You must handle 
+     * all aspects of a scene.
      */
     public class SplashScene : Scene
     {
@@ -21,10 +23,9 @@ namespace TestmmGame
             Global.SceneHeight = 600;
             Global.SceneWidth = 800;
             Global.SceneTitle = "splash";
-            Global.SceneClearColor = Color.RED;
+            Global.SceneClearColor = Color.BLUE;
 
             string assName = (string)System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-
             assmbly = Assembly.Load(assName);
             Global.NextScene = assName + ".MenuScene";              //make sure it has a dot TestmmGame.MenuScene
         }
@@ -38,24 +39,33 @@ namespace TestmmGame
         }
         public override void Update()
         {
+            //
+            // We are overriding Scene Update(), so ECS will not work in this scene
+            //
             _frame++;
 
-            if (_frame > 100)
+            if (_frame > 200)
             {
                 //
-                // Using reflection to start the Next Scene
+                // Using reflection to start a specific Next Scene
                 //
-                Type scene2play = assmbly.GetType(Global.NextScene);
-                ConstructorInfo sceneInfo = scene2play.GetConstructor(Type.EmptyTypes);
-                object sceneObj = sceneInfo.Invoke(new object[]{ });
-                mmGame.Scene = (Scene)sceneObj;
-                // or
-                //Scene otherScene = new MenuScene();
-                //mmGame.Scene = otherScene;
+                //Type scene2play = assmbly.GetType(Global.NextScene);
+                //ConstructorInfo sceneInfo = scene2play.GetConstructor(Type.EmptyTypes);
+                //object sceneObj = sceneInfo.Invoke(new object[]{ });
+                //mmGame.Scene = (Scene)sceneObj;
+                //
+                //       OR
+                //
+                Scene otherScene = new MenuScene();
+                mmGame.Scene = otherScene;
             }
         }
         public override void Render()
         {
+            //
+            // Draw the text
+            //
+            Raylib.DrawText("Splash screen will go back to menu", 200, 10, 25, Color.YELLOW);
             //
             // show the mmGame image
             //

@@ -4,6 +4,7 @@ using System.Text;
 using System.Numerics;
 using Raylib_cs;
 
+
 namespace mmGameEngine
 {
 
@@ -45,7 +46,7 @@ namespace mmGameEngine
 			//
 			// Has Entity been assigned yet?
 			//
-			if (CompEntity == null)
+			if (OwnerEntity == null)
 				return;
 			//
 			// update location of box containing the collider
@@ -71,12 +72,19 @@ namespace mmGameEngine
 				//
 				// update the database of colliders in this scene (happens only once)
 				//
-				SceneColliderDatabase.SetCollider(CompEntity, CollidreShape.Circle);
+				SceneColliderManager.SetCollider(OwnerEntity, CollidreShape.Circle);
 				setScenColliders = true;
 			}
 		}
         public override void Render()
 		{
+            if (OwnerEntity == null)
+                return;
+            if (!OwnerEntity.IsVisible)
+                return;
+            if (!Enabled)
+                return;
+
             if (Global.DebugRenderEnabled)
                 RenderDebug();
         }
@@ -90,7 +98,7 @@ namespace mmGameEngine
 			//Raylib.DrawRectangleLines((int)rt.x, (int)rt.y,
 			//					 (int)rt.width, (int)rt.height,
 			//					 Color.RED);
-			Raylib.DrawCircle((int)boxContainer.x, (int)boxContainer.y, Radius * RadiusMultiplier, Color.RED);
+			Raylib.DrawCircle((int)boxContainer.x, (int)boxContainer.y, Radius * RadiusMultiplier, Color.GRAY);
 			//Raylib.DrawCircle((int)CollisionBox.min.X, (int)CollisionBox.min.X, 5, Color.GRAY);
 			//Raylib.DrawCircle(Convert.ToInt32(CollisionBox.max.X), Convert.ToInt32(CollisionBox.max.Y), 5, Color.BLACK);
 		}

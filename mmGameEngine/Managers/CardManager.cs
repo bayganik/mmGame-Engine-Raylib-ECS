@@ -300,9 +300,9 @@ namespace mmGameEngine
             //
             // Create a card entity with proper components
             //
-            Entity _cardEnt = ActiveScene.CreateGameEntity();
+            Entity _cardEnt = Global.CreateGameEntity();
             _cardEnt.Name = cardComp.CName;
-            _cardEnt.Get<Transform>().Enabled = _enabled;
+            _cardEnt.Get<TransformComponent>().Enabled = _enabled;
             _cardEnt.Add(cardComp);
             if (CardsHaveCollider)
             {
@@ -322,9 +322,9 @@ namespace mmGameEngine
             //
             // Create a Jockere entity with proper components
             //
-            Entity _cardEnt = ActiveScene.CreateGameEntity();
+            Entity _cardEnt = Global.CreateGameEntity();
             _cardEnt.Name = cardComp.CName;
-            _cardEnt.Get<Transform>().Enabled = true;
+            _cardEnt.Get<TransformComponent>().Enabled = true;
             cardComp.CardFace = EmptyCardHolder;
             cardComp.CardBack = cardBacks[currentCardBack];
             //
@@ -350,9 +350,9 @@ namespace mmGameEngine
             //
             // Create a Jockere entity with proper components
             //
-            Entity _cardEnt = ActiveScene.CreateGameEntity();
+            Entity _cardEnt = Global.CreateGameEntity();
             _cardEnt.Name = cardComp.CName;
-            _cardEnt.Get<Transform>().Enabled = _enabled;
+            _cardEnt.Get<TransformComponent>().Enabled = _enabled;
             cardComp.CardFace = JockerCard;
             cardComp.CardBack = cardBacks[currentCardBack];
             if (CardsHaveCollider)

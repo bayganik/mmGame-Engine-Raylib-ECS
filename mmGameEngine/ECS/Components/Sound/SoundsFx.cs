@@ -21,7 +21,7 @@ namespace mmGameEngine
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
-            if (CompEntity == null)
+            if (OwnerEntity == null)
                 return;
             if (!Enabled)
                 return;
@@ -32,7 +32,7 @@ namespace mmGameEngine
         }
         public override void Render()
         {
-            if (CompEntity == null)
+            if (OwnerEntity == null)
                 return;
             if (!Enabled)
                 return;
@@ -45,11 +45,11 @@ namespace mmGameEngine
 
         }
     }
-    public enum SoundState
-    {
-        None,
-        Play,
-        Pause,
-        Completed
-    }
+    //public enum SoundState
+    //{
+    //    None,
+    //    Play,
+    //    Pause,
+    //    Completed
+    //}
 }

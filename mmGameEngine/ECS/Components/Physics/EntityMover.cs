@@ -5,6 +5,7 @@ using System.Numerics;
 using Raylib_cs;
 using System.Net.NetworkInformation;
 
+
 namespace mmGameEngine
 {
     public class EntityMover : Component
@@ -30,9 +31,9 @@ namespace mmGameEngine
 		public EntityMover()
 		{
 			IsMoving = true;
-			Speed = 20f;
+			Speed = 200f;
 			DoesRotate = false;
-			RotationSpeed = 15f;
+			RotationSpeed = 200f;
 
 		}
 		public EntityMover(Vector2 _start, Vector2 _end, float _speed = 200f)
@@ -51,7 +52,7 @@ namespace mmGameEngine
 			//
 			// Has Entity been assigned yet?
 			//
-			if (CompEntity == null)
+			if (OwnerEntity == null)
 				return;
 			if (!Enabled)
 				return;
@@ -99,16 +100,20 @@ namespace mmGameEngine
 			MoveCollisionResult = new CollisionResult();
 			Transform.Position += motion * this.Speed * Global.DeltaTime;
 
-			if (SceneColliderDatabase.CollidedWithBox(CompEntity, out MoveCollisionResult))
+			if (SceneColliderManager.CollidedWithBox(OwnerEntity, out MoveCollisionResult))
 			{
 				//
 				// continue moving if both entities that hit eachother
 				// are either enemies or friends
 				//
-				if (CompEntity.IsEnemy && MoveCollisionResult.CompEntity.IsEnemy)
-					return;				//both enemy
-				if (!CompEntity.IsEnemy && !MoveCollisionResult.CompEntity.IsEnemy)
-					return;             //both friends
+				if (OwnerEntity.Tag == MoveCollisionResult.OwnerEntity.Tag)
+					return;
+
+
+    //            if (OwnerEntity.IsEnemy && MoveCollisionResult.OwnerEntity.IsEnemy)
+				//	return;             //both enemy
+				//if (!OwnerEntity.IsEnemy && !MoveCollisionResult.OwnerEntity.IsEnemy)
+				//	return;             //both friends
 
 				this.IsMoving = false;          // stop moving(enemy hit a friendly OR friendly hit an enemy
 			}

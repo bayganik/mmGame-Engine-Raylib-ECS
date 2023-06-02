@@ -14,7 +14,7 @@ namespace mmGameEngine
 	public class SpriteAnimation : RenderComponent 
     {
 		/// <summary>
-		/// rectangle in the Texture2D for this element
+		/// rectangle in the Texture for this element
 		/// </summary>
 		public Rectangle DestRect;
 		/// <summary>
@@ -117,7 +117,7 @@ namespace mmGameEngine
 			//
 			// This component is not attached to Entity yet, cycle out
 			//
-			if (CompEntity == null)
+			if (OwnerEntity == null)
 				return;
 
 			if (!Enabled)
@@ -171,15 +171,14 @@ namespace mmGameEngine
 		}
 		public override void Render()
 		{
-			//
-			// This component is not attached to Entity yet, cycle out
-			//
-			if (CompEntity == null)
+            if (OwnerEntity == null)
+                return;
+			if (!OwnerEntity.IsVisible)
 				return;
 			if (!Enabled)
-				return;
+                return;
 
-			if (CurrentState != AnimationState.Running)
+            if (CurrentState != AnimationState.Running)
 			{
 				Transform.Enabled = false;
 				return;
@@ -189,12 +188,12 @@ namespace mmGameEngine
 									 FrameWidth * Transform.Scale.X, 
 									 FrameHeight * Transform.Scale.Y);
 
-				Raylib.DrawTexturePro(Texture,
-									  CurrentAnimation.SpriteFrames[currentFrame],
-									  DestRect,
-									  Origin,
-									  Transform.Rotation,
-									  Color.WHITE);
+			Raylib.DrawTexturePro(Texture,
+									CurrentAnimation.SpriteFrames[currentFrame],
+									DestRect,
+									Origin,
+									Transform.Rotation,
+									Color.WHITE);
         }
 		//public void RenderDebug()
 		//{
@@ -220,6 +219,7 @@ namespace mmGameEngine
 
 			CurrentAnimation.Loop = loop;
 			CurrentState = AnimationState.Running;
+			//Transform.Enabled = true;
 		}
 		public void Stop()
         {
