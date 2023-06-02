@@ -1,10 +1,16 @@
-Update June 6, 2023
+## Update June 6, 2023
     Added Raylib-CS as a NuGet package
-    Added Sandford MIDI project (all in ONE project so to upgrade to NET 7.0)
+    
+    Added Sanford MIDI project (all in ONE project so to upgrade to NET 7.0)
+    
     Many changes to mmGameEngine
+    
     Update of UI components
+    
     Added new scene with MIDI piano
+    
     Added new scene as splash screen
+    
 
 A Game Engine using Raylib as the core, Entitas lite as the ECS engine.
 
@@ -53,13 +59,13 @@ Systems do the guts of the logic of the game.  They are executed once every fram
 
 Below examples have "Debug" flag on.  F9 will flip "Debug" off/on.  The tank will move using arrow keys.  The red boxes are BoxColliders drawn as debug guide.
 
-## To Start a VS2019 project:
+## To Start a VS2022 project:
 
-    Start with Net Core 3 console app
+    Start with Net 7.0 console app
     
     Using Dependencies add Raylib-cs Nuget package
     
-    Add references to Entitas-Lite and mmGameEngine
+    Add references to Entitas-Lite , mmGameEngine and Sanford.MIDI
 
 ## Main Menu Scene
 
