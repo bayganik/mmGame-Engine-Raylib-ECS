@@ -1,16 +1,21 @@
+## Update June 6, 2023
+    Added Raylib-CS as a NuGet package
+    
+    Added Sanford MIDI project (all in ONE project so to upgrade to NET 7.0)
+    
+    Many changes to mmGameEngine
+    
+    Update of UI components
+    
+    Added new scene with MIDI piano
+    
+    Added new scene as splash screen
+    
+
 A Game Engine using Raylib as the core, Entitas lite as the ECS engine.
 
 The engine and a sample Menu + few other scenes with sprites, animated sprites, compound sprites + simple card game, 
 
-Update Jan 7, 2021
-
-* Using Raylib-cs 3.1.5 from NuGet
-
-* Added a solitaire game as card example.
-
-* Changed Entitas-lite to have more fields.
-
-* Updated a few components in the mmGame engine.
 
 https://github.com/ChrisDill/Raylib-cs         (use NuGet package, much easier)
 
@@ -45,13 +50,37 @@ Systems do the guts of the logic of the game.  They are executed once every fram
 
 Below examples have "Debug" flag on.  F9 will flip "Debug" off/on.  The tank will move using arrow keys.  The red boxes are BoxColliders drawn as debug guide.
 
-## To Start a VS2019 project:
+## To Start a VS2022 project:
 
-    Start with Net Core 3 console app
+    Start with Net 7.0 console app
     
     Using Dependencies add Raylib-cs Nuget package
     
-    Add references to Entitas-Lite and mmGameEngine
+    Add references to Entitas-Lite , mmGameEngine and Sanford.MIDI
+ 
+## Your Program.cs
+
+    using mmGameEngine;
+
+    namespace TestmmGame
+    {
+        class Program
+        {
+            static void Main(string[] args)
+            {
+
+                TestGame game = new TestGame();
+
+            }
+        }
+        public class TestGame : mmGame
+        {
+            public TestGame() : base()
+            {
+                Scene = new MenuScene();
+            }
+        }
+    }
 
 ## Main Menu Scene
 
@@ -61,6 +90,9 @@ The Menu scene uses the engine GUI component called Panel which has other compon
 Panel is a Scene Entity (meaning it will be drawn on top of everything) and has Color.BLANK so you can see thru it.
 
 The background image is a Game Entity with a Sprite component.
+
+
+
 
 
 
@@ -85,6 +117,8 @@ The background image is a Game Entity with a Sprite component.
 
 ![game image](CardSrn.png)
 
-Would like to thank Prime31 with his wonderful Nez ECS framework.  https://github.com/prime31/Nez  (although this framework no longer uses ECS)
+## MIDI Piano Scene
+
+![game image](MidiPiano.png)
 
 
