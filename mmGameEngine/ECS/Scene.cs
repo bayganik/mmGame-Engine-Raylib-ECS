@@ -18,7 +18,8 @@ namespace mmGameEngine
 {
     /*
 	 * Main class for every game screen display.  This class :
-	 *		Creates & Holds all entities
+	 *		Creates entities	(this was moved to Global static 03/01/2023)
+	 *		Holds all entities
 	 *			Game entities - all objects to play with
 	 *			Scene entities - all objects drawn on top of all other objects (mostly UI entities)
 	 *		Displays entities
@@ -38,11 +39,16 @@ namespace mmGameEngine
 		public bool ForceEndScene = false;
 		public GameState StateOfGame;
 		//
-		// Camera 2D
+		// 3D Camera
 		//
-		public bool CameraEnabled = false;
-		public Camera2D Camera;
-		public Camera2DType CameraType2D;							//free, inside a map, push bounds
+		public Camera3D Camera3D;
+        public bool Camera3dEnabled = false;
+        //
+        // 2D Camera
+        //
+        public Camera2D Camera;
+        public bool Camera2dEnabled = false;
+        public Camera2DType CameraType2D;							//free, inside a map, push bounds
 		public Entity CameraEntityToFollow;							//which entity to follow
 
 		float deltaTime = 0;
@@ -78,7 +84,7 @@ namespace mmGameEngine
             Camera.offset = Global.WindowCenter;
             Camera.rotation = 0;
             Camera.zoom = 1.0f;
-            CameraEnabled = false;
+            Camera2dEnabled = false;
             CameraType2D = Camera2DType.FollowPlayer;                   //free camera no bounds
             //
             // mmGame will call Begin() method
@@ -107,68 +113,7 @@ namespace mmGameEngine
 			 * This is left as a compatibility.  You can still use it for initializations etc.
 			 */
 		}
-		/// <summary>
-		/// Create a Game Entity, using a name and scale
-		/// </summary>
-		/// <returns></returns>
 
-		////ZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZN
-		////               Create Entity (Node} in this Scene
-		////ZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZN
-		//public Entity CreateGameEntity(string name, Vector2 initPosition, float initScale = 1.0f)
-		//{
-		//	Entity ent = EntityContext.CreateEntity();
-		//	ent.EntityType = 0;         
-		//	ent.Name = name;
-		//	ent.IsVisible = true;
-			
-		//	//
-		//	// Add a Transform component
-		//	//
-		//	TransformComponent trm = new TransformComponent();
-		//	trm.Position = initPosition;
-		//	trm.Scale = new Vector2(initScale, initScale);
-		//	trm.Rotation = 0;
-
-  //          ent.Add(trm);
-
-		//	return ent;
-		//}
-  //      public Entity CreateGameEntity(Vector2 initPosition, float initScale = 1.0f)
-  //      {
-  //          return CreateGameEntity("gameEnt", initPosition, initScale);
-  //      }
-  //      public Entity CreateGameEntity(string name = "")
-  //      {
-		//	if (string.IsNullOrEmpty(name))
-		//		name = "gameEnt";
-  //          return CreateGameEntity(name, Vector2.One, 1.0f);
-  //      }
-  //      /// <summary>
-  //      /// Create a Scene Entity (drawn on top of game scene e.g. UI entity)
-  //      /// </summary>
-  //      /// <returns></returns>
-  //      public Entity CreateSceneEntity(string name = "", float initScale = 1.0f)
-		//{
-  //          Entity ent = CreateGameEntity(name, Vector2.Zero, initScale);
-		//	ent.EntityType = 1;
-		//	return ent;
-		//}
-		///// <summary>
-		///// Create a Scene Entity (drawn on top of game scene e.g. UI entity)
-		///// </summary>
-		///// <param name="initPosition"></param>
-		///// <param name="initScale"></param>
-		///// <returns></returns>
-		//public Entity CreateSceneEntity(Vector2 initPosition)
-		//{
-  //          Entity ent = CreateGameEntity("sceneEnt", initPosition, 1.0f);
-  //          ent.EntityType = 1;
-  //          return ent;
-		//}
-        //ZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZN
-        //               Attaching systems to act in this Scene
-        //ZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZN
         public void AddSystem(Entitas.ISystem _system)
 		{
 			EntitySystems.Add(_system);
@@ -177,7 +122,7 @@ namespace mmGameEngine
         //               Main method executing ALL logic in Scene
         //ZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZN
         /// <summary>
-        /// You MUST override this in Scene classes and do your loading & other logic. 
+        /// You MUST override Play() in your Scene classes and do your loading & other logic. 
         /// This is called from mmGame after the scene construct, Begin(), then here
         /// </summary>
         public virtual void Play()
@@ -199,7 +144,7 @@ namespace mmGameEngine
 			//-------------------
 			// Z O O M 
 			//-------------------
-			if (Global.DebugRenderEnabled && CameraEnabled)
+			if (Global.DebugRenderEnabled && Camera2dEnabled)
 			{
 				//
 				// Camera zoom control is the Mouse Wheel
@@ -334,7 +279,7 @@ namespace mmGameEngine
 			//   CAMERA DISPLAY  BeginMode2D
 			//-------------------------------------------------------------------------------
 
-			if (CameraEnabled && CameraEntityToFollow != null)
+			if (Camera2dEnabled && CameraEntityToFollow != null)
 			{
 				//    need to get the entity that is target of camera -> target Get<TransformComponent>().Position
 				//    Any component that is in view of the camera, is drawn first
@@ -353,6 +298,11 @@ namespace mmGameEngine
 				}
 				Raylib.BeginMode2D(Camera);
 			}
+			//
+			// Must turn on 3D camera so you can see things!
+			//
+			if (Camera3dEnabled)
+				Raylib.BeginMode3D(Camera3D);
 
 			//-------------------------------------------------------------------------------
 			//   RENDER ORDER  sorting (low to high) then render
@@ -364,7 +314,7 @@ namespace mmGameEngine
 			//-------------------------------------------------------------------------------
 			//   CAMERA DISPLAY  EndMode2D
 			//-------------------------------------------------------------------------------
-			if (CameraEnabled && CameraEntityToFollow != null)
+			if (Camera2dEnabled && CameraEntityToFollow != null)
 			{
 				if (Global.DebugRenderEnabled)
 				{ 
@@ -384,10 +334,15 @@ namespace mmGameEngine
 				}
 				Raylib.EndMode2D();
 			}
-			//-------------------------------------------------------------------------------
-			//   UI  ENTITIES , they are drawn on top of all other game entities
-			//-------------------------------------------------------------------------------
-			foreach (Entity ent in SceneEntities)
+			//
+			// Back to normal, so scene entities can be drawn on top of everything
+			//
+            if (Camera3dEnabled)
+                Raylib.EndMode3D();
+            //-------------------------------------------------------------------------------
+            //   UI  ENTITIES , they are drawn on top of all other game entities
+            //-------------------------------------------------------------------------------
+            foreach (Entity ent in SceneEntities)
 			{
 				if (!ent.Get<TransformComponent>().Enabled)
 					continue;
@@ -414,7 +369,7 @@ namespace mmGameEngine
 				string istr = Raylib.GetMousePosition().ToString();
 				Raylib.DrawText(istr, 10, 10, 20, Color.WHITE);
 				
-				if (CameraEnabled && CameraEntityToFollow != null)
+				if (Camera2dEnabled && CameraEntityToFollow != null)
                 {
 					Raylib.DrawFPS(10, 30);
 					Raylib.DrawText("Zoom" + Camera.zoom.ToString(), 10, 50, 20, Color.WHITE);

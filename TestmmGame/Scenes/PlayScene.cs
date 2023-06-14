@@ -53,7 +53,7 @@ namespace TestmmGame
             //------------------------
             // Camera 2D setup
             //------------------------
-            CameraEnabled = true;
+            Camera2dEnabled = true;
 
             /*
              * 
@@ -187,7 +187,7 @@ namespace TestmmGame
             //--------------------------------------------------------
             // Tell camera who to follow (player = tank)
             //--------------------------------------------------------
-            if (CameraEnabled)
+            if (Camera2dEnabled)
             {
                 CameraEntityToFollow = tankEnt;
                 CameraType2D = Camera2DType.FollowInsideMap;

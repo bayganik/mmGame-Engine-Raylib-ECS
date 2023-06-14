@@ -140,7 +140,7 @@ namespace mmGameEngine
         //znznznznznznznznznznznznznznznznznznznznznznznznznznznznznznznznznznznzn
         public static Vector2 WorldPosition(Vector2 _position)
         {
-            if (!CurrentScene.CameraEnabled)
+            if (!CurrentScene.Camera2dEnabled)
                 return _position;
 
             Vector2 pos = Raylib.GetScreenToWorld2D(_position, CurrentScene.Camera);
@@ -148,7 +148,7 @@ namespace mmGameEngine
         }
         public static Vector2 GetMousePosition()
         {
-            if (!CurrentScene.CameraEnabled)
+            if (!CurrentScene.Camera2dEnabled)
                 return Raylib.GetMousePosition();
 
             Vector2 pos = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), CurrentScene.Camera);
@@ -156,7 +156,7 @@ namespace mmGameEngine
         }
         public static int GetMouseX()
         {
-            if (!CurrentScene.CameraEnabled)
+            if (!CurrentScene.Camera2dEnabled)
                 return Raylib.GetMouseX();
 
             Vector2 pos = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), CurrentScene.Camera);
@@ -164,7 +164,7 @@ namespace mmGameEngine
         }
         public static int GetMouseY()
         {
-            if (!CurrentScene.CameraEnabled)
+            if (!CurrentScene.Camera2dEnabled)
                 return Raylib.GetMouseY();
 
             Vector2 pos = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), CurrentScene.Camera);

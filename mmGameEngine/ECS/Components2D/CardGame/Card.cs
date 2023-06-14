@@ -66,6 +66,7 @@ namespace mmGameEngine
                 //Raylib.DrawTexture(CardBack, (int)position.X, (int)position.Y, Color.WHITE);
 
             var Origin = new Vector2((float)Texture.width * 0.5f, (float)Texture.height * 0.5f);
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
 
             SourceRect = new Rectangle(0, 0, Texture.width, Texture.height);
             DestRect = new Rectangle(Transform.Position.X, Transform.Position.Y,

@@ -79,7 +79,7 @@ namespace mmGameEngine
             //
             if (OwnerEntity != null)
             {
-                UIPosition = Transform.Position;
+                UIPosition = OwnerEntity.Get<TransformComponent>().Position;
             }
 
             textPosition = UIPosition;
@@ -110,7 +110,7 @@ namespace mmGameEngine
                 //
                 // UI is drawn according to entity
                 //
-                UIPosition = Transform.Position;
+                UIPosition = OwnerEntity.Get<TransformComponent>().Position;
             }
             else
             {

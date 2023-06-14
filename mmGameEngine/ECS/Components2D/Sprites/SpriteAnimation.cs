@@ -125,10 +125,11 @@ namespace mmGameEngine
 
 			if (CurrentState != AnimationState.Running)
 				return;
-			//
-			// add delta time (timer = .20 is quarter of a second but 0.05 is slower)
-			//
-			timer += deltaTime;			//time it takes to render ONE frame 60/1000
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
+            //
+            // add delta time (timer = .20 is quarter of a second but 0.05 is slower)
+            //
+            timer += deltaTime;			//time it takes to render ONE frame 60/1000
 
 			//
 			// Change the current frame if number of frames > CurrentAnimation.FrameRate
@@ -177,6 +178,7 @@ namespace mmGameEngine
 				return;
 			if (!Enabled)
                 return;
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
 
             if (CurrentState != AnimationState.Running)
 			{

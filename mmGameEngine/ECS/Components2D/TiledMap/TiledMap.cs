@@ -32,6 +32,7 @@ namespace mmGameEngine
         public override void Render()
         {
             base.Render();
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
             TiledRendering.RenderMap(Map, Transform.Position, Transform.Scale, RenderLayer);
         }
     }

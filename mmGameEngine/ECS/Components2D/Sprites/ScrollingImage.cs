@@ -118,10 +118,11 @@ namespace mmGameEngine
 				return;
 			if (!Enabled)
 				return;
-			//
-			// Origin is always 0,0
-			//
-			var topLeft = Transform.Position + _localOffset;
+            //
+            // Origin is always 0,0
+            //
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
+            var topLeft = Transform.Position + _localOffset;
 
 			Rectangle _destRect = new Rectangle(topLeft.X, topLeft.Y,
 						Texture.width * Transform.Scale.X,

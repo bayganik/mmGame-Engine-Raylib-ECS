@@ -105,6 +105,7 @@ namespace TestmmGame
         public unsafe override void Update(float deltaTime)
         {
             base.Update(deltaTime);
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
             //
             // If component is attached to an Entity, then obey his position
             //
@@ -139,6 +140,7 @@ namespace TestmmGame
         public override void Render()
         {
             base.Render();
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
             if (OwnerEntity != null)
             {
                 if (!OwnerEntity.IsVisible)

@@ -48,10 +48,11 @@ namespace mmGameEngine
 			//
 			if (OwnerEntity == null)
 				return;
-			//
-			// update location of box containing the collider
-			//
-			boxContainer.x = Transform.Position.X;
+            //
+            // update location of box containing the collider
+            //
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
+            boxContainer.x = Transform.Position.X;
 			boxContainer.y = Transform.Position.Y;
 			BoxPoints = new List<Vector2>();
 			Vector2 topL = new Vector2(boxContainer.x, boxContainer.y - Radius);		//north

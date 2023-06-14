@@ -66,7 +66,8 @@ namespace mmGameEngine
             if (Global.DebugRenderEnabled)
                 RenderDebug();
 
-            
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
+
             Raylib.DrawTextEx(TextData.TextFont, 
                               TextData.Content,
                               Transform.Position, 
@@ -83,6 +84,9 @@ namespace mmGameEngine
                                                 -2);
             size.X += size.X * 0.25f ;
             size.Y += 10;
+
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
+
             Rectangle rect = new Rectangle(Transform.Position.X, Transform.Position.Y, size.X, size.Y);
             //Vector2 orig = new Vector2(rect.width * 0.5f, rect.height * 0.5f);
             Vector2 orig = new Vector2(0,0);

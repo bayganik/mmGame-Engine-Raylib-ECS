@@ -3,43 +3,44 @@ using System.Collections.Generic;
 using System.Text;
 using System.Numerics;
 using Raylib_cs;
-using System.Linq;
+using Entitas;
 
 namespace mmGameEngine
 {
     /*
-     * Message Box (like a Panel) is a special UI element.  Used to give info to user and wait until "OK" button is pushed.
+     * Panel UI element is a container that holds other UI elements within it.  Moving
+     * the Panel will move all of its elements with it.
      */
-    public class MsgBox : RenderComponent
+    public class Panel : RenderComponent
     {
         public Color BackgroundColor = Color.GRAY;
         public Color BorderColor = Color.WHITE;
         public int BorderThickness = 4;
         public List<RenderComponent> PanelComponents = new List<RenderComponent>();
 
-        public int Width;
-        public int Height;
+        public TextInfo TextData;
+
+        int width;
+        int height;
         //string content;
         
-        public MsgBox(int _width, int _height, Color _backgroundColor)
+        public Panel(Vector2 _position, int _width, int _height, Color _backgroundColor)
         {
-            Width = _width;
-            Height = _height;
+            width = _width;
+            height = _height;
             BackgroundColor = _backgroundColor;
-            UIPosition = Vector2.Zero;
+            UIPosition = _position;
         }
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
             //
-            // This componenet obeys its UIPosition given
+            // If component is attached to an Entity, the obey its position
             //
-            // If component is attached to an Entity, the obey his position
-            //
-            //if (OwnerEntity != null)
-            //{
-            //    UIPosition = Transform.Position;
-            //}
+            if (OwnerEntity != null)
+            {
+                UIPosition = OwnerEntity.Get<TransformComponent>().Position;
+            }
             //
             // Panel will call component Update method
             //
@@ -61,7 +62,7 @@ namespace mmGameEngine
                 //
                 // UI is drawn according to entity
                 //
-                UIPosition = Transform.Position;
+                UIPosition = OwnerEntity.Get<TransformComponent>().Position;
             }
             else
             {
@@ -72,11 +73,16 @@ namespace mmGameEngine
                     return;
 
             }
-            Raylib.DrawRectangle((int)UIPosition.X, (int)UIPosition.Y,
-                     Width, Height, BackgroundColor);
+            //
+            // Draw Rectangle filled + line around it
+            //
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
 
-            Raylib.DrawRectangleLinesEx(new Rectangle((int)UIPosition.X, (int)UIPosition.Y,
-                                        Width, Height), BorderThickness, BorderColor);
+            Raylib.DrawRectangle((int)Transform.Position.X, (int)Transform.Position.Y,
+                                 width, height, BackgroundColor);
+
+            Raylib.DrawRectangleLinesEx(new Rectangle((int)Transform.Position.X, (int)Transform.Position.Y,
+                                        width, height), BorderThickness, BorderColor);
             //
             // Scene will call this Render method
             //
@@ -86,20 +92,12 @@ namespace mmGameEngine
             }
 
         }
-        public void AddButton(Button ok, Vector2 _location)
+        public void AddComponent(RenderComponent _uiElement, Vector2 _location)
         {
-            ok.UIPosition = _location;
-            Vector2 pos = new Vector2((Width / 2) - 20, Height - 45);
-            ok.UIPosition = new Vector2(ok.UIPosition.X + UIPosition.X, ok.UIPosition.Y + UIPosition.Y);
+            _uiElement.UIPosition = _location;
 
-            PanelComponents.Add(ok);
-        }
-        public void AddMsg(Label lbl, Vector2 _location)
-        {
-            lbl.UIPosition = _location;
-            lbl.UIPosition = new Vector2(lbl.UIPosition.X + UIPosition.X, lbl.UIPosition.Y + UIPosition.Y);
-
-            PanelComponents.Add(lbl);
+            _uiElement.UIPosition = new Vector2(_uiElement.UIPosition.X + UIPosition.X, _uiElement.UIPosition.Y + UIPosition.Y);
+            PanelComponents.Add(_uiElement);
         }
     }
 }

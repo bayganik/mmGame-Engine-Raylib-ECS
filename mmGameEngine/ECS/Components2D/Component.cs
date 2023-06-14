@@ -19,12 +19,12 @@ namespace mmGameEngine
         public bool Enabled = true;                 //is the component enabled (default true)
         public Vector2 UIPosition;                  //This is used by UI components
         public Entity OwnerEntity;                  //This is updated in Scene loop
-        public TransformComponent Transform ;                 //Transform component of entity
+        //public TransformComponent Transform ;                 //Transform component of entity
 
         public virtual void Update(float deltaTime)
         {
-            if (OwnerEntity != null)
-                Transform = OwnerEntity.Get<TransformComponent>();
+            //if (OwnerEntity != null)
+            //    Transform = OwnerEntity.Get<TransformComponent>();
 
         }
     }

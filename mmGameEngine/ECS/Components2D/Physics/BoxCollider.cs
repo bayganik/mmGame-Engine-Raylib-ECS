@@ -93,10 +93,12 @@ namespace mmGameEngine
 				return;
 			if (!Enabled)
 				return;
-			//
-			// update location of box containing the collider
-			//
-			if (!fixedCollider)
+
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
+            //
+            // update location of box containing the collider
+            //
+            if (!fixedCollider)
 			{
 				boxContainer.x = Transform.Position.X - Origin.X;
 				boxContainer.y = Transform.Position.Y - Origin.Y;

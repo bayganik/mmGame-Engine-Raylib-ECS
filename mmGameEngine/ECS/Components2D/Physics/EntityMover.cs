@@ -64,8 +64,9 @@ namespace mmGameEngine
 			//
 			Vector2 start = this.MoveStart;
 			Vector2 end = this.MoveEnd;
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
 
-			float distance = Vector2.Distance(start, end);
+            float distance = Vector2.Distance(start, end);
 			Vector2 moveDir = Vector2.Normalize(end - start);
 			//
 			// put entity at the start location, move him according to his speed and direction
@@ -97,7 +98,8 @@ namespace mmGameEngine
 		}
 		private void Move(Vector2 motion)
         {
-			MoveCollisionResult = new CollisionResult();
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
+            MoveCollisionResult = new CollisionResult();
 			Transform.Position += motion * this.Speed * Global.DeltaTime;
 
 			if (SceneColliderManager.CollidedWithBox(OwnerEntity, out MoveCollisionResult))

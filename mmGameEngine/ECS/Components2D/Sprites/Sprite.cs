@@ -59,11 +59,12 @@ namespace mmGameEngine
 				return;
 			if (!Enabled)
 				return;
-			//
-			// At this time, we have the Entity's "Transform" component assigned by Scene or find Origin
-			//		using the Scale
-			//
-			TextureCenter = new Vector2(Texture.width * 0.5f * Transform.Scale.X, Texture.height * 0.5f * Transform.Scale.Y);
+            //
+            // At this time, we have the Entity's "Transform" component assigned by Scene or find Origin
+            //		using the Scale
+            //
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
+            TextureCenter = new Vector2(Texture.width * 0.5f * Transform.Scale.X, Texture.height * 0.5f * Transform.Scale.Y);
 
 			if (OriginReCalc)
             {
@@ -84,10 +85,11 @@ namespace mmGameEngine
 				return;
 			if (!OwnerEntity.IsVisible)
 				return;
-			//
-			// Destination Rect depends on position & scale
-			//
-			if (FitWindow)
+            //
+            // Destination Rect depends on position & scale
+            //
+            TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
+            if (FitWindow)
 			{
 				DestRect = new Rectangle(Transform.Position.X, Transform.Position.Y,
 						 Global.SceneWidth * Transform.Scale.X,
