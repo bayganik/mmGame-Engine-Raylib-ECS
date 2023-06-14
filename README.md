@@ -1,7 +1,9 @@
 ## Update June 14, 2023
     Quick update getting ready to do Raylib 3D games. Moved all TransformComponent def from "Component.cs" class to individual 2D components.
     
-    This will allow for creation of 3D components that will inhirit from ## Component.cs class.
+    This will allow for creation of 3D components that can inherit from Component.cs class also.
+    
+    Scene.cs was updated to allow for Raylib.BeginMode3D or Raylib.BeginMode2D (WIP, so stay tuned)
 
 ## Update June 6, 2023
     Added Raylib-CS as a NuGet package
