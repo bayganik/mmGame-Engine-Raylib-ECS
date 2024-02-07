@@ -30,8 +30,8 @@ namespace mmGameEngine
 		/// <value>The scroll x.</value>
 		public int ScrollX
 		{
-			get => (int)_sourceRect.x;
-			set => _sourceRect.x = value;
+			get => (int)_sourceRect.X;
+			set => _sourceRect.X = value;
 		}
 
 		/// <summary>
@@ -40,8 +40,8 @@ namespace mmGameEngine
 		/// <value>The scroll y.</value>
 		public int ScrollY
 		{
-			get => (int)_sourceRect.y;
-			set => _sourceRect.y = value;
+			get => (int)_sourceRect.Y;
+			set => _sourceRect.Y = value;
 		}
 		/// <summary>
 		/// scale of the texture
@@ -60,20 +60,20 @@ namespace mmGameEngine
 		}
 		public int Width
 		{
-			get => (int)_sourceRect.width;
+			get => (int)_sourceRect.Width;
 			set
 			{
 				_areBoundsDirty = true;
-				_sourceRect.width = value;
+				_sourceRect.Width = value;
 			}
 		}
 		public int Height
 		{
-			get => (int)_sourceRect.height;
+			get => (int)_sourceRect.Height;
 			set
 			{
 				_areBoundsDirty = true;
-				_sourceRect.height = value;
+				_sourceRect.Height = value;
 			}
 		}
 		/// <summary>
@@ -93,7 +93,7 @@ namespace mmGameEngine
 			Texture = initTexture;
 			ScrollSpeedX = 15;
 			ScrollSpeedY = 0;
-			_sourceRect = new Rectangle(0, 0, Texture.width, Texture.height);
+			_sourceRect = new Rectangle(0, 0, Texture.Width, Texture.Height);
 			RenderLayer = Global.SCROLLINGBACK_LAYER;
 
 		}
@@ -107,8 +107,8 @@ namespace mmGameEngine
 
 			_scrollX += ScrollSpeedX * deltaTime;
 			_scrollY += ScrollSpeedY * deltaTime;
-			_sourceRect.x = (int)_scrollX;
-			_sourceRect.y = (int)_scrollY;
+			_sourceRect.X = (int)_scrollX;
+			_sourceRect.Y = (int)_scrollY;
 		}
         public override void Render()
         {
@@ -125,8 +125,8 @@ namespace mmGameEngine
             var topLeft = Transform.Position + _localOffset;
 
 			Rectangle _destRect = new Rectangle(topLeft.X, topLeft.Y,
-						Texture.width * Transform.Scale.X,
-						Texture.height * Transform.Scale.Y);
+						Texture.Width * Transform.Scale.X,
+						Texture.Height * Transform.Scale.Y);
             if (FitWindow)
             {
                 _destRect = new Rectangle(Transform.Position.X, Transform.Position.Y,
@@ -139,7 +139,7 @@ namespace mmGameEngine
 					  _destRect,
 					  Vector2.Zero,
 					  Transform.Rotation,
-					  Color.WHITE);
+					  Color.White);
 		}
     }
 }

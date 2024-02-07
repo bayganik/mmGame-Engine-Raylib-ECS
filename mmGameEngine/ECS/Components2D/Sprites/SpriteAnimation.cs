@@ -51,8 +51,8 @@ namespace mmGameEngine
 			FrameWidth = cellWidth;
 
 			Texture = sheetTexture;
-			var cols = sheetTexture.width / cellWidth;
-			var rows = sheetTexture.height / cellHeight;
+			var cols = sheetTexture.Width / cellWidth;
+			var rows = sheetTexture.Height / cellHeight;
 			SourceFrames = new Rectangle[cols * rows];
 			//
 			// Find source rectangles for each frame on this spritesheet
@@ -195,16 +195,16 @@ namespace mmGameEngine
 									DestRect,
 									Origin,
 									Transform.Rotation,
-									Color.WHITE);
+									Color.White);
         }
 		//public void RenderDebug()
 		//{
-		//	Rectangle rect = new Rectangle(BoxCollider.x, BoxCollider.y, 
-		//								   BoxCollider.width, BoxCollider.height);
-		//	Vector2 orig = new Vector2(rect.width * 0.25f, rect.height * 0.25f);
+		//	Rectangle rect = new Rectangle(BoxCollider.X, BoxCollider.Y, 
+		//								   BoxCollider.Width, BoxCollider.Height);
+		//	Vector2 orig = new Vector2(rect.Width * 0.25f, rect.Height * 0.25f);
 
-		//	Raylib.DrawRectangle((int)BoxCollider.x, (int)BoxCollider.y, (int)BoxCollider.width, (int)BoxCollider.height, Color.RED);
-		//	//Raylib.DrawRectanglePro(rect, orig, Transform.Rotation, Color.RED);
+		//	Raylib.DrawRectangle((int)BoxCollider.X, (int)BoxCollider.Y, (int)BoxCollider.Width, (int)BoxCollider.Height, Color.Red);
+		//	//Raylib.DrawRectanglePro(rect, orig, Transform.Rotation, Color.Red);
 
 
 		//}

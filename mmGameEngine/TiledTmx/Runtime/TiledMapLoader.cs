@@ -100,8 +100,8 @@ namespace mmGameEngine
 			foreach(var kvPair in tileset.TileRegions)
 			{
 				var region = kvPair.Value;
-				var width = (int) region.width;
-				var height = (int) region.height;
+				var width = (int) region.Width;
+				var height = (int) region.Height;
 				if (width > tileset.Map.MaxTileWidth) tileset.Map.MaxTileWidth = width;
 				if (width > tileset.Map.MaxTileHeight) tileset.Map.MaxTileHeight = height;
 			}
@@ -203,7 +203,7 @@ namespace mmGameEngine
 		public static Color ParseColor(XAttribute xColor)
 		{
 			if (xColor == null)
-				return Color.WHITE;
+				return Color.White;
 
 			string colorStr = ((string)xColor).TrimStart("#".ToCharArray());
 			return ColorExt.HexToColor(colorStr);

@@ -70,7 +70,7 @@ namespace mmGameEngine
             //CircleCollider cx = entity.Get<CircleCollider>();
 
             BoxAABB boxA = bx.CollisionBox;
-            //Vector2 boxA = new Vector2(bx.CollisionBox.x, bx.CollisionBox.y);
+            //Vector2 boxA = new Vector2(bx.CollisionBox.X, bx.CollisionBox.Y);
             //
             // Find entity and ask
 

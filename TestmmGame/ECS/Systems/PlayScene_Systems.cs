@@ -26,7 +26,7 @@ namespace TestmmGame
 
                 e.Get<Transform>().Position = Global.GetMousePosition();
 
-                if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
+                if (Raylib.IsMouseButtonPressed(MouseButton.Left))
                 {
                     CollisionResult cr;
                     if (SceneColliderManager.CollidedWithBox(e, out cr))
@@ -82,7 +82,7 @@ namespace TestmmGame
                 if (ent.Get<EntityMover>().IsMoving)
                     continue;
                 //
-                // We are Enabled & Not moving
+                // We are Enabled & stopped moving
                 //
                 CollisionResult cres = ent.Get<EntityMover>().MoveCollisionResult;
                 //
@@ -198,7 +198,7 @@ namespace TestmmGame
                 //
                 // shot fired
                 //
-                if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
+                if (Raylib.IsKeyPressed(KeyboardKey.Space))
                 {
                     //var tComp = entity.Get<TurretComponent>();
                     //var _pos = tComp.BulletPlaceHolder.Get<Transform>().Position;
@@ -242,10 +242,10 @@ namespace TestmmGame
                     
                 }
 
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_Q))
+                if (Raylib.IsKeyDown(KeyboardKey.Q))
                     e.Get<Transform>().Rotation -= .05f;
 
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_E))
+                if (Raylib.IsKeyDown(KeyboardKey.E))
                     e.Get<Transform>().Rotation += .05f;
                 //
                 // Test to make sure we don't leave the world

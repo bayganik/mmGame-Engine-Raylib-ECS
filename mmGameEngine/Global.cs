@@ -29,7 +29,7 @@ namespace mmGameEngine
         //
         // Game Windows setup for mmGame
         //
-        public static KeyboardKey ExitKey = KeyboardKey.KEY_ESCAPE;
+        public static KeyboardKey ExitKey = KeyboardKey.Escape;
         public static int SceneWidth;
         public static int SceneHeight;
         public static string SceneTitle;

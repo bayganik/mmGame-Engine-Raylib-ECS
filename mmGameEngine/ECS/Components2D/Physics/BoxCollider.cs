@@ -21,11 +21,11 @@ namespace mmGameEngine
 		/// <param name="boxToCollide"></param>
 		//public BoxCollider(Rectangle _boxToCollide)
   //      {
-		//	theCenter = new Vector2(_boxToCollide.width * 0.5f, _boxToCollide.height * 0.5f);
-		//	boxContainer = new Rectangle(_boxToCollide.x - theCenter.X,
-		//								 _boxToCollide.y - theCenter.Y,
-		//								 _boxToCollide.width,
-		//								 _boxToCollide.height);
+		//	theCenter = new Vector2(_boxToCollide.Width * 0.5f, _boxToCollide.Height * 0.5f);
+		//	boxContainer = new Rectangle(_boxToCollide.X - theCenter.X,
+		//								 _boxToCollide.Y - theCenter.Y,
+		//								 _boxToCollide.Width,
+		//								 _boxToCollide.Height);
 
 
 		//	CollisionBox = new BoxAABB();
@@ -35,12 +35,12 @@ namespace mmGameEngine
 		public BoxCollider(float _width, float _height)
         {
 			Rectangle _boxToCollide = new Rectangle(0,0, _width, _height);
-			Origin = new Vector2(_boxToCollide.width * 0.5f, _boxToCollide.height * 0.5f);
+			Origin = new Vector2(_boxToCollide.Width * 0.5f, _boxToCollide.Height * 0.5f);
 
-			boxContainer = new Rectangle(_boxToCollide.x - Origin.X,
-										 _boxToCollide.y - Origin.Y,
-										 _boxToCollide.width,
-										 _boxToCollide.height);
+			boxContainer = new Rectangle(_boxToCollide.X - Origin.X,
+										 _boxToCollide.Y - Origin.Y,
+										 _boxToCollide.Width,
+										 _boxToCollide.Height);
 
 
 			CollisionBox = new BoxAABB();
@@ -58,20 +58,20 @@ namespace mmGameEngine
 		{
 			Rectangle _boxToCollide = new Rectangle(_x , _y , _width, _height);
 			Origin = new Vector2(_x/2 , _y/2);
-			boxContainer = new Rectangle(_boxToCollide.x,
-										 _boxToCollide.y,
-										 _boxToCollide.width,
-										 _boxToCollide.height);
+			boxContainer = new Rectangle(_boxToCollide.X,
+										 _boxToCollide.Y,
+										 _boxToCollide.Width,
+										 _boxToCollide.Height);
 
 
 			CollisionBox = new BoxAABB();
-            boxContainer.x = (_boxToCollide.x - Origin.X) + 10;
-            boxContainer.y = (_boxToCollide.y - Origin.Y / 2) + 10;
+            boxContainer.X = (_boxToCollide.X - Origin.X) + 10;
+            boxContainer.Y = (_boxToCollide.Y - Origin.Y / 2) + 10;
             BoxPoints = new List<Vector2>();
-			Vector2 topL = new Vector2(boxContainer.x, boxContainer.y);
-			Vector2 topR = new Vector2(topL.X + boxContainer.width, topL.Y);
-			Vector2 botL = new Vector2(topL.X, topL.Y + boxContainer.height);
-			Vector2 botR = new Vector2(topR.X, topR.Y + boxContainer.height);
+			Vector2 topL = new Vector2(boxContainer.X, boxContainer.Y);
+			Vector2 topR = new Vector2(topL.X + boxContainer.Width, topL.Y);
+			Vector2 botL = new Vector2(topL.X, topL.Y + boxContainer.Height);
+			Vector2 botR = new Vector2(topR.X, topR.Y + boxContainer.Height);
 			BoxPoints.Add(topL);
 			BoxPoints.Add(botL);
 			BoxPoints.Add(botR);
@@ -100,13 +100,13 @@ namespace mmGameEngine
             //
             if (!fixedCollider)
 			{
-				boxContainer.x = Transform.Position.X - Origin.X;
-				boxContainer.y = Transform.Position.Y - Origin.Y;
+				boxContainer.X = Transform.Position.X - Origin.X;
+				boxContainer.Y = Transform.Position.Y - Origin.Y;
 				BoxPoints = new List<Vector2>();
-				Vector2 topL = new Vector2(boxContainer.x, boxContainer.y);
-				Vector2 topR = new Vector2(topL.X + boxContainer.width, topL.Y);
-				Vector2 botL = new Vector2(topL.X, topL.Y + boxContainer.height);
-				Vector2 botR = new Vector2(topR.X, topR.Y + boxContainer.height);
+				Vector2 topL = new Vector2(boxContainer.X, boxContainer.Y);
+				Vector2 topR = new Vector2(topL.X + boxContainer.Width, topL.Y);
+				Vector2 botL = new Vector2(topL.X, topL.Y + boxContainer.Height);
+				Vector2 botR = new Vector2(topR.X, topR.Y + boxContainer.Height);
 				BoxPoints.Add(topL);
 				BoxPoints.Add(botL);
 				BoxPoints.Add(botR);
@@ -142,12 +142,12 @@ namespace mmGameEngine
 			//
 			// draw full rectangle
 			//
-			Rectangle rt = new Rectangle(boxContainer.x, boxContainer.y, boxContainer.width, boxContainer.height);
-			Raylib.DrawRectangleLines((int)rt.x, (int)rt.y,
-								      (int)rt.width, (int)rt.height,
-								       Color.RED);
-			//Raylib.DrawCircle((int)CollisionBox.min.X, (int)CollisionBox.min.X, 5, Color.GRAY);
-			//Raylib.DrawCircle(Convert.ToInt32(CollisionBox.max.X), Convert.ToInt32(CollisionBox.max.Y), 5, Color.BLACK);
+			Rectangle rt = new Rectangle(boxContainer.X, boxContainer.Y, boxContainer.Width, boxContainer.Height);
+			Raylib.DrawRectangleLines((int)rt.X, (int)rt.Y,
+								      (int)rt.Width, (int)rt.Height,
+								       Color.Red);
+			//Raylib.DrawCircle((int)CollisionBox.min.X, (int)CollisionBox.min.X, 5, Color.Gray);
+			//Raylib.DrawCircle(Convert.ToInt32(CollisionBox.max.X), Convert.ToInt32(CollisionBox.max.Y), 5, Color.Black);
 		}
 	}
 }

@@ -36,7 +36,7 @@ namespace TestmmGame
             Global.SceneHeight = 600;
             Global.SceneWidth = 600;
             Global.SceneTitle = "Game Menu Scene";
-            Global.SceneClearColor = Color.BLANK;
+            Global.SceneClearColor = Color.Blank;
             SceneNames = new string[4]
                 {"PlayScene", "SplashScene","CardScene","PianoScene"};
 
@@ -71,7 +71,7 @@ namespace TestmmGame
             entPanel.Name = "panel";
             position = entPanel.Get<Transform>().Position;
 
-            Panel menuPanel = new Panel(position, 300, 300, Color.BLANK);
+            Panel menuPanel = new Panel(position, 300, 300, Color.Blank);
             entPanel.Add(menuPanel);
 
             //-----------------

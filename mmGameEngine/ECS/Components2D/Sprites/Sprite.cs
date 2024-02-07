@@ -17,7 +17,7 @@ namespace mmGameEngine
 		//
 		public bool EnableTracer = false;   
 		public Vector2 InitialPosition;
-		public Color TracerColor = Color.RED;
+		public Color TracerColor = Color.Red;
 		public float TracerThick = 1.0f;
 		//
 		// Fit entire sprite in a window
@@ -27,7 +27,7 @@ namespace mmGameEngine
         public Rectangle DestRect;					//rectangle (position & size) for display
 
 		public bool OriginReCalc = true;            //force the first update to get correct Origin
-		public Color DrawColor = Color.WHITE;		//default color for drawing is White
+		public Color DrawColor = Color.White;		//default color for drawing is White
 		public Sprite(string filePath)
         {
 			Texture = Raylib.LoadTexture(filePath);
@@ -44,9 +44,9 @@ namespace mmGameEngine
 		}
 		private void Initialize()
         {
-			SourceRect = new Rectangle(0, 0, Texture.width, Texture.height);
-			TextureCenter = new Vector2(Texture.width * 0.5f, Texture.height * 0.5f);
-			Origin = new Vector2(Texture.width * 0.5f , Texture.height * 0.5f );
+			SourceRect = new Rectangle(0, 0, Texture.Width, Texture.Height);
+			TextureCenter = new Vector2(Texture.Width * 0.5f, Texture.Height * 0.5f);
+			Origin = new Vector2(Texture.Width * 0.5f , Texture.Height * 0.5f );
 		}
 		
         public override void Update(float deltaTime)
@@ -64,7 +64,7 @@ namespace mmGameEngine
             //		using the Scale
             //
             TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
-            TextureCenter = new Vector2(Texture.width * 0.5f * Transform.Scale.X, Texture.height * 0.5f * Transform.Scale.Y);
+            TextureCenter = new Vector2(Texture.Width * 0.5f * Transform.Scale.X, Texture.Height * 0.5f * Transform.Scale.Y);
 
 			if (OriginReCalc)
             {
@@ -99,8 +99,8 @@ namespace mmGameEngine
 			else
 			{
 				DestRect = new Rectangle(Transform.Position.X, Transform.Position.Y,
-										 Texture.width * Transform.Scale.X,
-										 Texture.height * Transform.Scale.Y);
+										 Texture.Width * Transform.Scale.X,
+										 Texture.Height * Transform.Scale.Y);
 			}
 			if (EnableTracer)
 			{

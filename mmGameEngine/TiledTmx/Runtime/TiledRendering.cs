@@ -63,8 +63,8 @@ namespace mmGameEngine
 			var tileWidth = layer.Map.TileWidth * scale.X;
 			var tileHeight = layer.Map.TileHeight * scale.Y;
 
-			var color = Color.WHITE;
-			color.a = (byte)(layer.Opacity * 255);
+			var color = Color.White;
+			color.A = (byte)(layer.Opacity * 255);
 
 			for (var i = 0; i < layer.Tiles.Length; i++)
 			{
@@ -93,38 +93,38 @@ namespace mmGameEngine
 			position = new Vector2(position.X + layer.Offset.X, position.Y + layer.Offset.Y);
 
 			// offset it by the entity position since the tilemap will always expect positions in its own coordinate space
-			cameraClipBounds.x -= position.X;
-			cameraClipBounds.y -= position.Y;
+			cameraClipBounds.X -= position.X;
+			cameraClipBounds.Y -= position.Y;
 
 			var tileWidth = layer.Map.TileWidth * scale.X;
 			var tileHeight = layer.Map.TileHeight * scale.Y;
 
 			int minX, minY, maxX, maxY;
 
-			float right = cameraClipBounds.x + cameraClipBounds.width;
-			float bottom = cameraClipBounds.y + cameraClipBounds.height;
+			float right = cameraClipBounds.X + cameraClipBounds.Width;
+			float bottom = cameraClipBounds.Y + cameraClipBounds.Height;
 
 			if (layer.Map.RequiresLargeTileCulling)
 			{
 				// we expand our cameraClipBounds by the excess tile width/height of the largest tiles to ensure we include tiles whose
 				// origin might be outside of the cameraClipBounds
-				minX = layer.Map.WorldToTilePositionX(cameraClipBounds.x - (layer.Map.MaxTileWidth * scale.X - tileWidth));
-				minY = layer.Map.WorldToTilePositionY(cameraClipBounds.y - (layer.Map.MaxTileHeight * scale.Y - tileHeight));
+				minX = layer.Map.WorldToTilePositionX(cameraClipBounds.X - (layer.Map.MaxTileWidth * scale.X - tileWidth));
+				minY = layer.Map.WorldToTilePositionY(cameraClipBounds.Y - (layer.Map.MaxTileHeight * scale.Y - tileHeight));
 				maxX = layer.Map.WorldToTilePositionX(right + (layer.Map.MaxTileWidth * scale.X - tileWidth));
 				maxY = layer.Map.WorldToTilePositionY(bottom + (layer.Map.MaxTileHeight * scale.Y - tileHeight));
 			}
 			else
 			{
-				minX = layer.Map.WorldToTilePositionX(cameraClipBounds.x);
-				minY = layer.Map.WorldToTilePositionY(cameraClipBounds.y);
+				minX = layer.Map.WorldToTilePositionX(cameraClipBounds.X);
+				minY = layer.Map.WorldToTilePositionY(cameraClipBounds.Y);
 				maxX = layer.Map.WorldToTilePositionX(right);
 				maxY = layer.Map.WorldToTilePositionY(bottom);
 			}
 
 
 
-			var color = Color.WHITE;
-			color.a = (byte)(layer.Opacity * 255);
+			var color = Color.White;
+			color.A = (byte)(layer.Opacity * 255);
 
 			// loop through and draw all the non-culled tiles
 			for (var y = minY; y <= maxY; y++)
@@ -169,8 +169,8 @@ namespace mmGameEngine
 				{
 					//spriteEffects ^= CanvasSpriteFlip.Vertical;
 					rotation = (float)MathHelper.PiOver2;
-					tx += tileHeight + (sourceRect.height * scale.Y - tileHeight);
-					ty -= (sourceRect.width * scale.X - tileWidth);
+					tx += tileHeight + (sourceRect.Height * scale.Y - tileHeight);
+					ty -= (sourceRect.Width * scale.X - tileWidth);
 				}
 				else if (tile.HorizontalFlip)
 				{
@@ -182,8 +182,8 @@ namespace mmGameEngine
 				{
 					//spriteEffects ^= CanvasSpriteFlip.Horizontal;
 					rotation = (float)MathHelper.PiOver2;
-					tx += tileWidth + (sourceRect.height * scale.Y - tileHeight);
-					ty += (tileWidth - sourceRect.width * scale.X);
+					tx += tileWidth + (sourceRect.Height * scale.Y - tileHeight);
+					ty += (tileWidth - sourceRect.Width * scale.X);
 				}
 				else
 				{
@@ -196,14 +196,14 @@ namespace mmGameEngine
 			// if we had no rotations (diagonal flipping) shift our y-coord to account for any non map.tileSize tiles due to
 			// Tiled being bottom-left origin
 			if (rotation == 0)
-				ty += (tileHeight - sourceRect.height * scale.Y);
+				ty += (tileHeight - sourceRect.Height * scale.Y);
 
 			var pos = new Vector2(tx, ty) + position;
 			Vector2 origin = Vector2.Zero;
-			Rectangle sRect = new Rectangle(sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height);
+			Rectangle sRect = new Rectangle(sourceRect.X, sourceRect.Y, sourceRect.Width, sourceRect.Height);
 			Rectangle dRect = new Rectangle(pos.X, pos.Y, tileWidth * scale.X, tileHeight * scale.Y);
 
-			Raylib.DrawTexturePro(tile.Tileset.Image.Texture, sRect, dRect, origin, rotation, Color.WHITE);
+			Raylib.DrawTexturePro(tile.Tileset.Image.Texture, sRect, dRect, origin, rotation, Color.White);
 			//if (tile.Tileset.Image != null)
 			//	batcher.DrawFromSpriteSheet(tile.Tileset.Image.Texture, pos, sRect, Vector4.One, origin, rotation, scale);
 			//else
@@ -254,13 +254,13 @@ namespace mmGameEngine
 						var tileset = objGroup.Map.GetTilesetForTileGid(obj.Tile.Gid);
 						//var sourceRect = tileset.TileRegions[obj.Tile.Gid];
 						Vector2 origin = Vector2.Zero;
-						Rectangle sRect = new Rectangle(tileset.TileRegions[obj.Tile.Gid].x, tileset.TileRegions[obj.Tile.Gid].y, tileset.TileRegions[obj.Tile.Gid].width, tileset.TileRegions[obj.Tile.Gid].height);
+						Rectangle sRect = new Rectangle(tileset.TileRegions[obj.Tile.Gid].X, tileset.TileRegions[obj.Tile.Gid].Y, tileset.TileRegions[obj.Tile.Gid].Width, tileset.TileRegions[obj.Tile.Gid].Height);
 
 
 						//var pos = new Vector2(tx, ty) + position;
 						Rectangle dRect = new Rectangle(pos.X, pos.Y, obj.Width * scale.X, obj.Height * scale.Y);
 
-						Raylib.DrawTexturePro(tileset.Image.Texture, sRect, dRect, origin, 0, Color.WHITE);
+						Raylib.DrawTexturePro(tileset.Image.Texture, sRect, dRect, origin, 0, Color.White);
 						//batcher.DrawFromSpriteSheet(tileset.Image.Texture, pos, sRect, Vector4.One, origin, 0, scale, CanvasSpriteFlip.None);
 
 						//batcher.Draw(tileset.Image.Texture, pos, sourceRect, Colors.White, 0, Vector2.Zero, scale, spriteEffects, layerDepth);
@@ -293,17 +293,17 @@ namespace mmGameEngine
 			if (!layer.Visible)
 				return;
 
-			var color = Color.WHITE;
-			color.a = (byte)(layer.Opacity * 255);
+			var color = Color.White;
+			color.A = (byte)(layer.Opacity * 255);
 
 			var pos = position + new Vector2(layer.OffsetX, layer.OffsetY) * scale;
 
 			Vector2 origin = Vector2.Zero;
 			Rectangle sRect = new Rectangle();
 
-			Rectangle dRect = new Rectangle(pos.X, pos.Y, sRect.width, sRect.height);
+			Rectangle dRect = new Rectangle(pos.X, pos.Y, sRect.Width, sRect.Height);
 
-			Raylib.DrawTexturePro(layer.Image.Texture, sRect, dRect, origin, 0, Color.WHITE);
+			Raylib.DrawTexturePro(layer.Image.Texture, sRect, dRect, origin, 0, Color.White);
 			//batcher.Draw(layer.Image.Texture, pos, null, color, 0, Vector2.Zero, scale, CanvasSpriteFlip.None, layerDepth);
 
 		}

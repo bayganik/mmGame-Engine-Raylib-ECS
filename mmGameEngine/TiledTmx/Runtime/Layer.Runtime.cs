@@ -108,10 +108,10 @@ namespace mmGameEngine
 		/// </summary>
 		public List<TmxLayerTile> GetTilesIntersectingBounds(Rectangle bounds)
 		{
-			var minX = Map.WorldToTilePositionX((float)bounds.x);
-			var minY = Map.WorldToTilePositionY((float)bounds.y);
-			float Right = bounds.x + bounds.width;
-			float Bottom = bounds.y + bounds.height;
+			var minX = Map.WorldToTilePositionX((float)bounds.X);
+			var minY = Map.WorldToTilePositionY((float)bounds.Y);
+			float Right = bounds.X + bounds.Width;
+			float Bottom = bounds.Y + bounds.Height;
 			var maxX = Map.WorldToTilePositionX(Right);
 			var maxY = Map.WorldToTilePositionY(Bottom);
 

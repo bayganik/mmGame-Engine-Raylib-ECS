@@ -12,7 +12,7 @@ namespace mmGameEngine
      */
     public class Text : RenderComponent
     {
-        public Color FontColor = Color.BLACK;
+        public Color FontColor = Color.Black;
         int _fontSize = 30;
         string _content;
 
@@ -45,7 +45,7 @@ namespace mmGameEngine
         {
             _fontSize = _size;
             _content = _text;
-            TextData = new TextInfo(_content, _fontType, _size, Color.WHITE);
+            TextData = new TextInfo(_content, _fontType, _size, Color.White);
         }
         public override void Update(float deltaTime)
         {
@@ -88,9 +88,9 @@ namespace mmGameEngine
             TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
 
             Rectangle rect = new Rectangle(Transform.Position.X, Transform.Position.Y, size.X, size.Y);
-            //Vector2 orig = new Vector2(rect.width * 0.5f, rect.height * 0.5f);
+            //Vector2 orig = new Vector2(rect.Width * 0.5f, rect.Height * 0.5f);
             Vector2 orig = new Vector2(0,0);
-            Raylib.DrawRectanglePro(rect, orig, Transform.Rotation, Color.RED);
+            Raylib.DrawRectanglePro(rect, orig, Transform.Rotation, Color.Red);
 
 
         }

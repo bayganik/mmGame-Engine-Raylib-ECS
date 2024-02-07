@@ -22,7 +22,7 @@ namespace mmGameEngine
     /// </summary>
     public class TextInfo
     {
-        public Color FontColor = Color.WHITE;
+        public Color FontColor = Color.White;
         public int FontSize = 13;
         public Font TextFont;
         public string Content;

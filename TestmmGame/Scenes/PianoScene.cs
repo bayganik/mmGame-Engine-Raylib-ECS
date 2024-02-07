@@ -56,7 +56,7 @@ namespace TestmmGame
             Global.SceneHeight = 600;
             Global.SceneWidth = 1200;
             Global.SceneTitle = "Piano keys Scene";
-            Global.SceneClearColor = Color.BLANK;
+            Global.SceneClearColor = Color.Blank;
             SceneNames = new string[4]
                 {"PlayScene", "SplashScene","CardScene",""};
 

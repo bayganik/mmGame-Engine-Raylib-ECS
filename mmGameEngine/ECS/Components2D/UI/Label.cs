@@ -20,7 +20,7 @@ namespace mmGameEngine
         public Label( string _content)
         {
             content = _content;
-            TextData = new TextInfo(_content, TextFontTypes.Arial, 25, Color.WHITE);
+            TextData = new TextInfo(_content, TextFontTypes.Arial, 25, Color.White);
             CurrentTextColor = TextData.FontColor;
             UIPosition = Vector2.Zero;
         }

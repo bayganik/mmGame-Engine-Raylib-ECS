@@ -79,7 +79,7 @@ namespace TestmmGame
             {
                 Sprite spr = entity.Get<Sprite>();
                 if (entity.Tag == minNote)
-                    spr.DrawColor = Color.BLUE;
+                    spr.DrawColor = Color.Blue;
 
             }
         }

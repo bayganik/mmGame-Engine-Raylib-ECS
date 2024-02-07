@@ -126,7 +126,7 @@ namespace TestmmGame
                 //        clickTimer = 0;
                 //    }
                 //}
-                if (Raylib.IsMouseButtonReleased(MouseButton.MOUSE_BUTTON_LEFT))
+                if (Raylib.IsMouseButtonReleased(MouseButton.Left))
                 {
                     if (clickTimer < timerDelay)
                     {
@@ -170,7 +170,7 @@ namespace TestmmGame
 
 
                 }
-                if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
+                if (Raylib.IsMouseButtonPressed(MouseButton.Left))
                 {
                     //
                     // if game over, don't allow movement

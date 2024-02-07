@@ -161,7 +161,7 @@ namespace mmGameEngine
 
 
 		/// <summary>
-		/// the rotation of the transform relative to the parent transform's rotation. If the transform has no parent, it is the same as Transform.rotation
+		/// the rotation of the transform relative to the parent transform's rotation. If the transform has no parent, it is the same as Transform.Rotation
 		/// </summary>
 		/// <value>The local rotation.</value>
 		public float LocalRotation
@@ -398,7 +398,7 @@ namespace mmGameEngine
 
 		/// <summary>
 		/// sets the the rotation of the transform relative to the parent transform's rotation. If the transform has no parent, it is the
-		/// same as Transform.rotation
+		/// same as Transform.Rotation
 		/// </summary>
 		/// <returns>The local rotation.</returns>
 		/// <param name="radians">Radians.</param>
@@ -415,7 +415,7 @@ namespace mmGameEngine
 
 		/// <summary>
 		/// sets the the rotation of the transform relative to the parent transform's rotation. If the transform has no parent, it is the
-		/// same as Transform.rotation
+		/// same as Transform.Rotation
 		/// </summary>
 		/// <returns>The local rotation.</returns>
 		/// <param name="radians">Radians.</param>

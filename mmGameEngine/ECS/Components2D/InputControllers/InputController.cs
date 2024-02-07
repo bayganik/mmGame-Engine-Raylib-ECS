@@ -9,10 +9,10 @@ namespace mmGameEngine
 {
     public class InputController : Component
     {
-        public KeyboardKey Right = KeyboardKey.KEY_RIGHT;
-        public KeyboardKey Left = KeyboardKey.KEY_LEFT;
-        public KeyboardKey Up = KeyboardKey.KEY_UP;
-        public KeyboardKey Down = KeyboardKey.KEY_DOWN;
+        public KeyboardKey Right = KeyboardKey.Right;
+        public KeyboardKey Left = KeyboardKey.Left;
+        public KeyboardKey Up = KeyboardKey.Up;
+        public KeyboardKey Down = KeyboardKey.Down;
         public bool IsKeyDownBehavior = true;                   //uses is key Down for continues action
         //
         // Result of the input is direction to move
@@ -27,10 +27,10 @@ namespace mmGameEngine
         }
         public InputController(bool _wasd_KeyboardKey)
         {
-            Right = KeyboardKey.KEY_D;
-            Left = KeyboardKey.KEY_A;
-            Up = KeyboardKey.KEY_W;
-            Down = KeyboardKey.KEY_S;
+            Right = KeyboardKey.D;
+            Left = KeyboardKey.A;
+            Up = KeyboardKey.W;
+            Down = KeyboardKey.S;
 
             IsKeyDownBehavior = true;
         }

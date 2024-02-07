@@ -23,9 +23,9 @@ namespace TestmmGame
      */
     public class PianoButton : RenderComponent
     {
-        public Color TextColor = Color.RAYWHITE;
-        public Color BackgroundColor = Color.WHITE;
-        public Color BorderColor = Color.GRAY;
+        public Color TextColor = Color.RayWhite;
+        public Color BackgroundColor = Color.White;
+        public Color BorderColor = Color.Gray;
         public TextInfo TextData;
         public bool HasBorder;
         public bool HasImage;
@@ -64,7 +64,7 @@ namespace TestmmGame
                 _image = value;
                 HasImage = true;
                 HasBorder = false;
-                BackgroundColor = Color.WHITE;
+                BackgroundColor = Color.White;
             }
         }
         public PianoButton(int _width = 40, int _height = 200)
@@ -204,13 +204,13 @@ namespace TestmmGame
 
             if (HitTest(new Vector2(Raylib.GetMouseX(), Raylib.GetMouseY())))
             {
-                CurrentBackgroundColor = Color.LIGHTGRAY;
-                CurrentTextColor = Color.BLACK;
+                CurrentBackgroundColor = Color.LightGray;
+                CurrentTextColor = Color.Black;
 
                 //
                 // Test the last key for Left Mouse button
                 //
-                if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
+                if (Raylib.IsMouseButtonPressed(MouseButton.Left))
                 {
                     synthesizer.NoteOffAll(0, false);
                     synthesizer.NoteOn(0, Tag, velocity);
@@ -231,7 +231,7 @@ namespace TestmmGame
             //
             if (Raylib.IsKeyPressed(AssignedKey))
             {
-                BackgroundColor = Color.GRAY;
+                BackgroundColor = Color.Gray;
                 //synthesizer.NoteOffAll(0, false);
                 //synthesizer.NoteOn(0, Tag, velocity);
             }

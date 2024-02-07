@@ -35,7 +35,7 @@ namespace TestmmGame
             Global.SceneHeight = 600;
             Global.SceneWidth = 1200;
             Global.SceneTitle = "Piano keys Scene";
-            Global.SceneClearColor = Color.BLANK;
+            Global.SceneClearColor = Color.Blank;
             SceneNames = new string[4]
                 {"PlayScene", "SplashScene","CardScene",""};
 
@@ -70,7 +70,7 @@ namespace TestmmGame
             entPanel.Name = "panel";
             position = entPanel.Get<Transform>().Position;
 
-            Panel menuPanel = new Panel(position, 600, 300, Color.BLANK);
+            Panel menuPanel = new Panel(position, 600, 300, Color.Blank);
             entPanel.Add(menuPanel);
 
             //-----------------
@@ -92,40 +92,40 @@ namespace TestmmGame
             PianoButton playBt = new PianoButton(synthesizer);
             playBt.Tag = 58;
             playBt.stream = stream;
-            playBt.AssignedKey = KeyboardKey.KEY_A;
+            playBt.AssignedKey = KeyboardKey.A;
             menuPanel.AddComponent(playBt, new Vector2(110, 40));
 
             playBt = new PianoButton(synthesizer);
             playBt.Tag = 59;
             playBt.stream = stream;
-            playBt.AssignedKey = KeyboardKey.KEY_S;
+            playBt.AssignedKey = KeyboardKey.S;
             menuPanel.AddComponent(playBt, new Vector2(150, 40));
 
             playBt = new PianoButton(synthesizer);
             playBt.Tag = 60;                //middle c
             playBt.stream = stream;
-            playBt.AssignedKey = KeyboardKey.KEY_D;
+            playBt.AssignedKey = KeyboardKey.D;
             menuPanel.AddComponent(playBt, new Vector2(190, 40));
 
             playBt = new PianoButton(synthesizer);
             playBt.Tag = 61;
             playBt.stream = stream;
-            playBt.AssignedKey = KeyboardKey.KEY_F;
+            playBt.AssignedKey = KeyboardKey.F;
             menuPanel.AddComponent(playBt, new Vector2(230, 40));
             playBt = new PianoButton(synthesizer);
             playBt.Tag = 62;
             playBt.stream = stream;
-            playBt.AssignedKey = KeyboardKey.KEY_J;
+            playBt.AssignedKey = KeyboardKey.J;
             menuPanel.AddComponent(playBt, new Vector2(270, 40));
             playBt = new PianoButton(synthesizer);
             playBt.Tag = 63;
             playBt.stream = stream;
-            playBt.AssignedKey = KeyboardKey.KEY_K;
+            playBt.AssignedKey = KeyboardKey.K;
             menuPanel.AddComponent(playBt, new Vector2(310, 40));
             playBt = new PianoButton(synthesizer);
             playBt.Tag = 64;
             playBt.stream = stream;
-            playBt.AssignedKey = KeyboardKey.KEY_L;
+            playBt.AssignedKey = KeyboardKey.L;
             menuPanel.AddComponent(playBt, new Vector2(350, 40));
 
 

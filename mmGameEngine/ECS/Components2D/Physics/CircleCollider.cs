@@ -31,10 +31,10 @@ namespace mmGameEngine
 			Radius = _radius;
 			Center = new Vector2(_x, _y);
 			RadiusMultiplier = _radiusMultplier;
-			//boxContainer = new Rectangle(_boxToCollide.x - theCenter.X,
-			//							 _boxToCollide.y - theCenter.Y,
-			//							 _boxToCollide.width,
-			//							 _boxToCollide.height);
+			//boxContainer = new Rectangle(_boxToCollide.X - theCenter.X,
+			//							 _boxToCollide.Y - theCenter.Y,
+			//							 _boxToCollide.Width,
+			//							 _boxToCollide.Height);
 
 
 			CollisionBox = new CircleAABB();
@@ -52,13 +52,13 @@ namespace mmGameEngine
             // update location of box containing the collider
             //
             TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
-            boxContainer.x = Transform.Position.X;
-			boxContainer.y = Transform.Position.Y;
+            boxContainer.X = Transform.Position.X;
+			boxContainer.Y = Transform.Position.Y;
 			BoxPoints = new List<Vector2>();
-			Vector2 topL = new Vector2(boxContainer.x, boxContainer.y - Radius);		//north
-			Vector2 topR = new Vector2(boxContainer.x - Radius,  boxContainer.y);		//west
-			Vector2 botL = new Vector2(boxContainer.x + Radius, boxContainer.y);		//east
-			Vector2 botR = new Vector2(boxContainer.x, boxContainer.y + Radius);		//south
+			Vector2 topL = new Vector2(boxContainer.X, boxContainer.Y - Radius);		//north
+			Vector2 topR = new Vector2(boxContainer.X - Radius,  boxContainer.Y);		//west
+			Vector2 botL = new Vector2(boxContainer.X + Radius, boxContainer.Y);		//east
+			Vector2 botR = new Vector2(boxContainer.X, boxContainer.Y + Radius);		//south
 			BoxPoints.Add(topL);
 			BoxPoints.Add(botL);
 			BoxPoints.Add(botR);
@@ -95,13 +95,13 @@ namespace mmGameEngine
 			//
 			// draw full rectangle
 			//
-			//Rectangle rt = new Rectangle(CollisionBox.min.X, CollisionBox.min.Y, boxContainer.width, boxContainer.height);
-			//Raylib.DrawRectangleLines((int)rt.x, (int)rt.y,
-			//					 (int)rt.width, (int)rt.height,
-			//					 Color.RED);
-			Raylib.DrawCircle((int)boxContainer.x, (int)boxContainer.y, Radius * RadiusMultiplier, Color.GRAY);
-			//Raylib.DrawCircle((int)CollisionBox.min.X, (int)CollisionBox.min.X, 5, Color.GRAY);
-			//Raylib.DrawCircle(Convert.ToInt32(CollisionBox.max.X), Convert.ToInt32(CollisionBox.max.Y), 5, Color.BLACK);
+			//Rectangle rt = new Rectangle(CollisionBox.min.X, CollisionBox.min.Y, boxContainer.Width, boxContainer.Height);
+			//Raylib.DrawRectangleLines((int)rt.X, (int)rt.Y,
+			//					 (int)rt.Width, (int)rt.Height,
+			//					 Color.Red);
+			Raylib.DrawCircle((int)boxContainer.X, (int)boxContainer.Y, Radius * RadiusMultiplier, Color.Gray);
+			//Raylib.DrawCircle((int)CollisionBox.min.X, (int)CollisionBox.min.X, 5, Color.Gray);
+			//Raylib.DrawCircle(Convert.ToInt32(CollisionBox.max.X), Convert.ToInt32(CollisionBox.max.Y), 5, Color.Black);
 		}
 	}
 }

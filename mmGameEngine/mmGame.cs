@@ -125,7 +125,7 @@ namespace mmGameEngine
             //
             // setup game window
             //
-            Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE | ConfigFlags.FLAG_MSAA_4X_HINT);
+            //Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE | ConfigFlags.FLAG_MSAA_4X_HINT);
             Raylib.InitWindow(Global.SceneWidth, Global.SceneHeight, Global.SceneTitle);
             //
             // if audio is on already, then skip it
@@ -173,7 +173,7 @@ namespace mmGameEngine
                 //
                 // Test for debug key F9 (F12 is used for screenshot by RayLib)
                 //
-                if (Raylib.IsKeyPressed(KeyboardKey.KEY_F9))
+                if (Raylib.IsKeyPressed(KeyboardKey.F9))
                 {
                     Global.DebugRenderEnabled = !Global.DebugRenderEnabled;
                 }

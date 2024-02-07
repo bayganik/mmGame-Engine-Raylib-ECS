@@ -81,8 +81,8 @@ namespace mmGameEngine
             cardFaces = new Texture2D[52];             //card face images
             cardBacks = new Texture2D[10];             //card back images
 
-            //var cols = CardDeckTexture.width / CardWidth;
-            //var rows = CardDeckTexture.height / CardHeight;
+            //var cols = CardDeckTexture.Width / CardWidth;
+            //var rows = CardDeckTexture.Height / CardHeight;
             int cols = 13;
             int rows = 5;
             Rectangle[] cards = new Rectangle[cols * rows];

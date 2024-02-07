@@ -23,7 +23,7 @@ namespace TestmmGame
             Global.SceneHeight = 600;
             Global.SceneWidth = 800;
             Global.SceneTitle = "splash";
-            Global.SceneClearColor = Color.BLUE;
+            Global.SceneClearColor = Color.Blue;
 
             string assName = (string)System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
             assmbly = Assembly.Load(assName);
@@ -65,14 +65,14 @@ namespace TestmmGame
             //
             // Draw the text
             //
-            Raylib.DrawText("Splash screen will go back to menu", 200, 10, 25, Color.YELLOW);
+            Raylib.DrawText("Splash screen will go back to menu", 200, 10, 25, Color.Yellow);
             //
             // show the mmGame image
             //
             Raylib.DrawTexturePro(background, 
-                                  new Rectangle(0,0,background.width, background.height), 
+                                  new Rectangle(0,0,background.Width, background.Height), 
                                   new Rectangle(0,0,800,600), 
-                                  new Vector2(0,0), 0, Color.WHITE);
+                                  new Vector2(0,0), 0, Color.White);
 
         }
     }

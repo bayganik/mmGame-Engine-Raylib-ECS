@@ -12,8 +12,8 @@ namespace mmGameEngine
      */
     public class MsgBox : RenderComponent
     {
-        public Color BackgroundColor = Color.GRAY;
-        public Color BorderColor = Color.WHITE;
+        public Color BackgroundColor = Color.Gray;
+        public Color BorderColor = Color.White;
         public int BorderThickness = 4;
         public List<RenderComponent> PanelComponents = new List<RenderComponent>();
 

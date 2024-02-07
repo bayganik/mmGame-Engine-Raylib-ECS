@@ -102,8 +102,8 @@ namespace mmGameEngine
             MaterialData mat = new MaterialData();
             mat.TextureName = tmp.TextureName;
             mat.TextureData = tmp.TextureData;
-            mat.TextureWidth = _texture.width;
-            mat.TextureHeight = _texture.height;
+            mat.TextureWidth = _texture.Width;
+            mat.TextureHeight = _texture.Height;
 
             textureLibrary.Add(mat); 
         }
@@ -119,8 +119,8 @@ namespace mmGameEngine
             MaterialData mat = new MaterialData();
             mat.TextureName = tmp.TextureName;
             mat.TextureData = tmp.TextureData;
-            mat.TextureWidth = _texture.width;
-            mat.TextureHeight = _texture.height;
+            mat.TextureWidth = _texture.Width;
+            mat.TextureHeight = _texture.Height;
             mat.ImageData = tmp.ImageData;
             spriteLibrary.Add(mat);
         }
@@ -132,7 +132,7 @@ namespace mmGameEngine
             int camPosX = 0;
             int camPosY = 0;
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
+            if (Raylib.IsKeyDown(KeyboardKey.W))
             {
                 camPosX = (Int32)(LevelCamera.Position.X + LevelCamera.Direction.X);
                 camPosY = (Int32)(LevelCamera.Position.Y);
@@ -147,7 +147,7 @@ namespace mmGameEngine
                 }
             }
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
+            if (Raylib.IsKeyDown(KeyboardKey.S))
             {
                 camPosX = (Int32)(LevelCamera.Position.X - LevelCamera.Direction.X);
                 camPosY = (Int32)(LevelCamera.Position.Y);
@@ -171,9 +171,9 @@ namespace mmGameEngine
             //    LevelCamera.RotateLeft();
             //mousePrev = mousePos;
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
+            if (Raylib.IsKeyDown(KeyboardKey.D))
                 LevelCamera.RotateRight();
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
+            if (Raylib.IsKeyDown(KeyboardKey.A))
                 LevelCamera.RotateLeft();
 
 
@@ -208,7 +208,7 @@ namespace mmGameEngine
             //
             Texture2D gameDisp = Raylib.LoadTextureFromImage(img);
             Raylib.UnloadImage(img);
-            Rectangle rect = new Rectangle(0, 0, gameDisp.width, gameDisp.height);
+            Rectangle rect = new Rectangle(0, 0, gameDisp.Width, gameDisp.Height);
             //
             // render it always at 0,0
             //
@@ -217,7 +217,7 @@ namespace mmGameEngine
                                   rect,
                                   Vector2.Zero,
                                   0f,
-                                  Color.WHITE);
+                                  Color.White);
         }
         private void RenderLevel(int[,] _levelMap, int[,] _levelSprite)
         {
@@ -576,13 +576,13 @@ namespace mmGameEngine
                                 // texture data for one pixel at the darkness level
                                 //
                                 Color pixelData = currentTexture.ImageData[currentTexture.TextureWidth * texY + texX];
-                                uint u = pixelData.a;
+                                uint u = pixelData.A;
                                 u <<= 8;    // now u would be 11001010 00000000
-                                u |= pixelData.b;     // now u would be 11001010 11111110
+                                u |= pixelData.B;     // now u would be 11001010 11111110
                                 u <<= 8;    // now u would be 11001010 11111110 00000000
-                                u |= pixelData.g;     // now u would be 11001010 11111110 10111010
+                                u |= pixelData.G;     // now u would be 11001010 11111110 10111010
                                 u <<= 8;    // now u would be 11001010 11111110 10111010 00000000
-                                u |= pixelData.r;     // now u would be 11001010 11111110 10111010 10111110
+                                u |= pixelData.R;     // now u would be 11001010 11111110 10111010 10111110
                                                       // This is how        a        b        c        d    
                                                       // are packed into one integer u.
 

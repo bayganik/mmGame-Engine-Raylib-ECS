@@ -82,32 +82,32 @@ namespace TestmmGame
             //----------------------------------------------------
             CurrentC_Note = ((ActiveScene.CurrentOctave - 1) * maxKeysInOct) + 24;
 
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_A))             //C
+            if (Raylib.IsKeyPressed(KeyboardKey.A))             //C
             {
                 NotePlaying = CurrentC_Note;
                 ActiveScene.MidiNoteKey(NotePlaying);
             }
-            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_S))        //D
+            else if (Raylib.IsKeyPressed(KeyboardKey.S))        //D
             {
                 NotePlaying = CurrentC_Note + 2;
                 ActiveScene.MidiNoteKey(NotePlaying);
             }
-            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_D))        //E
+            else if (Raylib.IsKeyPressed(KeyboardKey.D))        //E
             {
                 NotePlaying = CurrentC_Note + 4;
                 ActiveScene.MidiNoteKey(NotePlaying);
             }
-            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_F))        //F
+            else if (Raylib.IsKeyPressed(KeyboardKey.F))        //F
             {
                 NotePlaying = CurrentC_Note + 5;
                 ActiveScene.MidiNoteKey(NotePlaying);
             }
-            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_W))        //C#
+            else if (Raylib.IsKeyPressed(KeyboardKey.W))        //C#
             {
                 NotePlaying = CurrentC_Note + 1;
                 ActiveScene.MidiNoteKey(NotePlaying);
             }
-            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_E))        //D#
+            else if (Raylib.IsKeyPressed(KeyboardKey.E))        //D#
             {
                 NotePlaying = CurrentC_Note + 3;
                 ActiveScene.MidiNoteKey(NotePlaying);
@@ -115,32 +115,32 @@ namespace TestmmGame
             //
             // Key is released (Left hand)
             //
-            if (Raylib.IsKeyReleased(KeyboardKey.KEY_A))
+            if (Raylib.IsKeyReleased(KeyboardKey.A))
             {
                 ActiveScene.MidiNoteKey(NotePlaying, noteOff);              
                 NotePlaying = 0;
             }
-            else if (Raylib.IsKeyReleased(KeyboardKey.KEY_S))   
+            else if (Raylib.IsKeyReleased(KeyboardKey.S))   
             {
                 ActiveScene.MidiNoteKey(NotePlaying, noteOff);
                 NotePlaying = 0;
             }
-            else if (Raylib.IsKeyReleased(KeyboardKey.KEY_D))  
+            else if (Raylib.IsKeyReleased(KeyboardKey.D))  
             {
                 ActiveScene.MidiNoteKey(NotePlaying, noteOff);
                 NotePlaying = 0;
             }
-            else if (Raylib.IsKeyReleased(KeyboardKey.KEY_F))  
+            else if (Raylib.IsKeyReleased(KeyboardKey.F))  
             {
                 ActiveScene.MidiNoteKey(NotePlaying, noteOff);
                 NotePlaying = 0;
             }
-            else if (Raylib.IsKeyReleased(KeyboardKey.KEY_W))  
+            else if (Raylib.IsKeyReleased(KeyboardKey.W))  
             {
                 ActiveScene.MidiNoteKey(NotePlaying, noteOff);
                 NotePlaying = 0;
             }
-            else if (Raylib.IsKeyReleased(KeyboardKey.KEY_E))
+            else if (Raylib.IsKeyReleased(KeyboardKey.E))
             {
                 ActiveScene.MidiNoteKey(NotePlaying, noteOff);
                 NotePlaying = 0;
@@ -148,37 +148,37 @@ namespace TestmmGame
             //----------------------------------------------------
             // Key Pressed (Right hand)
             //----------------------------------------------------
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_J))             //G
+            if (Raylib.IsKeyPressed(KeyboardKey.J))             //G
             {
                 NotePlaying = CurrentC_Note + 7;
                 ActiveScene.MidiNoteKey(NotePlaying);
             }
-            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_K))        //A
+            else if (Raylib.IsKeyPressed(KeyboardKey.K))        //A
             {
                 NotePlaying = CurrentC_Note + 9;
                 ActiveScene.MidiNoteKey(NotePlaying);
             }
-            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_L))        //B
+            else if (Raylib.IsKeyPressed(KeyboardKey.L))        //B
             {
                 NotePlaying = CurrentC_Note + 11;
                 ActiveScene.MidiNoteKey(NotePlaying);
             }
-            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_SEMICOLON)) //C (next octave)
+            else if (Raylib.IsKeyPressed(KeyboardKey.Semicolon)) //C (next octave)
             {
                 NotePlaying = CurrentC_Note + 12;
                 ActiveScene.MidiNoteKey(NotePlaying);
             }
-            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_U))        //F#
+            else if (Raylib.IsKeyPressed(KeyboardKey.U))        //F#
             {
                 NotePlaying = CurrentC_Note + 6;
                 ActiveScene.MidiNoteKey(NotePlaying);
             }
-            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_I))        //G#
+            else if (Raylib.IsKeyPressed(KeyboardKey.I))        //G#
             {
                 NotePlaying = CurrentC_Note + 8;
                 ActiveScene.MidiNoteKey(NotePlaying);
             }
-            else if (Raylib.IsKeyPressed(KeyboardKey.KEY_O))        //A#
+            else if (Raylib.IsKeyPressed(KeyboardKey.O))        //A#
             {
                 NotePlaying = CurrentC_Note + 10;
                 ActiveScene.MidiNoteKey(NotePlaying);
@@ -186,37 +186,37 @@ namespace TestmmGame
             //
             // Key is released (Right hand)
             //
-            if (Raylib.IsKeyReleased(KeyboardKey.KEY_J))             //G
+            if (Raylib.IsKeyReleased(KeyboardKey.J))             //G
             {
                 ActiveScene.MidiNoteKey(NotePlaying, noteOff);
                 NotePlaying = 0;
             }
-            else if (Raylib.IsKeyReleased(KeyboardKey.KEY_K))        //A
+            else if (Raylib.IsKeyReleased(KeyboardKey.K))        //A
             {
                 ActiveScene.MidiNoteKey(NotePlaying, noteOff);
                 NotePlaying = 0;
             }
-            else if (Raylib.IsKeyReleased(KeyboardKey.KEY_L))        //B
+            else if (Raylib.IsKeyReleased(KeyboardKey.L))        //B
             {
                 ActiveScene.MidiNoteKey(NotePlaying, noteOff);
                 NotePlaying = 0;
             }
-            else if (Raylib.IsKeyReleased(KeyboardKey.KEY_SEMICOLON)) //C (next octave)
+            else if (Raylib.IsKeyReleased(KeyboardKey.Semicolon)) //C (next octave)
             {
                 ActiveScene.MidiNoteKey(NotePlaying, noteOff);
                 NotePlaying = 0;
             }
-            else if (Raylib.IsKeyReleased(KeyboardKey.KEY_U))        //F#
+            else if (Raylib.IsKeyReleased(KeyboardKey.U))        //F#
             {
                 ActiveScene.MidiNoteKey(NotePlaying, noteOff);
                 NotePlaying = 0;
             }
-            else if (Raylib.IsKeyReleased(KeyboardKey.KEY_I))        //G#
+            else if (Raylib.IsKeyReleased(KeyboardKey.I))        //G#
             {
                 ActiveScene.MidiNoteKey(NotePlaying, noteOff);
                 NotePlaying = 0;
             }
-            else if (Raylib.IsKeyReleased(KeyboardKey.KEY_O))        //A#
+            else if (Raylib.IsKeyReleased(KeyboardKey.O))        //A#
             {
                 ActiveScene.MidiNoteKey(NotePlaying, noteOff);
                 NotePlaying = 0;
@@ -258,7 +258,7 @@ namespace TestmmGame
                 if (entity.Tag == NotePlaying)
                 {
                     spr = entity.Get<Sprite>();
-                    spr.DrawColor = Color.BLUE;
+                    spr.DrawColor = Color.Blue;
                 }
                 else
                 {
@@ -276,10 +276,10 @@ namespace TestmmGame
                             if (labEnt.Name == "plbl" + entity.Tag.ToString())
                                 labEnt.IsVisible = true;
                         }
-                        spr.DrawColor = Color.YELLOW;           //key in octave
+                        spr.DrawColor = Color.Yellow;           //key in octave
                     } 
                     else
-                        spr.DrawColor = Color.WHITE;            //all keys turn white
+                        spr.DrawColor = Color.White;            //all keys turn white
                 }
             }
         }

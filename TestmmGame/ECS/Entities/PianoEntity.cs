@@ -38,8 +38,8 @@ namespace TestmmGame
 
             int note_offset = 0;
             assigned_note = MinNote - 1;
-            whitekeywidth = Content.keyWhite.width;
-            blackkeywidth = Content.keyBlack.width;
+            whitekeywidth = Content.keyWhite.Width;
+            blackkeywidth = Content.keyBlack.Width;
             //
             // White keys
             //
@@ -115,14 +115,14 @@ namespace TestmmGame
                     ent1.IsVisible = false;
                     Label lbl = new Label(assigned_Keyboard);
                     lbl.TextData.FontSize = 15;
-                    lbl.TextData.FontColor = Color.BLACK;
+                    lbl.TextData.FontColor = Color.Black;
                     ent1.AddComponent<PianoNoteLabelComponent>();
                     ent1.Get<TransformComponent>().Parent = pkey.Get<TransformComponent>();
                     ent1.AddComponent(lbl);
                     //
                     // stationary BoxCollider (for mouse event)
                     //
-                    pkey.AddComponent(new BoxCollider( Content.keyWhite.width, Content.keyWhite.height));
+                    pkey.AddComponent(new BoxCollider( Content.keyWhite.Width, Content.keyWhite.Height));
 
                 }
             }
@@ -175,7 +175,7 @@ namespace TestmmGame
                 {
                     xpos = (PianoPos.X + ((key_offset + m * 7) * whitekeywidth) + (whitekeywidth - blackkeywidth / 2)) - (blackkeywidth / 2);
                     Entity pkey = Global.CreateGameEntity("pkey" + assigned_note.ToString(),
-                                                          new Vector2(xpos, PianoPos.Y - (Content.keyBlack.height/2 - 20)));
+                                                          new Vector2(xpos, PianoPos.Y - (Content.keyBlack.Height/2 - 20)));
                     pkey.Tag = assigned_note;
 
                     Sprite spr = new Sprite(Content.keyBlack);
@@ -194,14 +194,14 @@ namespace TestmmGame
                     ent1.IsVisible = false;
                     Label lbl = new Label(assigned_Keyboard);
                     lbl.TextData.FontSize = 15;
-                    lbl.TextData.FontColor = Color.BLACK;
+                    lbl.TextData.FontColor = Color.Black;
                     ent1.AddComponent<PianoNoteLabelComponent>();
                     ent1.Get<TransformComponent>().Parent = pkey.Get<TransformComponent>();
                     ent1.AddComponent(lbl);
                     //
                     // stationary BoxCollider 
                     //
-                    pkey.AddComponent(new BoxCollider( Content.keyBlack.width, Content.keyBlack.height));
+                    pkey.AddComponent(new BoxCollider( Content.keyBlack.Width, Content.keyBlack.Height));
                 }
             }
 

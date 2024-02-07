@@ -55,7 +55,7 @@ namespace TestmmGame
             {
                 Vector2 pos = e.Get<Transform>().Position;
                 //Raylib.DrawText(
-                //	"Entity" + e.creationIndex + ": x=" + pos.X + " y=" + pos.Y, 300, 400, 13, Color.BLACK);
+                //	"Entity" + e.creationIndex + ": x=" + pos.X + " y=" + pos.Y, 300, 400, 13, Color.Black);
             }
         }
     }

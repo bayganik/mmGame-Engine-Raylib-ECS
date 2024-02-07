@@ -80,10 +80,10 @@ namespace mmGameEngine
             //znznznznznznznznznznznznznznznznznzn
 
             Camera = new Camera2D();
-            Camera.target = Global.WindowCenter;
-            Camera.offset = Global.WindowCenter;
-            Camera.rotation = 0;
-            Camera.zoom = 1.0f;
+            Camera.Target = Global.WindowCenter;
+            Camera.Offset = Global.WindowCenter;
+            Camera.Rotation = 0;
+            Camera.Zoom = 1.0f;
             Camera2dEnabled = false;
             CameraType2D = Camera2DType.FollowPlayer;                   //free camera no bounds
             //
@@ -144,20 +144,20 @@ namespace mmGameEngine
 			//-------------------
 			// Z O O M 
 			//-------------------
-			if (Global.DebugRenderEnabled && Camera2dEnabled)
+			if ( Camera2dEnabled)
 			{
 				//
 				// Camera zoom control is the Mouse Wheel
 				//
-				Camera.zoom += ((float)Raylib.GetMouseWheelMove() * 0.05f);
+				Camera.Zoom += ((float)Raylib.GetMouseWheelMove() * 0.05f);
 
-				if (Camera.zoom > 3.0f) Camera.zoom = 3.0f;
-				else if (Camera.zoom < 0.1f) Camera.zoom = 0.1f;
+				if (Camera.Zoom > 3.0f) Camera.Zoom = 3.0f;
+				else if (Camera.Zoom < 0.1f) Camera.Zoom = 0.1f;
 	
-				if (Raylib.IsKeyPressed(KeyboardKey.KEY_R))			// Camera reset (zoom and rotation)
+				if (Raylib.IsKeyPressed(KeyboardKey.R))			// Camera reset (zoom and rotation)
 				{
-					Camera.zoom = 1.0f;
-					Camera.rotation = 0.0f;
+					Camera.Zoom = 1.0f;
+					Camera.Rotation = 0.0f;
 				}
 			}
 			deltaTime = Raylib.GetFrameTime();
@@ -327,8 +327,8 @@ namespace mmGameEngine
                     int tx = (int)CameraEntityToFollow.Get<TransformComponent>().Position.X;
                     int ty = (int)CameraEntityToFollow.Get<TransformComponent>().Position.Y;
 
-                    Raylib.DrawLine(tx, -screenHeight * 10, tx, screenHeight * 10, Color.GREEN);    //Verticval
-					Raylib.DrawLine(-screenWidth * 10, ty, screenWidth * 10, ty, Color.GREEN);      //Horizontal
+                    Raylib.DrawLine(tx, -screenHeight * 10, tx, screenHeight * 10, Color.Green);    //Verticval
+					Raylib.DrawLine(-screenWidth * 10, ty, screenWidth * 10, ty, Color.Green);      //Horizontal
 
 
 				}
@@ -367,12 +367,12 @@ namespace mmGameEngine
 			if (Global.DebugRenderEnabled)
 			{
 				string istr = Raylib.GetMousePosition().ToString();
-				Raylib.DrawText(istr, 10, 10, 20, Color.WHITE);
+				Raylib.DrawText(istr, 10, 10, 20, Color.White);
 				
 				if (Camera2dEnabled && CameraEntityToFollow != null)
                 {
 					Raylib.DrawFPS(10, 30);
-					Raylib.DrawText("Zoom" + Camera.zoom.ToString(), 10, 50, 20, Color.WHITE);
+					Raylib.DrawText("Zoom" + Camera.Zoom.ToString(), 10, 50, 20, Color.White);
 				}
 				else
 					Raylib.DrawFPS(10, 30);
@@ -393,14 +393,14 @@ namespace mmGameEngine
 			//float fractionSpeed = 0.8f;
 			float speed = 4.0f;
 
-			Camera.offset = new Vector2(width / 2, height / 2);
-			Vector2 diff = Vector2.Subtract(CameraEntityToFollow.Get<TransformComponent>().Position, Camera.target);
+			Camera.Offset = new Vector2(width / 2, height / 2);
+			Vector2 diff = Vector2.Subtract(CameraEntityToFollow.Get<TransformComponent>().Position, Camera.Target);
 			float length = Vector2Ext.Length(diff);
 
 			if (length > minEffectLength)
 			{
 				//float speed = fmaxf(fractionSpeed * length, minSpeed);
-				Camera.target = Vector2.Add(Camera.target, Vector2Ext.Scale(diff, speed * delta / length));
+				Camera.Target = Vector2.Add(Camera.Target, Vector2Ext.Scale(diff, speed * delta / length));
 			}
 		}
 		private void UpdateCameraCenter()
@@ -410,8 +410,8 @@ namespace mmGameEngine
 			//
 			int width = Global.SceneWidth;
 			int height = Global.SceneHeight;
-			Camera.target = CameraEntityToFollow.Get<TransformComponent>().Position;
-			Camera.offset = new Vector2(width / 2, height / 2);
+			Camera.Target = CameraEntityToFollow.Get<TransformComponent>().Position;
+			Camera.Offset = new Vector2(width / 2, height / 2);
 		}
 		private void UpdateCameraInsideMap()
         {
@@ -421,8 +421,8 @@ namespace mmGameEngine
 			int width = Global.SceneWidth;
 			int height = Global.SceneHeight;
 
-			Camera.target = CameraEntityToFollow.Get<TransformComponent>().Position;
-			Camera.offset = new Vector2(width / 2, height/ 2);
+			Camera.Target = CameraEntityToFollow.Get<TransformComponent>().Position;
+			Camera.Offset = new Vector2(width / 2, height/ 2);
 
 			float minX = 0;
 			float minY = 0;
@@ -434,17 +434,17 @@ namespace mmGameEngine
 			//
 			// camera ends at width of world/map
 			//
-			if (max.X < width) Camera.offset.X = width - (max.X - width / 2);
-			if (max.X < height) Camera.offset.X = height - (max.X - height / 2);
-			if (min.X > 0) Camera.offset.X = width / 2 - min.X;
-			if (min.X > 0) Camera.offset.X = height / 2 - min.X;
+			if (max.X < width) Camera.Offset.X = width - (max.X - width / 2);
+			if (max.X < height) Camera.Offset.X = height - (max.X - height / 2);
+			if (min.X > 0) Camera.Offset.X = width / 2 - min.X;
+			if (min.X > 0) Camera.Offset.X = height / 2 - min.X;
 			//
 			// cameran ends at height of world/map
 			//
-			if (max.Y < width) Camera.offset.Y = width - (max.Y - width / 2);
-			if (max.Y < height) Camera.offset.Y = height - (max.Y - height / 2);
-			if (min.Y > 0) Camera.offset.Y = width / 2 - min.Y;
-			if (min.Y > 0) Camera.offset.Y = height / 2 - min.Y;
+			if (max.Y < width) Camera.Offset.Y = width - (max.Y - width / 2);
+			if (max.Y < height) Camera.Offset.Y = height - (max.Y - height / 2);
+			if (min.Y > 0) Camera.Offset.Y = width / 2 - min.Y;
+			if (min.Y > 0) Camera.Offset.Y = height / 2 - min.Y;
 		}
 		private void UpdateCameraPlayerBoundsPush()
 		{
@@ -455,12 +455,12 @@ namespace mmGameEngine
 
 			Vector2 bboxWorldMin = Raylib.GetScreenToWorld2D(new Vector2((1 - bbox.X) * 0.5f * width, (1 - bbox.X) * 0.5f * height), Camera);
 			Vector2 bboxWorldMax = Raylib.GetScreenToWorld2D(new Vector2((1 + bbox.X) * 0.5f * width, (1 + bbox.X) * 0.5f * height), Camera);
-			Camera.offset = new Vector2((1 - bbox.X) * 0.5f * width, (1 - bbox.X) * 0.5f * height);
+			Camera.Offset = new Vector2((1 - bbox.X) * 0.5f * width, (1 - bbox.X) * 0.5f * height);
 
-			if (position.X < bboxWorldMin.X) Camera.target.X = position.X;
-			if (position.X < bboxWorldMin.X) Camera.target.X = position.X;
-			if (position.X > bboxWorldMax.X) Camera.target.X = bboxWorldMin.X + (position.X - bboxWorldMax.X);
-			if (position.X > bboxWorldMax.X) Camera.target.X = bboxWorldMin.X + (position.X - bboxWorldMax.X);
+			if (position.X < bboxWorldMin.X) Camera.Target.X = position.X;
+			if (position.X < bboxWorldMin.X) Camera.Target.X = position.X;
+			if (position.X > bboxWorldMax.X) Camera.Target.X = bboxWorldMin.X + (position.X - bboxWorldMax.X);
+			if (position.X > bboxWorldMax.X) Camera.Target.X = bboxWorldMin.X + (position.X - bboxWorldMax.X);
 		}
         internal void Begin()
         {

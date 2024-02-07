@@ -40,13 +40,13 @@ namespace mmGameEngine
             //
             // Find color DATA going thru width of the texture
             //
-            ImageData = new Color[img.height * img.width];
+            ImageData = new Color[img.Height * img.Width];
 
-            for (int x = 0; x < img.width; x++)
+            for (int x = 0; x < img.Width; x++)
             {
-                for (int y = 0; y < img.height; y++)
+                for (int y = 0; y < img.Height; y++)
                 {
-                    ImageData[y * img.width + x] = mapPixelsData[y * img.width + x];
+                    ImageData[y * img.Width + x] = mapPixelsData[y * img.Width + x];
                 }
             }
             Raylib.UnloadImage(img);                                        // Unload image from RAM
@@ -58,28 +58,28 @@ namespace mmGameEngine
             _textureData = new List<Color[,]>();
             for (int d = 0; d <= DARKNESSLEVLES; d++)
             {
-                Color[,] ShadeOfDarkData = new Color[img.width, img.height];
-                for (int x = 0; x < img.width; x++)
+                Color[,] ShadeOfDarkData = new Color[img.Width, img.Height];
+                for (int x = 0; x < img.Width; x++)
                 {
-                    for (int y = 0; y < img.height; y++)
+                    for (int y = 0; y < img.Height; y++)
                     {
-                        var index = x + (img.width * y);                //find pixel going across the texture image
+                        var index = x + (img.Width * y);                //find pixel going across the texture image
                         Color pixel = ImageData[index];
                         Color tmpPixel = new Color();
                         //
                         // pack the color bytes into int, shift the bits to get dark color
                         //
-                        int tmp = (Byte)pixel.a << 24 | (Byte)(pixel.b / darkness) << 16 | (Byte)(pixel.g / darkness) << 8 |
-                                (Byte)(pixel.r / darkness);
+                        int tmp = (Byte)pixel.A << 24 | (Byte)(pixel.B / darkness) << 16 | (Byte)(pixel.G / darkness) << 8 |
+                                (Byte)(pixel.R / darkness);
                         //
                         // unpack the int back to bytes to update the Color values (with darkness)
                         //
                         var bytes = BitConverter.GetBytes(tmp);
 
-                        tmpPixel.r = bytes[0];
-                        tmpPixel.g = bytes[1];
-                        tmpPixel.b = bytes[2];
-                        tmpPixel.a = bytes[3];
+                        tmpPixel.R = bytes[0];
+                        tmpPixel.G = bytes[1];
+                        tmpPixel.B = bytes[2];
+                        tmpPixel.A = bytes[3];
 
                         ShadeOfDarkData[x, y] = tmpPixel;
                     }

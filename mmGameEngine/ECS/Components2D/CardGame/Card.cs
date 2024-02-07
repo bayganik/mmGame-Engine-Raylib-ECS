@@ -63,22 +63,22 @@ namespace mmGameEngine
             else
                 Texture = CardBack;
 
-                //Raylib.DrawTexture(CardBack, (int)position.X, (int)position.Y, Color.WHITE);
+                //Raylib.DrawTexture(CardBack, (int)position.X, (int)position.Y, Color.White);
 
-            var Origin = new Vector2((float)Texture.width * 0.5f, (float)Texture.height * 0.5f);
+            var Origin = new Vector2((float)Texture.Width * 0.5f, (float)Texture.Height * 0.5f);
             TransformComponent Transform = OwnerEntity.Get<TransformComponent>();
 
-            SourceRect = new Rectangle(0, 0, Texture.width, Texture.height);
+            SourceRect = new Rectangle(0, 0, Texture.Width, Texture.Height);
             DestRect = new Rectangle(Transform.Position.X, Transform.Position.Y,
-                         Texture.width * Transform.Scale.X,
-                         Texture.height * Transform.Scale.Y);
+                         Texture.Width * Transform.Scale.X,
+                         Texture.Height * Transform.Scale.Y);
 
             Raylib.DrawTexturePro(Texture,
                   SourceRect,
                   DestRect,
                   Origin,
                   Transform.Rotation,
-                  Color.WHITE);
+                  Color.White);
             //
             // Entity.Transform.Position + LocalOffset (Vector2) consider for minor adjustments
             //

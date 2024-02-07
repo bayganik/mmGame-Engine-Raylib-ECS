@@ -94,7 +94,7 @@ namespace TestmmGame
             GameStatus.Name = "Game Status";
             Text scoreTxt = new Text("Score: ", TextFontTypes.Arial);
             GameStatus.Add(scoreTxt);
-            MsgBox mb = new MsgBox( 350, 150, Color.BROWN);
+            MsgBox mb = new MsgBox( 350, 150, Color.Brown);
             //mb.Visiable = false;
             GameStatus.Add(mb);
             GameStatus.Add<GameStatComponent>();
@@ -291,8 +291,8 @@ namespace TestmmGame
         }
         private bool RectangleContains(Rectangle _rec, Vector2 _point)
         {
-            if ((_point.X > _rec.x && _point.X < (_rec.width + _rec.x)) &&
-                (_point.Y > _rec.y && _point.Y < (_rec.height + _rec.y)))
+            if ((_point.X > _rec.X && _point.X < (_rec.Width + _rec.X)) &&
+                (_point.Y > _rec.Y && _point.Y < (_rec.Height + _rec.Y)))
                 return true;
 
             return false;

@@ -18,9 +18,9 @@ namespace mmGameEngine
      */
     public class Button : RenderComponent
     {
-        public Color TextColor = Color.RAYWHITE;
-        public Color BackgroundColor = Color.GRAY;
-        public Color BorderColor = Color.WHITE;
+        public Color TextColor = Color.RayWhite;
+        public Color BackgroundColor = Color.Gray;
+        public Color BorderColor = Color.White;
         public TextInfo TextData;
         public bool HasBorder;
         public bool HasImage;
@@ -52,7 +52,7 @@ namespace mmGameEngine
                 _image = value;
                 HasImage = true;
                 HasBorder = false;
-                BackgroundColor = Color.WHITE;
+                BackgroundColor = Color.White;
             }
         }
         public Button(int _width, int _height, string _content = "", int _xoffset = 0, int _yoffset = 0)
@@ -163,13 +163,13 @@ namespace mmGameEngine
 
             if (HitTest(new Vector2(Raylib.GetMouseX(), Raylib.GetMouseY())))
             {
-                CurrentBackgroundColor = Color.LIGHTGRAY;
-                CurrentTextColor = Color.BLACK;
+                CurrentBackgroundColor = Color.LightGray;
+                CurrentTextColor = Color.Black;
 
                 //
                 // Test the last key for Left Mouse button
                 //
-                if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
+                if (Raylib.IsMouseButtonPressed(MouseButton.Left))
                 {
                     base.OnClick(this);              //invoike the click delegate
                 }

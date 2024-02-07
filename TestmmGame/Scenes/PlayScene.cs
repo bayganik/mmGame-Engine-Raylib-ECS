@@ -40,7 +40,7 @@ namespace TestmmGame
             Global.SceneHeight = 800;
             Global.SceneWidth = 800;
             Global.SceneTitle = "Play Scene 800x800";
-            Global.SceneClearColor = Color.BLUE;
+            Global.SceneClearColor = Color.Blue;
             //Global.ExitKey = KeyboardKey.KEY_BACKSPACE;
         }
         //znznznznznznznznznznznznznznznznzn
@@ -128,7 +128,7 @@ namespace TestmmGame
             //
             // add a collider
             //
-            BoxCollider bx = new BoxCollider(Spr.Texture.width * 0.25f, Spr.Texture.height * 0.25f);
+            BoxCollider bx = new BoxCollider(Spr.Texture.Width * 0.25f, Spr.Texture.Height * 0.25f);
             tankEnt.Add(bx);
             //
             // add component that will identify tank in TankMovementSystem

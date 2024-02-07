@@ -12,7 +12,7 @@ namespace mmGameEngine
 
 		public static byte HexToByte(char c) => (byte)HEX.IndexOf(char.ToUpper(c));
 
-		public static Color Invert(this Color color) => new Color(255 - color.r, 255 - color.g, 255 - color.b, color.a);
+		public static Color Invert(this Color color) => new Color(255 - color.R, 255 - color.G, 255 - color.B, color.A);
 
 		public static Color HexToColor(string hex)
 		{
@@ -37,10 +37,10 @@ namespace mmGameEngine
 			var newColor = new Color();
 			//newColor.PackedValue = 0;
 
-			newColor.r = color.r;
-			newColor.g = color.g;
-			newColor.b = color.b;
-			newColor.a = (byte)MathHelper.Clamp(alpha, Byte.MinValue, Byte.MaxValue);
+			newColor.R = color.R;
+			newColor.G = color.G;
+			newColor.B = color.B;
+			newColor.A = (byte)MathHelper.Clamp(alpha, Byte.MinValue, Byte.MaxValue);
 			return newColor;
 		}
 
@@ -49,24 +49,24 @@ namespace mmGameEngine
 			var newColor = new Color();
 			//newColor.PackedValue = 0;
 
-			newColor.r = color.r;
-			newColor.g = color.g;
-			newColor.b = color.b;
-			newColor.a = (byte)MathHelper.Clamp(alpha * 255, Byte.MinValue, Byte.MaxValue);
+			newColor.R = color.R;
+			newColor.G = color.G;
+			newColor.B = color.B;
+			newColor.A = (byte)MathHelper.Clamp(alpha * 255, Byte.MinValue, Byte.MaxValue);
 			return newColor;
 		}
 
 		public static Color Grayscale(this Color color)
 		{
-			return new Color((int)(color.r * 0.3 + color.g * 0.59 + color.b * 0.11),
-				(int)(color.r * 0.3 + color.g * 0.59 + color.b * 0.11),
-				(int)(color.r * 0.3 + color.g * 0.59 + color.b * 0.11),
-				color.a);
+			return new Color((int)(color.R * 0.3 + color.G * 0.59 + color.B * 0.11),
+				(int)(color.R * 0.3 + color.G * 0.59 + color.B * 0.11),
+				(int)(color.R * 0.3 + color.G * 0.59 + color.B * 0.11),
+				color.A);
 		}
 
 		public static Color Add(this Color color, Color second)
 		{
-			return new Color(color.r + second.r, color.g + second.g, color.b + second.b, color.a + second.a);
+			return new Color(color.R + second.R, color.G + second.G, color.B + second.B, color.A + second.A);
 		}
 
 		/// <summary>
@@ -74,17 +74,17 @@ namespace mmGameEngine
 		/// </summary>
 		public static Color Subtract(this Color color, Color second)
 		{
-			return new Color(color.r - second.r, color.g - second.g, color.b - second.b, color.a - second.a);
+			return new Color(color.R - second.R, color.G - second.G, color.B - second.B, color.A - second.A);
 		}
 
 		public static Color Multiply(this Color self, Color second)
 		{
 			return new Color
 			{
-				r = (byte)(self.r * second.r / 255),
-				g = (byte)(self.g * second.g / 255),
-				b = (byte)(self.b * second.b / 255),
-				a = (byte)(self.a * second.a / 255)
+				R = (byte)(self.R * second.R / 255),
+				G = (byte)(self.G * second.G / 255),
+				B = (byte)(self.B * second.B / 255),
+				A = (byte)(self.A * second.A / 255)
 			};
 		}
 
@@ -97,8 +97,8 @@ namespace mmGameEngine
 		public static Color Lerp(Color from, Color to, float t)
 		{
 			var t255 = (int)(t * 255);
-			return new Color(from.r + (to.r - from.r) * t255 / 255, from.g + (to.g - from.g) * t255 / 255,
-				from.b + (to.b - from.b) * t255 / 255, from.a + (to.a - from.a) * t255 / 255);
+			return new Color(from.R + (to.R - from.R) * t255 / 255, from.G + (to.G - from.G) * t255 / 255,
+				from.B + (to.B - from.B) * t255 / 255, from.A + (to.A - from.A) * t255 / 255);
 		}
 
 		/// <summary>
@@ -111,10 +111,10 @@ namespace mmGameEngine
 		{
 			result = new Color();
 			var t255 = (int)(t * 255);
-			result.r = (byte)(from.r + (to.r - from.r) * t255 / 255);
-			result.g = (byte)(from.g + (to.g - from.g) * t255 / 255);
-			result.b = (byte)(from.b + (to.b - from.b) * t255 / 255);
-			result.a = (byte)(from.a + (to.a - from.a) * t255 / 255);
+			result.R = (byte)(from.R + (to.R - from.R) * t255 / 255);
+			result.G = (byte)(from.G + (to.G - from.G) * t255 / 255);
+			result.B = (byte)(from.B + (to.B - from.B) * t255 / 255);
+			result.A = (byte)(from.A + (to.A - from.A) * t255 / 255);
 		}
 
 		public static (float, float, float) RgbToHsl(Color color)
@@ -123,9 +123,9 @@ namespace mmGameEngine
 			var s = 0f;
 			var l = 0f;
 
-			var r = color.r / 255f;
-			var g = color.g / 255f;
-			var b = color.b / 255f;
+			var r = color.R / 255f;
+			var g = color.G / 255f;
+			var b = color.B / 255f;
 			var min = MathHelper.Min(MathHelper.Min(r, g), b);
 			var max = MathHelper.Max(MathHelper.Max(r, g), b);
 			var delta = max - min;
@@ -181,13 +181,13 @@ namespace mmGameEngine
 			}
 
 			var c = new Color();
-			c.a = 255;
+			c.A = 255;
 
 			if (s == 0)
 			{
-				c.r = (byte)(l * 255f);
-				c.g = (byte)(l * 255f);
-				c.b = (byte)(l * 255f);
+				c.R = (byte)(l * 255f);
+				c.G = (byte)(l * 255f);
+				c.B = (byte)(l * 255f);
 			}
 			else
 			{
@@ -197,9 +197,9 @@ namespace mmGameEngine
 
 				var v1 = 2f * l - v2;
 
-				c.r = (byte)(255f * HueToRgb(v1, v2, h + (1f / 3f)));
-				c.g = (byte)(255f * HueToRgb(v1, v2, h));
-				c.b = (byte)(255f * HueToRgb(v1, v2, h - (1f / 3f)));
+				c.R = (byte)(255f * HueToRgb(v1, v2, h + (1f / 3f)));
+				c.G = (byte)(255f * HueToRgb(v1, v2, h));
+				c.B = (byte)(255f * HueToRgb(v1, v2, h - (1f / 3f)));
 			}
 
 			return c;
