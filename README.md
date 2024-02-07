@@ -1,5 +1,7 @@
 ## Update Feb 07, 2024
-    Update to Raylib 5.0 (Raylib-cs 6.0) This update completely broke the previous version.  A lot of "case" changes.
+    Update to Raylib 5.0 (Raylib-cs 6.0) This update completely broke the previous version.  
+    
+    A lot of "case" changes (.width -> .Width)
     
 ## Update June 14, 2023
     Quick update getting ready to do Raylib 3D games. Moved all TransformComponent def from "Component.cs" class to individual 2D components.
