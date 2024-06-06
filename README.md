@@ -4,7 +4,8 @@
 
         ContentManager.Load<Texture2D>("Image/xxxxx.png");    //looks for png for file  "Assets/Image/xxxxx.png"
         ContentManager.Load<TiledMap>("Map/Desert.tmx");      //looks for Tiled map tmx file
-    
+
+    MsgBox is now created automatically with a Label and Button included.
 ## Update Feb 07, 2024
     Update to Raylib 5.0 (Raylib-cs 6.0) This update completely broke the previous version.  
     
