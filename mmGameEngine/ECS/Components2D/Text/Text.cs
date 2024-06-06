@@ -12,7 +12,7 @@ namespace mmGameEngine
      */
     public class Text : RenderComponent
     {
-        public Color FontColor = Color.Black;
+        //public Color FontColor = Color.Black;
         int _fontSize = 30;
         string _content;
 
@@ -45,7 +45,7 @@ namespace mmGameEngine
         {
             _fontSize = _size;
             _content = _text;
-            TextData = new TextInfo(_content, _fontType, _size, Color.White);
+            TextData = new TextInfo(_content, _fontType, _size, Color.Black);
         }
         public override void Update(float deltaTime)
         {
@@ -82,7 +82,7 @@ namespace mmGameEngine
                                                 TextData.Content, 
                                                 TextData.FontSize, 
                                                 -2);
-            size.X += size.X * 0.25f ;
+            size.X += size.X * 0.45f ;
             size.Y += 10;
 
             TransformComponent Transform = OwnerEntity.Get<TransformComponent>();

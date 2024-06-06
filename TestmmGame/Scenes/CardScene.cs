@@ -95,6 +95,7 @@ namespace TestmmGame
             Text scoreTxt = new Text("Score: ", TextFontTypes.Arial);
             GameStatus.Add(scoreTxt);
             MsgBox mb = new MsgBox( 350, 150, Color.Brown);
+            mb.MsgButton.Visisble = false;
             //mb.Visiable = false;
             GameStatus.Add(mb);
             GameStatus.Add<GameStatComponent>();

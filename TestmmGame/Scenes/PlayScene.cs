@@ -19,6 +19,7 @@ namespace TestmmGame
         Entity entMap;              //TmxMap
         Entity msgEnt;              //msg box to inform
         Entity entPanel;
+        Entity tankEnt;
         Entity entUI;
         Entity bullet;              //missle
         Entity explosion;           //explosion animation/sound
@@ -44,11 +45,16 @@ namespace TestmmGame
             //
             ContentManager.BaseContnetFolder = "Assets";
         }
-        //znznznznznznznznznznznznznznznznzn
-        // All game Setup is done in Play
-        //znznznznznznznznznznznznznznznznzn
+
         public override void Play()
         {
+            /*
+             * 
+             *          Scene window is open so setup what to display
+             *          and systems that will act on them
+             *          This scene opens with debug mode ON
+             * 
+             */
             Global.CurrentScene = this;
             Global.DebugRenderEnabled = true;                       //F9 toggles this
             //------------------------
@@ -58,7 +64,7 @@ namespace TestmmGame
 
             /*
              * 
-             *          Scene Entities
+             *          Messagebox display/Button action
              * 
              */
             msgEnt = Global.CreateSceneEntity(new Vector2(300, 300));
@@ -67,38 +73,11 @@ namespace TestmmGame
             msb.MsgLabel.TextData.Content = "Press OK button to\n\n start OK?";
             msgEnt.Add(msb);
             msb.MsgButton.Click += OK_ButtonClick;
-            ////
-            //// ok button of the msgbox
-            ////
-            //Vector2 posn = new Vector2((msb.Width / 2) - 20, msb.Height - 45);
-            //Entity okEnt = Global.CreateSceneEntity(posn);
 
-            //Button okBtn = new Button(35, 35, "OK", 7, 7);
-            //okBtn.TextData.FontSize = 20;
-            //okBtn.Click += OK_ButtonClick;
-            //okEnt.Add(okBtn);
-            //okEnt.Get<Transform>().Parent = msgEnt.Get<Transform>();
-
-            //znznznznznznznznznznznznznznznznzn
-            // msg content of the message box
-            //znznznznznznznznznznznznznznznznzn
-            //Entity lblmsgEnt = Global.CreateSceneEntity(new Vector2(10, 10));
-            //Label lblmsg = new Label("A panel with a button.\nPress OK to continue");
-            //lblmsg.TextData.FontSize = 20;
-            //lblmsg.TextData.FontColor = Color.White;
-
-            //////msb.AddButton(okBtn);
-            //msb.AddMsg(lblmsg, new Vector2(10, 10));
-            //msb.AddButton(okBtn, posn);
-
-            //msgEnt.Add(msb);
-            //msgEnt.IsVisible = true;
-            //lblmsgEnt.Get<Transform>().Parent = msgEnt.Get<Transform>();
             /*
-             * 
              *          Game Entities
-             * 
              */
+
             //-------------------------
             // TmxMap
             //-------------------------
@@ -122,10 +101,11 @@ namespace TestmmGame
             //-------------------------
             Entity CH = PrefabEntity.CreateCursorEntity("Assets/Img/crosshair.png");
             CH.Add<CrossHairComponent>();
+            
             //--------------------------
             // Tank
             //--------------------------
-            Entity tankEnt = Global.CreateGameEntity(new Vector2(300, 500), .25f);
+            tankEnt = Global.CreateGameEntity(new Vector2(300, 500), .25f);
             tankEnt.Name = "Tank";
             tankEnt.Tag = 1000000;
 
@@ -150,9 +130,10 @@ namespace TestmmGame
             tankEnt.Add(ic);
 
             //------------------------------------------------------------------
-            // Create tank turret & attach it
-            // Its position is relative to origin of the parent
-            // Set sprite origin to lower position in its own texture
+            // Create tank turret & attach it to tank base
+            // Its position is relative to origin of its parent (tank base)
+            // Set sprite origin of turret to lower position in its own texture
+            //    so that it pivots lower to make more natural.
             //------------------------------------------------------------------
             Entity turret = Global.CreateGameEntity(new Vector2(0, 0), 1f);  //position whithin the parent
             turret.Name = "Turret";
@@ -178,7 +159,9 @@ namespace TestmmGame
             //--------------------------------------------------
             Entity ent1 = Global.CreateGameEntity(new Vector2(-60, 100));
             ent1.Name = "Text";
-            Text gdc = new Text("stay with tank", TextFontTypes.Arial);
+            Text gdc = new Text("stay with tank", TextFontTypes.Default);
+            gdc.FontSize = 20;
+            gdc.TextData.FontColor = Color.DarkBlue;
             ent1.Get<Transform>().Parent = tankEnt.Get<Transform>();
             gdc.RenderLayer = 10;
             ent1.Add(gdc);
@@ -211,16 +194,16 @@ namespace TestmmGame
             bx = new BoxCollider(9, 29);
             bullet.AddComponent(bx);                         //add boxcollider
             //
-            // rocket animated sprite
+            // bullet animated sprite
             //
             Texture2D rocketImage = ContentManager.Load<Texture2D>("Missile/Rocket9x26.png");
             rocketAnimation = new SpriteAnimation(rocketImage, 9, 26);
             rocketAnimation.AddAnimation("fly", "all");
             rocketAnimation.Play("fly", true);
             bullet.AddComponent(rocketAnimation);            //add animation sprite
-
-            //bullet.Get<Transform>().Parent = turret.Get<Transform>();
-
+            //
+            // bullet has an automated mover component
+            //
             EntityMover em = new EntityMover();
             em.Enabled = false;
             em.IsMoving = false;
@@ -245,7 +228,7 @@ namespace TestmmGame
             SoundsFxComponent sfx = new SoundsFxComponent(ContentManager.Load<Sound>("Sound/boom.wav"));
             explosion.Add(sfx);
             //--------------------------------------------------------
-            // Animated fire sprite on a loop
+            // Animated fire sprite & its collider box
             //--------------------------------------------------------
             Entity entFire = Global.CreateGameEntity(new Vector2(300, 300), 0.50f);
             entFire.Name = "Fire";
@@ -262,15 +245,15 @@ namespace TestmmGame
             entFire.Add<FireComponent>();
             entFire.IsVisible = true;
 
-            //znznznznznznznznznznznznznzn
-            //   Add systems to update
-            //znznznznznznznznznznznznznzn
-
+            /*
+             *          Systems to act on entities
+             */
+            AddSystem(new TurretMovementSystem());
+            AddSystem(new TankMovementSystem());
             AddSystem(new CrossHairMoveSystem());
             AddSystem(new BulletMoveSystem());
             AddSystem(new FireMoveSystem());
-            AddSystem(new TurretMovementSystem());
-            AddSystem(new TankMovementSystem());
+
         }
         public void PlayExplosion(Vector2 _pos)
         {
@@ -281,6 +264,9 @@ namespace TestmmGame
         }
         public void FireMissile(Vector2 moveTo, Vector2 moveFrom, float rotation)
         {
+            //
+            // Tank has fired a missile from turret
+            //
             {
                 EntityMover em = bullet.GetComponent<EntityMover>();
                 em.Enabled = true;
@@ -295,47 +281,21 @@ namespace TestmmGame
             bullet.Get<Transform>().Enabled = true;
             bullet.IsVisible = true;
         }
-        public void CardsButton(object btn)
-        {
-            ForceEndScene = true;
-            Global.NextScene = "TestmmGame.CardScene";
-            Scene otherScene = new CardScene();
-            mmGame.Scene = otherScene;
-        }
-        public void MapButton(object btn)
-        {
-            entMap.Get<Transform>().Enabled = !entMap.Get<Transform>().Enabled;
-        }
         public void OK_ButtonClick(object btn)
         {
+            //
+            // MsgBox ok button pushed
+            //
             msgEnt.IsVisible = false;
-
+            msgEnt.Destroy();
         }
-        public void TileButtonClick(object btn)
+        public void ChangeSprite()
         {
-            msgEnt.IsVisible = true;
-
-            Button tile = (Button)btn;
-        }
-        public void PushButton(object btn)
-        {
-
-            entUI.Get<Transform>().Position = new Vector2(500, 300);
-        }
-        public void PlayButton(object btn)
-        {
-
-            //entUI.Get<Transform>().Position = new Vector2(700, 100);
-            Button bt = (Button)btn;
-            bt.Enabled = false;
-            entPanel.Get<Transform>().Enabled = false;
-            entPanel.Get<Transform>().Visiable = false;
-
-        }
-        public void ChangeSprite(Entity ent)
-        {
-            Sprite spr = ent.Get<Sprite>();
-            textureImage = Raylib.LoadTexture("Assets/Img/TankAlter.png");
+            //
+            // change sprite of tank base (press C)
+            //
+            Sprite spr = tankEnt.Get<Sprite>();
+            textureImage = ContentManager.Load<Texture2D>("Img/TankAlter.png");
             spr.Texture = textureImage;
 
         }

@@ -24,6 +24,7 @@ namespace mmGameEngine
         public TextInfo TextData;
         public bool HasBorder;
         public bool HasImage;
+        public bool Visisble;
 
         Color CurrentBackgroundColor;
         Color CurrentTextColor;
@@ -34,8 +35,6 @@ namespace mmGameEngine
         public int YOffset = 0;
 
         Texture2D _image;
-
-
 
         Vector2 textPosition;
         public int Width;
@@ -70,6 +69,7 @@ namespace mmGameEngine
             YOffset = _yoffset;
             HasBorder = true;
             Image = Global.ButtonImage;
+            Visisble = true;
         }
         public override void Update(float deltaTime)
         {
@@ -100,6 +100,9 @@ namespace mmGameEngine
         public override void Render()
         {
             base.Render();
+            if (!this.Visisble)
+                return;
+
             if (OwnerEntity != null)
             {
                 if (!OwnerEntity.IsVisible)

@@ -206,6 +206,10 @@ namespace TestmmGame
                                            tr.Position,
                                            tr.Rotation);
                 }
+                if (Raylib.IsKeyPressed(KeyboardKey.C))
+                {
+                    ActiveScene.ChangeSprite();
+                }
 
             }
         }

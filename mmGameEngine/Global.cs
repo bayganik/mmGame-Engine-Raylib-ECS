@@ -81,11 +81,11 @@ namespace mmGameEngine
         {
             EngineFonts = new Font[7];
 
-            EngineFonts[0] = Raylib.LoadFont("AssetsEngine/Fonts/Default.ttf");
-            EngineFonts[1] = Raylib.LoadFont("AssetsEngine/Fonts/Default2.ttf");
+            EngineFonts[0] = Raylib.LoadFont("AssetsEngine/Fonts/Volkhov-Regular.ttf");
+            EngineFonts[1] = Raylib.LoadFont("AssetsEngine/Fonts/homespun.ttf");
             EngineFonts[2] = Raylib.LoadFont("AssetsEngine/Fonts/arial.ttf");
             EngineFonts[3] = Raylib.LoadFont("AssetsEngine/Fonts/toon.ttf");
-            EngineFonts[4] = Raylib.LoadFont("AssetsEngine/Fonts/VeraMono.ttf");
+            EngineFonts[4] = Raylib.LoadFont("AssetsEngine/Fonts/v5loxical.ttf");
             EngineFonts[5] = Raylib.LoadFont("AssetsEngine/Fonts/Digitalt.ttf");
             EngineFonts[6] = Raylib.LoadFont("AssetsEngine/Fonts/OpenSans.ttf");
 
