@@ -1,7 +1,11 @@
+## Update June 06, 2024
+    Added a ContentManager to load assets.  Assumes you have a folder named "Assets".  You can changed that by updating BaseContnetFolder property
+
+        ContentManager.Load<Texture2D>("Image/xxxxx.png");    //looks for png for file  "Assets/Image/xxxxx.png"
+        ContentManager.Load<TiledMap>("Map/Desert.tmx");      //looks for Tiled map tmx file
+    
 ## Update Feb 07, 2024
     Update to Raylib 5.0 (Raylib-cs 6.0) This update completely broke the previous version.  
-    
-    A lot of "case" changes (.width -> .Width)
     
 ## Update June 14, 2023
     Quick update getting ready to do Raylib 3D games. Moved all TransformComponent def from "Component.cs" class to individual 2D components.
