@@ -39,7 +39,10 @@ namespace TestmmGame
             Global.SceneWidth = 800;
             Global.SceneTitle = "Play Scene 800x800";
             Global.SceneClearColor = Color.Blue;
-            //Global.ExitKey = KeyboardKey.KEY_BACKSPACE;
+            //
+            // base forlder for our contents (default)
+            //
+            ContentManager.BaseContnetFolder = "Assets";
         }
         //znznznznznznznznznznznznznznznznzn
         // All game Setup is done in Play
@@ -58,30 +61,36 @@ namespace TestmmGame
              *          Scene Entities
              * 
              */
-            //msgEnt = CreateSceneEntity(new Vector2(300, 300));
-            //msgEnt.Name = "msgbox";
-            //MsgBox msb = new MsgBox( 200, 200, Raylib.BLUE);
+            msgEnt = Global.CreateSceneEntity(new Vector2(300, 300));
+            msgEnt.Name = "msgbox";
+            MsgBox msb = new MsgBox(200, 200, Color.Gray);
+            msb.MsgLabel.TextData.Content = "Press OK button to\n\n start OK?";
+            msgEnt.Add(msb);
+            msb.MsgButton.Click += OK_ButtonClick;
             ////
             //// ok button of the msgbox
             ////
             //Vector2 posn = new Vector2((msb.Width / 2) - 20, msb.Height - 45);
-            //Entity okEnt = CreateSceneEntity(posn);
+            //Entity okEnt = Global.CreateSceneEntity(posn);
 
-            //Button okBtn = new Button( 35, 35, "OK", 7, 7);
+            //Button okBtn = new Button(35, 35, "OK", 7, 7);
             //okBtn.TextData.FontSize = 20;
             //okBtn.Click += OK_ButtonClick;
             //okEnt.Add(okBtn);
             //okEnt.Get<Transform>().Parent = msgEnt.Get<Transform>();
-            
-            //znznznznznznznznznznznznznznznznzn
-            // msg lable of the message box
-            //znznznznznznznznznznznznznznznznzn
-            //Entity lblmsgEnt = CreateSceneEntity(new Vector2(10, 10));
-            //Label lblmsg = new Label( "A panel with a button.\nPress OK to continue");
-            //lblmsg.TextData.FontSize = 20;
 
-            ////msb.AddButton(okBtn);
+            //znznznznznznznznznznznznznznznznzn
+            // msg content of the message box
+            //znznznznznznznznznznznznznznznznzn
+            //Entity lblmsgEnt = Global.CreateSceneEntity(new Vector2(10, 10));
+            //Label lblmsg = new Label("A panel with a button.\nPress OK to continue");
+            //lblmsg.TextData.FontSize = 20;
+            //lblmsg.TextData.FontColor = Color.White;
+
+            //////msb.AddButton(okBtn);
             //msb.AddMsg(lblmsg, new Vector2(10, 10));
+            //msb.AddButton(okBtn, posn);
+
             //msgEnt.Add(msb);
             //msgEnt.IsVisible = true;
             //lblmsgEnt.Get<Transform>().Parent = msgEnt.Get<Transform>();

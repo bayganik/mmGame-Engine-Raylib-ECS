@@ -87,11 +87,11 @@ namespace TestmmGame
                 {
                     MsgBox msb = entity.Get<MsgBox>();
                     msb.RenderLayer = 10000;
-
-                    Label lbl = new Label("Press Play to continue the game.");
-                    msb.AddMsg(lbl, new Vector2(15, 5));
-                    lbl = new Label("Score : " + sc.Score.ToString("###"));
-                    msb.AddMsg(lbl, new Vector2(15, 30));
+                    msb.MsgLabel.TextData.Content = "Press Play to continue the game.\nScore : " + sc.Score.ToString("###");
+                    //Label lbl = new Label("Press Play to continue the game.");
+                    //msb.AddMsg(lbl, new Vector2(15, 5));
+                    //lbl = new Label("Score : " + sc.Score.ToString("###"));
+                    //msb.AddMsg(lbl, new Vector2(15, 30));
                     //Button btn = new Button( 50, 25, "OK");
                     //msb.AddButton(btn, new Vector2(14, 50));
                     entity.IsVisible = true;

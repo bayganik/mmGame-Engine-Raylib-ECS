@@ -21,7 +21,7 @@ namespace mmGameEngine
         /// <returns></returns>
         public static Entity CreateCursorEntity(string textureImage = null)
         {
-            Entity CursorEnt = Global.CreateGameEntity(Vector2.Zero);
+            Entity CursorEnt = Global.CreateSceneEntity(Vector2.Zero);
             CursorEnt.Name = "cursor";
             CursorEnt.Tag = 1000;
             //

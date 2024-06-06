@@ -38,8 +38,8 @@ namespace mmGameEngine
 
 
         Vector2 textPosition;
-        int width;
-        int height;
+        public int Width;
+        public int Height;
         string content;
         public Texture2D Image
         {
@@ -58,8 +58,8 @@ namespace mmGameEngine
         public Button(int _width, int _height, string _content = "", int _xoffset = 0, int _yoffset = 0)
         {
 
-            width = _width;
-            height = _height;
+            Width = _width;
+            Height = _height;
             content = _content;
             TextData = new TextInfo(_content, TextFontTypes.Arial, 23, TextColor);
             CurrentBackgroundColor = BackgroundColor;
@@ -135,13 +135,13 @@ namespace mmGameEngine
                 // Draw Rectangle filled with background color
                 //
                 Raylib.DrawRectangle((int)UIPosition.X, (int)UIPosition.Y,
-                                     width, height, CurrentBackgroundColor);
+                                     Width, Height, CurrentBackgroundColor);
             }
 
             if (HasBorder)
             {
                 Raylib.DrawRectangleLines((int)UIPosition.X, (int)UIPosition.Y,
-                                     width, height, BorderColor);
+                                     Width, Height, BorderColor);
             }
             //
             // Draw the text
@@ -161,7 +161,7 @@ namespace mmGameEngine
             if (!Enabled)
                 return;
 
-            if (HitTest(new Vector2(Raylib.GetMouseX(), Raylib.GetMouseY())))
+            if (HitTest(Global.WorldPosition(new Vector2(Raylib.GetMouseX(), Raylib.GetMouseY()))))
             {
                 CurrentBackgroundColor = Color.LightGray;
                 CurrentTextColor = Color.Black;
@@ -184,9 +184,9 @@ namespace mmGameEngine
         public virtual bool HitTest(Vector2 point)
         {
             if (point.X < UIPosition.X) { return false; }
-            if (point.X >= UIPosition.X + width) { return false; }
+            if (point.X >= UIPosition.X + Width) { return false; }
             if (point.Y < UIPosition.Y) { return false; }
-            if (point.Y >= UIPosition.Y + height) { return false; }
+            if (point.Y >= UIPosition.Y + Height) { return false; }
 
             return true;
         }

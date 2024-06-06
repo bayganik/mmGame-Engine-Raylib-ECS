@@ -67,7 +67,7 @@ namespace TestmmGame
             //-----------------------------
             // Panel (menu type)
             //-----------------------------
-            entPanel = Global.CreateSceneEntity(new Vector2(150, 150));                //position of panel
+            entPanel = Global.CreateSceneEntity(new Vector2(150, 150));         //position of panel
             entPanel.Name = "panel";
             position = entPanel.Get<Transform>().Position;
 

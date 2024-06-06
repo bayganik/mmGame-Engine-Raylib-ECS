@@ -17,8 +17,13 @@ namespace mmGameEngine
         public int BorderThickness = 4;
         public List<RenderComponent> PanelComponents = new List<RenderComponent>();
 
+        public Button MsgButton;
+        public Label MsgLabel;
+
         public int Width;
         public int Height;
+
+        bool FirstTime = true;
         //string content;
         
         public MsgBox(int _width, int _height, Color _backgroundColor)
@@ -27,19 +32,27 @@ namespace mmGameEngine
             Height = _height;
             BackgroundColor = _backgroundColor;
             UIPosition = Vector2.Zero;
+
+            //-----------------
+            // label as Msg on top
+            //-----------------
+            MsgLabel = new Label("This is a Menu");
+            MsgButton = new Button(35, 35, "OK", 7,7);
+
         }
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
             //
-            // This componenet obeys its UIPosition given
+            // Set UIPosition so we can add other components 
             //
-            // If component is attached to an Entity, the obey his position
-            //
-            //if (OwnerEntity != null)
-            //{
-            //    UIPosition = Transform.Position;
-            //}
+            if (FirstTime)
+            {
+                UIPosition = OwnerEntity.Get<TransformComponent>().Position;
+                AddMsg(MsgLabel, new Vector2(10, 10));
+                AddButton(MsgButton, new Vector2((Width / 2) - MsgButton.Width, Height - MsgButton.Height - 10));
+                FirstTime = false;
+            }
             //
             // Panel will call component Update method
             //
@@ -59,7 +72,7 @@ namespace mmGameEngine
                     if (!OwnerEntity.Get<TransformComponent>().Parent.OwnerEntity.IsVisible)
                         return;
                 //
-                // UI is drawn according to entity
+                // UI is drawn according to entity its attached to
                 //
                 UIPosition = OwnerEntity.Get<TransformComponent>().Position;
             }
@@ -86,15 +99,15 @@ namespace mmGameEngine
             }
 
         }
-        public void AddButton(Button ok, Vector2 _location)
+        internal void AddButton(Button ok, Vector2 _location)
         {
             ok.UIPosition = _location;
-            Vector2 pos = new Vector2((Width / 2) - 20, Height - 45);
+            //Vector2 pos = new Vector2((Width / 2) - 20, Height - 45);
             ok.UIPosition = new Vector2(ok.UIPosition.X + UIPosition.X, ok.UIPosition.Y + UIPosition.Y);
 
             PanelComponents.Add(ok);
         }
-        public void AddMsg(Label lbl, Vector2 _location)
+        internal void AddMsg(Label lbl, Vector2 _location)
         {
             lbl.UIPosition = _location;
             lbl.UIPosition = new Vector2(lbl.UIPosition.X + UIPosition.X, lbl.UIPosition.Y + UIPosition.Y);
