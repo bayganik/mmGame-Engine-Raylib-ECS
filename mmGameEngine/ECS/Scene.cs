@@ -36,12 +36,15 @@ namespace mmGameEngine
 		List<Entity> GameEntities;
 		List<Entity> SceneEntities;
 
+		public ContentManager ContentManager {  get; set; }	
 		public bool ForceEndScene = false;
 		public GameState StateOfGame;
 		//
 		// 3D Camera
 		//
 		public Camera3D Camera3D;
+		public CameraMode CameraMode;
+
         public bool Camera3dEnabled = false;
         //
         // 2D Camera
@@ -87,11 +90,10 @@ namespace mmGameEngine
             Camera2dEnabled = false;
             CameraType2D = Camera2DType.FollowPlayer;                   //free camera no bounds
             //
-            // mmGame will call Begin() method
-			// mmGame will call Initialize()
-            // mmGame will call Play() method this is an override in your scene
+			// new Content manager 006/06/2024
             //
-
+            ContentManager = new ContentManager();
+			ContentManager.BaseContnetFolder = "Assets";				//can be overridden
         }
 		/// <summary>
 		/// override this in Scene subclasses and do your loading here. This is called from the contructor after the scene sets itself up but
@@ -160,7 +162,13 @@ namespace mmGameEngine
 					Camera.Rotation = 0.0f;
 				}
 			}
-			deltaTime = Raylib.GetFrameTime();
+			//
+			// Camera3D MUST be created in your scene
+			//
+			if (Camera3dEnabled)
+				Raylib.UpdateCamera(ref Camera3D, CameraMode);
+
+            deltaTime = Raylib.GetFrameTime();
 			Global.DeltaTime = deltaTime;
 			//
 			// Find all Entities (Game & UI)

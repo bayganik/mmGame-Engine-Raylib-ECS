@@ -12,9 +12,7 @@ namespace TestmmGame
     /*
      * Scene entities do not obey camera.  They are always within the screen space
      * Game  entities do obey camera.  Must call Global.GetMousePosition() or
-     *                                           Global.GetMouseX()
-     *                                           Global.GetMouseY()
-     *                                           Global.WorldPosition(Vector2)
+     * ContentManager added to make a general way of loading all content
      */
     public class PlayScene : Scene
     {
@@ -97,7 +95,8 @@ namespace TestmmGame
             //-------------------------
             entMap = Global.CreateGameEntity(new Vector2(0, 0));
             entMap.Name = "txmMap";
-            TiledMap tm = new TiledMap("Assets/Map/Desert.tmx");
+            //TiledMap tm = new TiledMap("Assets/Map/Desert.tmx");
+            TiledMap tm = ContentManager.Load<TiledMap>("Map/Desert.tmx");
             tm.RenderLayer = -1000;
             tm.Enabled = true;
 
@@ -120,7 +119,8 @@ namespace TestmmGame
             Entity tankEnt = Global.CreateGameEntity(new Vector2(300, 500), .25f);
             tankEnt.Name = "Tank";
             tankEnt.Tag = 1000000;
-            textureImage = Raylib.LoadTexture("Assets/Img/Tank Base.png");
+
+            textureImage = ContentManager.Load<Texture2D>("Img/Tank Base.png");
             Spr = new Sprite(textureImage);             // Setup the sprite for entity
             Spr.EnableTracer = false;                   // draws a line to entity
             Spr.RenderLayer = 0;
@@ -153,7 +153,8 @@ namespace TestmmGame
             //
             // turret sprite
             //
-            textureImage = Raylib.LoadTexture("Assets/Img/Tank Turret.png");
+            textureImage = ContentManager.Load<Texture2D>("Img/Tank Turret.png");
+
             Spr = new Sprite(textureImage);
             Spr.Origin = new Vector2(133, 500);             //when you want a very specific origin point (not center)
 
@@ -203,7 +204,7 @@ namespace TestmmGame
             //
             // rocket animated sprite
             //
-            Texture2D rocketImage = Raylib.LoadTexture("Assets/Missile/Rocket9x26.png");
+            Texture2D rocketImage = ContentManager.Load<Texture2D>("Missile/Rocket9x26.png");
             rocketAnimation = new SpriteAnimation(rocketImage, 9, 26);
             rocketAnimation.AddAnimation("fly", "all");
             rocketAnimation.Play("fly", true);
@@ -222,8 +223,8 @@ namespace TestmmGame
             //        bullet has animation already
             //--------------------------------------------
             explosion = Global.CreateGameEntity(new Vector2(100, 300));
-            explosion.Name = "Explode";
-            Texture2D spriteSheet = Raylib.LoadTexture("Assets/Missile/EXP001.png");
+            explosion.Name = "Explode"; 
+            Texture2D spriteSheet = ContentManager.Load<Texture2D>("Missile/EXP001.png");
             SpriteAnimation anim = new SpriteAnimation(spriteSheet, 128, 128);
             anim.RenderLayer = 11;
 
@@ -232,14 +233,14 @@ namespace TestmmGame
             //
             // explosion soundfx
             //
-            SoundsFxComponent sfx = new SoundsFxComponent(Raylib.LoadSound("Assets/Sound/boom.wav"));
+            SoundsFxComponent sfx = new SoundsFxComponent(ContentManager.Load<Sound>("Sound/boom.wav"));
             explosion.Add(sfx);
             //--------------------------------------------------------
             // Animated fire sprite on a loop
             //--------------------------------------------------------
             Entity entFire = Global.CreateGameEntity(new Vector2(300, 300), 0.50f);
             entFire.Name = "Fire";
-            spriteSheet = Raylib.LoadTexture("Assets/Img/flame232x148.png");
+            spriteSheet = ContentManager.Load<Texture2D>("Img/flame232x148.png");
 
             SpriteAnimation fireAnim = new SpriteAnimation(spriteSheet, 232, 148);
             fireAnim.RenderLayer = 11;

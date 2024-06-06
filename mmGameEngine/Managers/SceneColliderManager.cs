@@ -24,18 +24,13 @@ namespace mmGameEngine
             ColliderCollection = new Dictionary<Entity, int>();
         }
         //
-        // Give an entity a BoxCollider. If it has one, remove it, add it again
+        // Give an entity a BoxCollider. 
         //
         public static void SetCollider(Entity entity, CollidreShape shapeNum)
         {
             if (ColliderCollection.ContainsKey(entity))
                 return;
-            //{
-            //    //
-            //    // found the collider, remove it and add again (in case there was an update)
-            //    //
-            //    ColliderCollection.Remove(entity);
-            //}
+
             ColliderCollection.Add(entity, (int)shapeNum);
 
         }
@@ -54,9 +49,6 @@ namespace mmGameEngine
         }
         public static bool CollidedWithBox(Entity entity, out CollisionResult _collisionResult)
         {
-            //
-            // currently not used
-            //
             _collisionResult = new CollisionResult();
             //
             // Find the Entity in question, if not in database then no collision
@@ -70,9 +62,6 @@ namespace mmGameEngine
             //CircleCollider cx = entity.Get<CircleCollider>();
 
             BoxAABB boxA = bx.CollisionBox;
-            //Vector2 boxA = new Vector2(bx.CollisionBox.X, bx.CollisionBox.Y);
-            //
-            // Find entity and ask
 
             //
             // Test collision with other "registered" BoxColliders
@@ -94,18 +83,12 @@ namespace mmGameEngine
                     _collisionResult.OwnerEntity = entry.Key;
                     _collisionResult.Collided = true;
 
-                    //_collisionResult.BoxContainer = entry.Value;
-                    //_collisionResult.CollisionArea = Raylib.GetCollisionRec(boxA, entry.Value);
                     return true;
                 }
             }
 
             return false;
         }
-        //
-        // Test collision with other "registered" BoxColliders
-        //
-
     }
 
     public struct CollisionResult

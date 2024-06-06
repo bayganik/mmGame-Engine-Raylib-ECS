@@ -47,13 +47,14 @@ namespace mmGameEngine
                     _instance._scene = value;                       //scene object
 
                     Global.CurrentScene = value;
-
+                    
                     _instance._scene.Begin();                       //setup of entity context, lists, etc
 
 
                     _instance.SetSceneWindow();                     //create a new Raylib window
 
                     _instance._scene.Initialize();
+
                     _instance._scene.Play();                        //do game logic - load assets, entities
                     _instance.RunGameLoop();                        //run the loop
                 }
@@ -67,6 +68,7 @@ namespace mmGameEngine
         protected mmGame()
         {
             _instance = this;
+            
             Global.StateOfGame = GameState.Playing;
             Global.GameOver = false;
         }
