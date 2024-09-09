@@ -52,15 +52,15 @@ There are components that have special meaning.
         
         * Scene Entity (typically UI elements that are drawn on top of all Game Entities)
         
-    Transform component gets added to all entities when scene creates them.
+    Transform component gets added to all entities automatically when they are created.
     
     Sprite component is used to display images
     
     SpriteAnimation component adds an animated sprite using spritesheet
     
-    Tiled map component adds a TmxMap that allows you to access all of its levels & objects
+    Tiled map component let you have a TmxMap.  You have access all of its levels & objects
     
-    Text compoenent addes a text and will follow the entity on the screen 
+    Text component addes a text that will follow the entity on the screen 
     
     BoxCollider component allows the Entity to collide with other entities that have a collider
     
