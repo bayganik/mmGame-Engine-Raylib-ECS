@@ -2,8 +2,11 @@
     Added a ContentManager to Scene for uniform access to assets.  Assumes you have a folder named "Assets".  
     You can changed that by updating BaseContnetFolder property.
 
-        ContentManager.Load<Texture2D>("Image/xxxxx.png");    //looks for png for file  "Assets/Image/xxxxx.png"
-        ContentManager.Load<TiledMap>("Map/Desert.tmx");      //looks for Tiled map tmx file
+        ContentManager.Load<Texture2D>("Image/xxxxx.png");       //looks for png for file  "Assets/Image/xxxxx.png"
+        ContentManager.Load<Model>("xxxxx.obj");                 //looks for 3D model file  "Assets/xxxxx.obj"
+        ContentManager.Load<Sound>("xxxxx.wav");                 //looks for sound effects file  "Assets/xxxxx.wav"
+        ContentManager.Load<Image>("xxxxx.jpg");                 //looks for jpg 'image' file  "Assets/xxxxx.png"
+        ContentManager.Load<TiledMap>("Map/Desert.tmx");         //looks for Tiled map tmx file
 
     MsgBox is now created automatically with a Label and Button included.
 ## Update Feb 07, 2024
@@ -52,15 +55,15 @@ There are components that have special meaning.
         
         * Scene Entity (typically UI elements that are drawn on top of all Game Entities)
         
-    Transform component gets added to all entities when scene creates them.
+    Transform component gets added to all entities automatically when they are created.
     
     Sprite component is used to display images
     
     SpriteAnimation component adds an animated sprite using spritesheet
     
-    Tiled map component adds a TmxMap that allows you to access all of its levels & objects
+    Tiled map component let you have a TmxMap.  You have access all of its levels & objects
     
-    Text compoenent addes a text and will follow the entity on the screen 
+    Text component addes a text that will follow the entity on the screen 
     
     BoxCollider component allows the Entity to collide with other entities that have a collider
     
