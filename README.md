@@ -1,3 +1,6 @@
+## Update Jan 02, 2025
+    Updated to Raylib-cs 7.0.  Everything works and there were no breaks.
+    
 ## Update June 06, 2024
     Added a ContentManager to Scene for uniform access to assets.  Assumes you have a folder named "Assets".  
     You can changed that by updating BaseContnetFolder property.
@@ -18,25 +21,11 @@
     This will allow for creation of 3D components that can inherit from Component.cs class also.
     
     Scene.cs was updated to allow for Raylib.BeginMode3D or Raylib.BeginMode2D (WIP, so stay tuned)
+   
 
-## Update June 6, 2023
-    Added Raylib-CS as a NuGet package
-    
-    Added Sanford MIDI project (all in ONE project so to upgrade to NET 7.0)
-    
-    Many changes to mmGameEngine
-    
-    Update of UI components
-    
-    Added new scene with MIDI piano
-    
-    Added new scene as splash screen
-    
-
-A Game Engine using Raylib as the core, Entitas lite as the ECS engine.
+A Game Engine using Raylib as the core, Entitas lite as the ECS engine and my own UI components.
 
 The engine and a sample Menu + few other scenes with sprites, animated sprites, compound sprites + simple card game, 
-
 
 https://github.com/ChrisDill/Raylib-cs         (use NuGet package, much easier)
 
