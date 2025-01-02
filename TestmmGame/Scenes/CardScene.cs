@@ -85,7 +85,8 @@ namespace TestmmGame
             //znznznznznznznznznznznznznznznznznznznznznznznznznznznznzn
             // Hand cursor mouse + boxcollider
             //znznznznznznznznznznznznznznznznznznznznznznznznznznznznzn
-            PrefabEntity.CreateCursorEntity("Assets/Img/hand.png");
+            //PrefabEntity.CreateCursorEntity("Assets/Img/hand.png");
+            PrefabEntity.CreateCursorEntity();
 
             //znznznznznznznznznznznznznznznznznznznznznznznznznznznznzn
             // Game status (Score + Game over)

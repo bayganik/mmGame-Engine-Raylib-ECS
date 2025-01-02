@@ -90,7 +90,7 @@ namespace mmGameEngine
             Camera2dEnabled = false;
             CameraType2D = Camera2DType.FollowPlayer;                   //free camera no bounds
             //
-			// new Content manager 006/06/2024
+			// new Content manager 06/06/2024
             //
             ContentManager = new ContentManager();
 			ContentManager.BaseContnetFolder = "Assets";				//can be overridden
@@ -115,7 +115,10 @@ namespace mmGameEngine
 			 * This is left as a compatibility.  You can still use it for initializations etc.
 			 */
 		}
-
+		/// <summary>
+		/// Add processor systems for ECS (they are run during update cycle)
+		/// </summary>
+		/// <param name="_system"></param>
         public void AddSystem(Entitas.ISystem _system)
 		{
 			EntitySystems.Add(_system);
@@ -125,7 +128,7 @@ namespace mmGameEngine
         //ZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZN
         /// <summary>
         /// You MUST override Play() in your Scene classes and do your loading & other logic. 
-        /// This is called from mmGame after the scene construct, Begin(), then here
+        /// This is called from mmGame after the scene construct, Begin(), then Play()
         /// </summary>
         public virtual void Play()
 		{
@@ -139,7 +142,7 @@ namespace mmGameEngine
             Raylib.SetWindowTitle(title);
         }
         //ZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZN
-        //               Update components in Scene
+        //               Update components in Scene and execute systems
         //ZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZNZN
         public virtual void Update()
 		{
@@ -320,7 +323,7 @@ namespace mmGameEngine
 				myComp.Render();									//call draw method
 			}
 			//-------------------------------------------------------------------------------
-			//   CAMERA DISPLAY  EndMode2D
+			//   CAMERA DISPLAY EndMode2D
 			//-------------------------------------------------------------------------------
 			if (Camera2dEnabled && CameraEntityToFollow != null)
 			{

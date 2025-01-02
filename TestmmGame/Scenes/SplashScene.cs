@@ -26,7 +26,6 @@ namespace TestmmGame
             Global.SceneClearColor = Color.Blue;
 
             string assName = (string)System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-            assmbly = Assembly.Load(assName);
             Global.NextScene = assName + ".MenuScene";              //make sure it has a dot TestmmGame.MenuScene
         }
         public override void Play()
@@ -47,17 +46,9 @@ namespace TestmmGame
             if (_frame > 200)
             {
                 //
-                // Using reflection to start a specific Next Scene
+                // Tell game engine to activate a specific scene
                 //
-                //Type scene2play = assmbly.GetType(Global.NextScene);
-                //ConstructorInfo sceneInfo = scene2play.GetConstructor(Type.EmptyTypes);
-                //object sceneObj = sceneInfo.Invoke(new object[]{ });
-                //mmGame.Scene = (Scene)sceneObj;
-                //
-                //       OR
-                //
-                Scene otherScene = new MenuScene();
-                mmGame.Scene = otherScene;
+                mmGame.ActiveScene = Global.NextScene;
             }
         }
         public override void Render()

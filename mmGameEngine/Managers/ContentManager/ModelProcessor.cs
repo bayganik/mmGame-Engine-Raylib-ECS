@@ -17,8 +17,8 @@ public class ModelProcessor : IProcessor
         return Raylib.LoadModel(path);
     }
 
-    public void Unload(object texture)
+    public void Unload(object model)
     {
-        Raylib.UnloadModel((Model)texture);
+        Raylib.UnloadModel((Model)model);
     }
 }

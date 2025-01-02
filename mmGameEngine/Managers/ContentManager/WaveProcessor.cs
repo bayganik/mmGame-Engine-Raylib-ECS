@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace mmGameEngine;
 
-internal class SoundProcessor : IProcessor
+internal class WaveProcessor : IProcessor
 {
     //
-    // Texture2D processor
+    // wave processor
     //
     public object Load<T>(string path)
     {
-        return Raylib.LoadSound(path);
+        return Raylib.LoadWave(path);
     }
 
-    public void Unload(object sound)
+    public void Unload(object wave)
     {
-        Raylib.UnloadSound((Sound)sound);
+        Raylib.UnloadWave((Wave)wave);
     }
 }

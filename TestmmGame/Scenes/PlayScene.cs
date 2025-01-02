@@ -99,9 +99,11 @@ namespace TestmmGame
             //-------------------------
             // Crosshair mouse cursor
             //-------------------------
-            Entity CH = PrefabEntity.CreateCursorEntity("Assets/Img/crosshair.png");
+            //Entity CH = PrefabEntity.CreateCursorEntity("Assets/Img/crosshair.png");
+            Entity CH = PrefabEntity.CreateCursorEntity();
             CH.Add<CrossHairComponent>();
-            
+            //Global.HideCursor = false;
+            //Raylib.ShowCursor();
             //--------------------------
             // Tank
             //--------------------------
@@ -120,7 +122,7 @@ namespace TestmmGame
             BoxCollider bx = new BoxCollider(Spr.Texture.Width * 0.25f, Spr.Texture.Height * 0.25f);
             tankEnt.Add(bx);
             //
-            // add component that will identify tank in TankMovementSystem
+            // add component that will identify tank to TankMovementSystem
             //
             tankEnt.Add<TankComponent>();
             //
@@ -228,7 +230,7 @@ namespace TestmmGame
             SoundsFxComponent sfx = new SoundsFxComponent(ContentManager.Load<Sound>("Sound/boom.wav"));
             explosion.Add(sfx);
             //--------------------------------------------------------
-            // Animated fire sprite & its collider box
+            // Animated flame sprite & its collider box
             //--------------------------------------------------------
             Entity entFire = Global.CreateGameEntity(new Vector2(300, 300), 0.50f);
             entFire.Name = "Fire";

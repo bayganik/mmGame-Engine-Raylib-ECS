@@ -32,6 +32,7 @@ namespace mmGameEngine
         //
         Scene _scene;
         Scene _nextScene;
+        String _activeScene;
         /// <summary>
         /// The currently active Scene. Note that if set, the Scene will not actually change 
         /// until the end of the Update
@@ -47,7 +48,7 @@ namespace mmGameEngine
                     _instance._scene = value;                       //scene object
 
                     Global.CurrentScene = value;
-                    
+
                     _instance._scene.Begin();                       //setup of entity context, lists, etc
 
 
@@ -64,6 +65,16 @@ namespace mmGameEngine
                 }
             }
         }
+        public static string ActiveScene
+        {
+            get => _instance._activeScene;
+            set
+            {
+
+                _instance.PlayScene(value);
+            }
+        }
+
 
         protected mmGame()
         {
@@ -71,6 +82,26 @@ namespace mmGameEngine
             
             Global.StateOfGame = GameState.Playing;
             Global.GameOver = false;
+        }
+        public void PlayScene(string sceneAssemblyName) 
+        {
+            if (string.IsNullOrEmpty(sceneAssemblyName))
+                return;
+            string[] sceneNameBrk = sceneAssemblyName.Split('.');
+
+            string assemblyName;
+            Assembly assmbly;
+
+            //assName = (string)System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+            assmbly = Assembly.Load(sceneNameBrk[0]);
+            Global.NextScene = sceneAssemblyName;
+            //
+            // Using reflection to invoke the Scene
+            //
+            Type scene2play = assmbly.GetType(Global.NextScene);
+            ConstructorInfo sceneInfo = scene2play.GetConstructor(Type.EmptyTypes);
+            object sceneObj = sceneInfo.Invoke(new object[] { });
+            Scene = (Scene)sceneObj;                 //Scene is static field
         }
         internal void RunGameLoop()
         {

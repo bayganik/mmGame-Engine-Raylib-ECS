@@ -9,8 +9,8 @@ public class ImageProcessor : IProcessor
         return Raylib.LoadImage(path);
     }
 
-    public void Unload(object texture)
+    public void Unload(object image)
     {
-        Raylib.UnloadImage((Image)texture);
+        Raylib.UnloadImage((Image)image);
     }
 }

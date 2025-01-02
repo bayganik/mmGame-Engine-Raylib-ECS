@@ -19,12 +19,14 @@ namespace TestmmGame
         {
             var ActiveScene = (Scene)Global.CurrentScene;
 
-            var entities = Context<Default>.AllOf<CrossHairComponent>().GetEntities();
+            var entities = Context<Default>.AllOf<MouseComponent>().GetEntities();
 
             foreach (var e in entities)
             {
 
                 e.Get<Transform>().Position = Global.GetMousePosition();
+                //e.Get<Transform>().Position = Raylib.GetMousePosition();
+                //e.Get<Transform>().Position = Global.WorldPosition(new Vector2(Raylib.GetMouseX(), Raylib.GetMouseY()));
 
                 if (Raylib.IsMouseButtonPressed(MouseButton.Left))
                 {
@@ -208,6 +210,9 @@ namespace TestmmGame
                 }
                 if (Raylib.IsKeyPressed(KeyboardKey.C))
                 {
+                    //
+                    // change tank sprite 
+                    //
                     ActiveScene.ChangeSprite();
                 }
 

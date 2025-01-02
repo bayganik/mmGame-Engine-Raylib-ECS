@@ -40,7 +40,7 @@ namespace mmGameEngine
             //
             // Add small box collider if we click on anything
             //
-            BoxCollider bxxx = new BoxCollider(8, 8);
+            BoxCollider bxxx = new BoxCollider(10,10);
             CursorEnt.Add(bxxx);
             CursorEnt.Add<MouseComponent>();
 

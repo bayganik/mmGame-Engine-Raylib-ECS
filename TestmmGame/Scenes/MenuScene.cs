@@ -123,6 +123,7 @@ namespace TestmmGame
             // Move the panel, all components within it move as well
             //
             //entPanel.Get<Transform>().Position = new Vector2(10, 10);
+            TestingEntity testingEntity = new TestingEntity();
         }
         public void ExitButton(object btn)
         {
@@ -134,19 +135,20 @@ namespace TestmmGame
             int SceneNum = bt.Tag - 1;
             if (string.IsNullOrEmpty(SceneNames[SceneNum]))
                 return;
-
+            //
+            // You need AssemblyName and Scene name to activate
+            // Example: TestmmGame.PlayScene
+            //
             Global.NextScene = assName + "." + SceneNames[SceneNum];
-            //
-            // Using reflection to invoke the Scene
-            //
-            Type scene2play = assmbly.GetType(Global.NextScene);
-            ConstructorInfo sceneInfo = scene2play.GetConstructor(Type.EmptyTypes);
-            object sceneObj = sceneInfo.Invoke(new object[] { });
-            mmGame.Scene = (Scene)sceneObj;                 //Scene is static field
+            ////
+            //// Using reflection to invoke the Scene
+            ////
+            //Type scene2play = assmbly.GetType(Global.NextScene);
+            //ConstructorInfo sceneInfo = scene2play.GetConstructor(Type.EmptyTypes);
+            //object sceneObj = sceneInfo.Invoke(new object[] { });
+            //mmGame.Scene = (Scene)sceneObj;                 //Scene is static field
 
-            //Global.NextScene = "TestmmGame.CardScene";
-            //Scene otherScene = new CardScene();
-            //mmGame.Scene = otherScene;
+            mmGame.ActiveScene = Global.NextScene;
         }
     }
 

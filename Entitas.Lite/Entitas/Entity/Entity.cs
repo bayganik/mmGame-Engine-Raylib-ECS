@@ -160,6 +160,7 @@ namespace Entitas
 			if (OnComponentAdded != null) 
             {
                 OnComponentAdded(this, index, component);
+                
             }
         }
 

@@ -28,6 +28,8 @@ public class ContentManager : IDisposable
         _processor.Add(typeof(Texture2D), new TextureProcessor());      //Texture2d
         _processor.Add(typeof(Model), new ModelProcessor());            //Model3D
         _processor.Add(typeof(Image), new ImageProcessor());            //Image
+        _processor.Add(typeof(Wave), new WaveProcessor());              //Wave file
+        _processor.Add(typeof(Font), new FontProcessor());              //Font TTF file
     }
 
     public T Load<T>(string path)
@@ -66,6 +68,5 @@ public class ContentManager : IDisposable
                 a.Unload(content);
             });
          });
-        //textures.Values.ToList().ForEach(texture => Raylib.UnloadTexture(texture));
     }
 }
